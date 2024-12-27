@@ -1,0 +1,9 @@
+filterpy==1.4.5
+lap==0.5.12
+matplotlib==3.10.0
+numpy==2.2.1
+opencv_python==4.10.0.84
+scipy==1.14.1
+skimage==0.0
+supervision==0.25.1
+ultralytics==8.3.19
