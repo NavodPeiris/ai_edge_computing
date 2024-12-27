@@ -61,7 +61,7 @@ The `traffic_config.json` file is used to define counting lines and regions of i
 
 ---
 
-## Vehicle Counting Model - YOLO with SORT
+## YOLO with SORT method
 
 ### Overview
 
@@ -91,13 +91,13 @@ The system detects and tracks vehicles in real-time using YOLOv8 for object dete
 
 ---
 
-### YOLO with SORT and Regions
+## YOLO with SORT and Regions
 
-#### Overview:
+### Overview:
 
 Uses **YOLOv8** for object detection combined with the **SORT** algorithm to track vehicles. A **region mask** is applied to focus on specific areas of the video, filtering out irrelevant sections. Vehicles are counted when they cross a predefined counting line.
 
-#### Key Steps:
+### Key Steps:
 
 1. **YOLOv8 Detection**:
 
