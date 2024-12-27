@@ -1,0 +1,13 @@
+version: '1'
+services:
+  influx_grafana:
+    image: philhawthorne/docker-influxdb-grafana
+    container_name: influx_grafana
+    hostname: "influx-grafana"
+    ports:
+      - "3003:3003"
+      - "3004:8083"
+      - "8086:8086"
+    volumes:
+      - "D:/Academic/SEM7/fyp/influxdb:/var/lib/influxdb"  # InfluxDB data
+      - "D:/Academic/SEM7/fyp/chronograf:/var/lib/chronograf"  # Chronograf data

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .nested {
+            margin-left: 20px; /* Add indentation for nested lists */
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Files</h1>
+    <ul>
+        <li>Central Server
+            <ul class="nested">
+                {% for file in files %}
+                    <li>
+                        <a href="/download/{{ file }}">{{ file }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>Edge Servers
+            <ul class="nested">
+                {% for link in edge_server_links %}
+                    <li>
+                        <a href="{{ link }}">{{ link }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>
