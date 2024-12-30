@@ -12,7 +12,7 @@ host = "localhost"  # InfluxDB host
 port = 8086         # InfluxDB port
 username = "navod"  # Username for InfluxDB
 password = "1234"   # Password for InfluxDB
-database = "power_data"  # Database name
+database = "solar_power_generation"  # Database name
 
 # Initialize InfluxDB client
 client = InfluxDBClient(host=host, port=port, username=username, password=password, database=database)
@@ -26,7 +26,7 @@ def fetch_latest_data(plant_id):
         "module_temperature" AS "MODULE_TEMPERATURE", 
         "irradiation" AS "IRRADIATION", 
         "daily_yield" AS "DAILY_YIELD"
-    FROM "solar_data" 
+    FROM "solar_generation_data" 
     WHERE "plant_id" = '{plant_id}' 
     ORDER BY time DESC 
     LIMIT 4
@@ -55,7 +55,7 @@ def write_predicted_data(prediction, latest_time, plant_id):
         new_time = datetime.utcnow().isoformat()  # Default to current UTC time if no latest_time provided
 
     point = {
-        "measurement": "solar_pred",  # Measurement name
+        "measurement": "solar_generation_pred",  # Measurement name
         "tags": {
             "plant_id": plant_id,  # Random plant ID
         },

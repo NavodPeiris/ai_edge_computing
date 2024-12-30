@@ -1,0 +1,12 @@
+fastapi 
+opencv-python 
+websockets 
+numpy 
+pandas 
+influxdb 
+scikit-learn 
+tensorflow==2.15.0
+joblib 
+h5py 
+keras==2.15.0
+matplotlib

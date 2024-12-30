@@ -6,7 +6,7 @@ host = "localhost"  # InfluxDB host
 port = 8086         # InfluxDB port
 username = "navod"  # Username for InfluxDB
 password = "1234"  # Password for InfluxDB
-database = "power_data"  # Database name
+database = "solar_power_generation"  # Database name
 
 # Initialize InfluxDB client
 client = InfluxDBClient(host=host, port=port, username=username, password=password, database=database)
@@ -22,7 +22,7 @@ json_body = []
 for index, row in df.iterrows():
     # Create a JSON body for each row
     point = {
-        "measurement": "solar_data",  # Measurement name
+        "measurement": "solar_generation_data",  # Measurement name
         "tags": {
             "plant_id": row['PLANT_ID'],  # Tag field
         },
