@@ -1,7 +1,7 @@
 import time
 import csv
 from influxdb import InfluxDBClient
-from datetime import datetime
+from datetime import datetime, time as dt_time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 
@@ -26,7 +26,7 @@ def parse_csv_row_to_point(row):
             "ambient_temperature": float(row["AMBIENT_TEMPERATURE"]),  # Ambient temperature
             "module_temperature": float(row["MODULE_TEMPERATURE"]),  # Module temperature
             "irradiation": float(row["IRRADIATION"]),  # Irradiation
-            "daily_yield": float(row["DAILY_YIELD"]),  # Daily yield
+            "period_generation": float(row["PERIOD_GENERATION"]),  # Daily yield
         },
         "time": datetime.utcnow().isoformat()  # Current timestamp in UTC
     }
@@ -42,13 +42,17 @@ def plant_stream(plant_data):
             print(f"Data written for {plant_id}: {point}")
             time.sleep(60)  # Wait for 60 seconds before processing the next row
 
-# Load CSV data into memory and group by PLANT_ID
+# Load CSV data into memory and filter by time range
 def load_and_group_csv_data(file_path):
     with open(file_path, mode="r") as file:
         reader = csv.DictReader(file)
         grouped_data = defaultdict(list)
         for row in reader:
-            grouped_data[row["PLANT_ID"]].append(row)
+            # Parse the DATE_TIME column
+            row_time = datetime.strptime(row["DATE_TIME"], "%Y-%m-%d %H:%M:%S").time()
+            # Filter rows by time range
+            if dt_time(6, 0) <= row_time <= dt_time(18, 45):
+                grouped_data[row["PLANT_ID"]].append(row)
     return grouped_data
 
 # Main streaming function

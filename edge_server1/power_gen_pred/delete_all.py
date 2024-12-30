@@ -12,6 +12,7 @@ database = "solar_power_generation"  # Database name
 client = InfluxDBClient(host=host, port=port, username=username, password=password, database=database)
 
 client.drop_measurement("solar_generation_data")
+client.drop_measurement("solar_generation_pred")
 
 # Close the client
 client.close()

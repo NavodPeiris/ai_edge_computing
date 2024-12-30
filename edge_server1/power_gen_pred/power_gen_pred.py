@@ -21,13 +21,13 @@ def train_model():
 
     # Normalize the data (we'll normalize only the features)
     scaler = MinMaxScaler()
-    scaled_data = scaler.fit_transform(data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'DAILY_YIELD']])
+    scaled_data = scaler.fit_transform(data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'PERIOD_GENERATION']])
 
     # Save the scaler
     joblib.dump(scaler, 'power_pred_models/scaler.pkl')
 
     # Replace the original data with the scaled data
-    data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'DAILY_YIELD']] = scaled_data
+    data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'PERIOD_GENERATION']] = scaled_data
 
     # Create the features and target columns
     def create_sequences(df, sequence_length=4):
@@ -45,7 +45,7 @@ def train_model():
                 features.append(feature_data.values)
                 
                 # Get the target value (DAILY_YIELD of the next row)
-                target = plant_data.iloc[i]['DAILY_YIELD']
+                target = plant_data.iloc[i]['PERIOD_GENERATION']
                 targets.append(target)
         
         return np.array(features), np.array(targets)
@@ -96,7 +96,7 @@ def infer_model(data):
     # Normalize the data
     # Load the saved scaler
     scaler = joblib.load('power_pred_models/scaler.pkl')
-    scaled_data = scaler.transform(data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'DAILY_YIELD']])
+    scaled_data = scaler.transform(data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'PERIOD_GENERATION']])
     scaled_data = np.delete(scaled_data, -1, axis=1)
     reshaped_data = np.expand_dims(scaled_data, axis=0)  # Add a batch dimension
 
@@ -114,3 +114,5 @@ def infer_model(data):
 
     rounded_daily_yield = round(true_pred, 2)
     return rounded_daily_yield
+
+

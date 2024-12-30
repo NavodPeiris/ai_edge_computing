@@ -25,7 +25,7 @@ def fetch_latest_data(plant_id):
         "ambient_temperature" AS "AMBIENT_TEMPERATURE", 
         "module_temperature" AS "MODULE_TEMPERATURE", 
         "irradiation" AS "IRRADIATION", 
-        "daily_yield" AS "DAILY_YIELD"
+        "period_generation" AS "PERIOD_GENERATION"
     FROM "solar_generation_data" 
     WHERE "plant_id" = '{plant_id}' 
     ORDER BY time DESC 
@@ -60,7 +60,7 @@ def write_predicted_data(prediction, latest_time, plant_id):
             "plant_id": plant_id,  # Random plant ID
         },
         "fields": {
-            "predicted_daily_yield": prediction,  # Predicted daily yield
+            "predicted_period_generation": prediction,  # Predicted daily yield
         },
         "time": new_time # Current timestamp in UTC
     }

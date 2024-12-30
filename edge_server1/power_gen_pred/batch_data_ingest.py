@@ -30,7 +30,7 @@ for index, row in df.iterrows():
             "ambient_temperature": float(row['AMBIENT_TEMPERATURE']),
             "module_temperature": float(row['MODULE_TEMPERATURE']),
             "irradiation": float(row['IRRADIATION']),
-            "daily_yield": float(row['DAILY_YIELD']),
+            "period_generation": float(row['PERIOD_GENERATION']),
         },
         "time": row['DATE_TIME']  # Timestamp
     }

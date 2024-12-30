@@ -10,4 +10,4 @@ services:
       - "8086:8086"
     volumes:
       - "C:/navod/Academic/sem7/fyp/influxdb:/var/lib/influxdb"  # InfluxDB data
-      - "C:/navod/Academic/sem7/fyp/chronograf:/var/lib/chronograf"  # Chronograf data
+      - "C:/navod/Academic/sem7/fyp/chronograf:/root/"  # Chronograf data
