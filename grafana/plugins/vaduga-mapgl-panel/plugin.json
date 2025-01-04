@@ -1,0 +1,60 @@
+{
+    "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+    "type": "panel",
+    "name": "Mapgl",
+    "id": "vaduga-mapgl-panel",
+    "info": {
+        "keywords": [
+            "map",
+            "alerts",
+            "zabbix",
+            "clusters",
+            "geomap",
+            "geojson",
+            "network",
+            "topology",
+            "deck.gl"
+        ],
+        "description": "Network geomap with metrics & alert states",
+        "author": {
+            "name": "Vadim Pyatakov"
+        },
+        "logos": {
+            "small": "img/logo.png",
+            "large": "img/logo.png"
+        },
+        "links": [
+            {
+                "name": "Website",
+                "url": "https://mapgl.org"
+            },
+            {
+                "name": "License",
+                "url": "https://github.com/vaduga/mapgl-community/blob/main/LICENSE"
+            }
+        ],
+        "screenshots": [
+            {
+                "name": "Aggregation",
+                "path": "img/aggr.gif"
+            },
+            {
+                "name": "Overview",
+                "path": "img/screenshot1.png"
+            },
+            {
+                "name": "Options",
+                "path": "img/screenshot2.png"
+            }
+        ],
+        "version": "1.6.1",
+        "updated": "2024-06-09"
+    },
+    "dependencies": {
+        "grafanaDependency": ">=10.0.0",
+        "plugins": []
+    },
+    "generated": {
+        "extensions": []
+    }
+}

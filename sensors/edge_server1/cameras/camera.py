@@ -7,7 +7,7 @@ async def send_video():
     uri = "ws://localhost:8001/ws"
     
     # Path to the video file
-    video_path = "non_violence_videos/v1.mpg"
+    video_path = "violence_videos/v1.mpg"
     
     async with websockets.connect(uri) as websocket:
         # Open the video file

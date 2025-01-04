@@ -1,0 +1,44 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "grafana",
+  "signedByOrg": "grafana",
+  "signedByOrgName": "Grafana Labs",
+  "plugin": "yesoreyeram-infinity-datasource",
+  "version": "2.11.4",
+  "time": 1732277483924,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "CHANGELOG.md": "879173a5b9df7a2075ae6023f3d492da0346bd540f0cdac60c90002b62ac60a3",
+    "LICENSE": "85fb2c20b586ef9dc00ee5c41140e1cd59fdded9a0b24a9054b04e9f0f6b2977",
+    "README.md": "351dea529ec76dc9b396ef8f29d4ec36cab5ace16040f42142f0c58427ee3a7d",
+    "go_plugin_build_manifest": "b03936392060645df86485e2649ad6e65c14c6299ab6dee64fa7d3df3489f4af",
+    "gpx_infinity_linux_amd64": "720c7d764875e7abb5d49332061196d443effa39867be6fcff5a1f95bc67bbd7",
+    "img/aws.jpg": "e682ccc794708fd3eb32a3fb5e2bcccd8ff3b54f30eba2086fd1b28a82020d81",
+    "img/homepage-bg.svg": "97ec32b2c542bcb63b7fa7659e42a876a5b9ec00aef7a486f2dc41b83d7d9eb8",
+    "img/icon.svg": "e498b00e1cc3c9e8b65a2b8320b7d170c6da61d424fe5f3f3fdf9963204449ae",
+    "img/oauth-2-sm.png": "9945bb307d5545369d50381acc97d48b4a98433831f14e99eb839f0970a91258",
+    "img/slide-features.png": "58aba3b2f2d73ee99945cba9746463f0039d8afb5366ed8d42db62145b914d0f",
+    "img/slide-rest-api.png": "cf72349768e0ccf19a856d86e97c8e67dcdadfcee49e73ae5acbe781c3ae0c79",
+    "img/slide-series.png": "f7d523c39f9d4567974c37432f047e4e8944cb92dc2c9a4424757ce5e54dc3a7",
+    "img/slide-variables.png": "8ed0cd7b1ac00bd2c7fa6e72c513b678c39ba7d63030f06e8695cb1d352e3b34",
+    "module.js": "aad3b2ec6a1b1649ee2d6a88c795e918b27d9064703e6607f6f81e3c00a4c846",
+    "module.js.LICENSE.txt": "4cc2b646a9dd57535489632cb3201bbbf7731ce1aa626b16c7118b71275f9a8f",
+    "module.js.map": "d14b161a4a84e3530f220351a2365a27df1941fb6adde34bddd00cccf44c09f5",
+    "plugin.json": "9acdcb51b7ea2049e82d369c4fa0bb66e0c0a97e67d2bec7a482445b296dbba4"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.11
+Comment: https://openpgpjs.org
+
+wrkEARMKAAYFAmdAdOwAIQkQfk0ManCIZucWIQTzOyW2kQdOhGNlcPN+TQxq
+cIhm56uJAgkB4i6BSuU20JJTp5Dov3HxvN6eUK2SYJqJG7sErNbWRmSx2arZ
+NlStnaVywPdU0zREf2saNrUv+3D2SaQ//miKd6oCCQDqiCiilfQGWWMIoCde
+CnOOTnLwuLr3T36N1SJ2762tLE7toiMhSwzqHjwSRD2ecFw0OqsE1q9XjUsb
+hJHpyzZ9qA==
+=/nle
+-----END PGP SIGNATURE-----

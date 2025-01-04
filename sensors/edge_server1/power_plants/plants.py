@@ -1,35 +1,32 @@
 import time
 import csv
-from influxdb import InfluxDBClient
+from influxdb_client import InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS
 from datetime import datetime, time as dt_time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 
 # InfluxDB connection parameters
-host = "localhost"  # InfluxDB host
-port = 8086         # InfluxDB port
-username = "navod"  # Username for InfluxDB
-password = "1234"   # Password for InfluxDB
-database = "solar_power_generation"  # Database name
+url = "http://localhost:8086"  # InfluxDB 2.x URL
+token = "3wvWUxmtdBM03hm9YgTEa91s6ofQ73G4gQ54uNR0Ek59zpJNMGOagj1UR1GKw3D1f5Elw-zS78rEwY7akZGmOw=="  # Authentication token
+org = "fyp"      # Organization name
+bucket = "solar_power_generation"  # Bucket name
 
 # Initialize InfluxDB client
-client = InfluxDBClient(host=host, port=port, username=username, password=password, database=database)
+client = InfluxDBClient(url=url, token=token, org=org)
+write_api = client.write_api(write_options=SYNCHRONOUS)
 
 # Function to parse data from CSV and prepare for InfluxDB
 def parse_csv_row_to_point(row):
-    return {
-        "measurement": "solar_generation_data",  # Measurement name
-        "tags": {
-            "plant_id": row["PLANT_ID"],  # Plant ID from CSV
-        },
-        "fields": {
-            "ambient_temperature": float(row["AMBIENT_TEMPERATURE"]),  # Ambient temperature
-            "module_temperature": float(row["MODULE_TEMPERATURE"]),  # Module temperature
-            "irradiation": float(row["IRRADIATION"]),  # Irradiation
-            "period_generation": float(row["PERIOD_GENERATION"]),  # Daily yield
-        },
-        "time": datetime.utcnow().isoformat()  # Current timestamp in UTC
-    }
+    return (
+        Point("solar_generation_data")  # Measurement name
+        .tag("plant_id", row["PLANT_ID"])  # Plant ID from CSV
+        .field("ambient_temperature", float(row["AMBIENT_TEMPERATURE"]))  # Ambient temperature
+        .field("module_temperature", float(row["MODULE_TEMPERATURE"]))  # Module temperature
+        .field("irradiation", float(row["IRRADIATION"]))  # Irradiation
+        .field("period_generation", float(row["PERIOD_GENERATION"]))  # Daily yield
+        .time(datetime.utcnow())  # Current timestamp in UTC
+    )
 
 # Function to stream data for a single plant
 def plant_stream(plant_data):
@@ -38,7 +35,7 @@ def plant_stream(plant_data):
     while True:
         for row in rows:
             point = parse_csv_row_to_point(row)
-            client.write_points([point])  # Write the point to InfluxDB
+            write_api.write(bucket=bucket, org=org, record=point)  # Write the point to InfluxDB
             print(f"Data written for {plant_id}: {point}")
             time.sleep(60)  # Wait for 60 seconds before processing the next row
 

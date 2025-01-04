@@ -1,75 +1,96 @@
-import requests
+import asyncio
+import json
+from crawl4ai import AsyncWebCrawler
 from bs4 import BeautifulSoup
-import csv
 
-# URL of the main event page
-main_page_url = "https://www.eventbrite.com/d/sri-lanka--colombo/all-events/?page=1"
+async def main():
+    # Create an instance of AsyncWebCrawler
+    async with AsyncWebCrawler(verbose=True) as crawler:
+        # Run the crawler on the URL
+        result = await crawler.arun(url="https://10times.com/sri-lanka")
+        
+        # Extract the raw HTML content
+        html_content = result.html
 
-# Fetch the main page content
-response = requests.get(main_page_url)
+        # Locate and extract the JSON content from <script type="application/ld+json">
+        start_idx = html_content.find('<script type="application/ld+json">')
+        end_idx = html_content.find('</script>', start_idx)
+        if start_idx == -1 or end_idx == -1:
+            print("No JSON-LD content found.")
+            return
+        
+        json_content = html_content[start_idx + len('<script type="application/ld+json">'):end_idx].strip()
 
-# Check if the request was successful
-if response.status_code == 200:
-    # Parse the HTML content
-    soup = BeautifulSoup(response.text, 'html.parser')
+        # Parse the JSON content
+        try:
+            data = json.loads(json_content)
+            events = data.get("itemListElement", [])
+            
+            # Extract relevant details from each event
+            extracted_events = []
+            for event_entry in events:
+                item = event_entry.get("item", {})
+                location = item.get("location", [])
+                
+                # Extract the first physical location details (if available)
+                physical_location = next(
+                    (loc for loc in location if loc["@type"] == "Place"), {}
+                )
+                address = physical_location.get("address", {})
 
-    # Find all event links on the main page
-    event_links = soup.find_all('a', class_='event-card-link')
+                extracted_events.append({
+                    "Event Name": item.get("name"),
+                    "Start Date": item.get("startDate"),
+                    "End Date": item.get("endDate"),
+                    "Event URL": item.get("url"),
+                    "Place Name": physical_location.get("name"),
+                    "Street Address": address.get("streetAddress"),
+                    "Address Locality": address.get("addressLocality"),
+                    "Address Region": address.get("addressRegion"),
+                })
+            
+            import re
 
-    # a list to hold all event details
-    event_data = []
+            # Print the extracted event details
+            for event in extracted_events:
+                # Run the crawler on the URL
+                result = await crawler.arun(url=event["Event URL"])
+                # Extract the raw HTML content
+                html_content = result.html
 
-    # a set to track already processed URLs
-    processed_urls = set()
+                # Parse the HTML snippet with BeautifulSoup
+                soup = BeautifulSoup(html_content, 'html.parser')
 
-    # Extract details for each event
-    for link in event_links:
-        event_url = link.get('href', '')
+                # Attempt to locate the "Estimated Turnout" section
+                turnout_element_h2 = soup.find('h2', string=lambda text: text and "Estimated Turnout" in text)
 
-        # Skip this event if it's already been processed
-        if event_url in processed_urls:
-            continue
+                # Extract the turnout value
+                if turnout_element_h2:
+                    # Check if the text is directly available after the <h2> tag
+                    direct_text = turnout_element_h2.find_next_sibling(text=True)
+                    if direct_text:
+                        direct_text = direct_text.strip()
+                        # Check if the text is a valid number or a range (e.g., "100 - 500")
+                        if direct_text.isdigit():
+                            estimated_turnout = direct_text
+                        elif re.match(r"^\d+\s*-\s*\d+$", direct_text):  # Matches a range like "100 - 500"
+                            estimated_turnout = direct_text
+                        else:
+                            estimated_turnout = None
+                    else:
+                        estimated_turnout = None
 
-        # Mark the event URL as processed
-        processed_urls.add(event_url)
+                    # If no valid direct text, look for the value in the next <a> tag
+                    if not estimated_turnout:
+                        turnout_element_value = turnout_element_h2.find_next('a')
+                        estimated_turnout = turnout_element_value.get_text(strip=True) if turnout_element_value else "Not Found"
 
-        # Extract event title and clean it 
-        event_title = link.get('aria-label', 'No title')
-        if event_title.lower().startswith("view "):
-            event_title = event_title[5:].strip()  # Remove "View " 
+                    print("Estimated Turnout:", estimated_turnout)
+                else:
+                    print("Estimated Turnout not found.")
 
-        location = link.get('data-event-location', 'No location')
-        paid_status = link.get('data-event-paid-status', 'No status')
-        category = link.get('data-event-category', 'No category')
+        except json.JSONDecodeError:
+            print("Failed to parse JSON content.")
 
-        # Fetch the detailed event page
-        event_response = requests.get(event_url)
-        if event_response.status_code == 200:
-            event_soup = BeautifulSoup(event_response.text, 'html.parser')
-
-            # Extract date and time
-            date_time = event_soup.find('span', class_='date-info__full-datetime')
-            date_time = date_time.get_text(strip=True) if date_time else "Date and time not found"
-
-            # Extract location details
-            location_address = event_soup.find('p', class_='location-info__address-text')
-            location_address = location_address.get_text(strip=True) if location_address else "Location not found"
-
-            # Append event details to the event_data list
-            event_data.append([event_title, event_url, date_time, location_address, location, paid_status, category])
-
-        else:
-            print(f"Failed to fetch details for event: {event_url}")
-
-    # Save event details into a CSV file
-    with open('events.csv', 'w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        # Write the header
-        writer.writerow(["Event Title", "Event URL", "Date and Time", "Location Address", "Location", "Paid Status", "Category"])
-        # Write event data
-        writer.writerows(event_data)
-
-    print("Event details have been saved to 'events.csv'.")
-
-else:
-    print(f"Failed to fetch the main page. Status code: {response.status_code}")
+# Run the async main function
+asyncio.run(main())
