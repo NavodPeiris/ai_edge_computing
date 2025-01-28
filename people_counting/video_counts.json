@@ -1,0 +1,22 @@
+{
+    "video_path": "video.mp4",
+    "interval_seconds": 5,
+    "total_intervals": 2,
+    "frames_directory": "video_frames",
+    "counts": [
+        {
+            "interval": 1,
+            "timestamp": "2025-01-28_09-33-43",
+            "frame_number": 125,
+            "people_count": 39,
+            "verification_frame": "video_frames\\interval_1_count_39_2025-01-28_09-33-43.jpg"
+        },
+        {
+            "interval": 2,
+            "timestamp": "2025-01-28_09-33-49",
+            "frame_number": 250,
+            "people_count": 34,
+            "verification_frame": "video_frames\\interval_2_count_34_2025-01-28_09-33-49.jpg"
+        }
+    ]
+}
