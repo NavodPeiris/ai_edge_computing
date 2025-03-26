@@ -6,6 +6,8 @@ services:
     hostname: "grafana-fyp"
     ports:
       - "3003:3000"
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
     volumes:
       - "C:/navod/Academic/sem7/fyp/grafana:/var/lib/grafana"
 
@@ -17,3 +19,15 @@ services:
       - "8086:8086"
     volumes:
       - "C:/navod/Academic/sem7/fyp/influxdb:/var/lib/influxdb2"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_fyp
+    hostname: "mysql-fyp"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+    volumes:
+      - "C:/navod/Academic/sem7/fyp/mysql:/var/lib/mysql"

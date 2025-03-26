@@ -1,0 +1,81 @@
+{
+    "models": [
+        {
+            "name": "Churn Prediction Model",
+            "image": "img.jpg",
+            "description": "churn prediction using data",
+            "path": "models/user_id/churn_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Customer Segmentation Model",
+            "image": "img.jpg",
+            "description": "customer segmentation using data",
+            "path": "models/user_id/cus_seg_model/model.h5",
+            "task": "unsupervised classification"
+        },
+        {
+            "name": "Supervised Fraud Detection Model",
+            "image": "img.jpg",
+            "description": "supervised fraud detection using data",
+            "path": "models/user_id/sup_fraud_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Unsupervised Fraud Detection Model",
+            "image": "img.jpg",
+            "description": "unsupervised fraud detection using data",
+            "path": "models/user_id/unsup_fraud_model/model.h5",
+            "task": "anomaly detection"
+        },
+        {
+            "name": "Credit Scoring Model",
+            "image": "img.jpg",
+            "description": "credit scoring using data",
+            "path": "models/user_id/cred_scoring_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Anomaly Detection Model",
+            "image": "img.jpg",
+            "description": "anomaly detection using data. can be used for any application",
+            "path": "models/user_id/anomaly_detection_model/model.h5",
+            "task": "anomaly detection"
+        },
+        {
+            "name": "Demand Forecasting Model",
+            "image": "img.jpg",
+            "description": "demand forecasting using data. can be used for any application",
+            "path": "models/user_id/demand_forecasting_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Inventory Optimization Model",
+            "image": "img.jpg",
+            "description": "inventory prediction using data",
+            "path": "models/user_id/inv_pred_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Working Capital Prediction Model",
+            "image": "img.jpg",
+            "description": "working capital prediction using data",
+            "path": "models/user_id/wc_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Disease Prediction Model",
+            "image": "img.jpg",
+            "description": "decease prediction using data",
+            "path": "models/user_id/decease_pred_model/model.h5",
+            "task": "classification"
+        },
+        {
+            "name": "Predictive Maintenance Model",
+            "image": "img.jpg",
+            "description": "predictive maintainence using data",
+            "path": "models/user_id/pred_maintenance_model/model.h5",
+            "task": "classification"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "vehicles_in": {
+        "0": 3
+    },
+    "vehicles_out": {
+        "0": 2
+    },
+    "processing_time": 1.426844596862793,
+    "frames_processed": 250
+}
