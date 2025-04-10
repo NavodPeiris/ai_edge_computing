@@ -2,23 +2,35 @@
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "autoEnabled": true,
   "dependencies": {
+    "extensions": {
+      "exposedComponents": [
+        "grafana-adaptivelogs-app/temporary-exemptions/v1"
+      ]
+    },
     "grafanaDependency": "\u003e=11.3.0",
     "plugins": []
   },
   "extensions": {
     "addedLinks": [
       {
-        "description": "Open current query in the Explore Logs view",
+        "description": "Open current query in the Grafana Logs Drilldown view",
         "targets": [
           "grafana/dashboard/panel/menu",
           "grafana/explore/toolbar/action"
         ],
-        "title": "Open in Explore Logs"
+        "title": "Open in Grafana Logs Drilldown"
+      }
+    ],
+    "exposedComponents": [
+      {
+        "description": "A button that opens a logs view in the Logs Drilldown app.",
+        "id": "grafana-lokiexplore-app/open-in-explore-logs-button/v1",
+        "title": "Open in Logs Drilldown button"
       }
     ],
     "extensionPoints": [
       {
-        "id": "grafana-lokiexplore-app/metric-exploration/v1"
+        "id": "grafana-lokiexplore-app/investigation/v1"
       },
       {
         "id": "grafana-lokiexplore-app/toolbar-open-related/v1",
@@ -32,7 +44,7 @@
       "action": "datasources:explore",
       "addToNav": true,
       "defaultNav": true,
-      "name": "Logs",
+      "name": "Grafana Logs Drilldown",
       "path": "/a/grafana-lokiexplore-app/explore",
       "type": "page"
     }
@@ -42,18 +54,22 @@
       "name": "Grafana"
     },
     "build": {
-      "time": 1732219578279,
-      "repo": "https://github.com/grafana/explore-logs",
+      "time": 1743678867477,
+      "repo": "https://github.com/grafana/logs-drilldown",
       "branch": "main",
-      "hash": "eb2effa22a252a175601aad740c37de1f3dd2515",
-      "build": 1243
+      "hash": "0c279fb9cfb3a309c2d55ae176ebbfc2e0a1d7c2",
+      "build": 2115
     },
-    "description": "Query-less exploration of log data stored in Loki",
+    "description": "Visualize log volumes to easily detect anomalies or significant changes over time, without needing to compose LogQL queries.",
     "keywords": [
       "app",
       "loki",
       "explore",
-      "logs"
+      "logs",
+      "drilldown",
+      "drill",
+      "down",
+      "drill-down"
     ],
     "links": [
       {
@@ -83,10 +99,10 @@
         "path": "img/table.png"
       }
     ],
-    "updated": "2024-11-21",
-    "version": "1.0.4"
+    "updated": "2025-04-03",
+    "version": "1.0.10"
   },
-  "name": "Explore Logs",
+  "name": "Grafana Logs Drilldown",
   "preload": true,
   "roles": [],
   "type": "app"

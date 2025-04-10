@@ -6,8 +6,30 @@ import json
 import subprocess
 import matplotlib.pyplot as plt
 import numpy as np
+import mlflow
+from mlflow.tracking import MlflowClient
+import shutil
 
 edge_server_url = "http://127.0.0.1:8001"
+
+# MLflow server address
+mlflow_tracking_uri = "http://127.0.0.1:5001"
+
+# initializing MLflow client
+mlflow.set_tracking_uri(mlflow_tracking_uri)
+client = MlflowClient()
+
+# json file to indicate downloaded models from registry
+registry_models_file = "registry_models.json"
+
+# check if the file exists, if not create it with empty structure
+if not os.path.exists(registry_models_file):
+    with open(registry_models_file, "w") as f:
+        json.dump({"models": []}, f)
+
+# load registry models
+with open(registry_models_file, "r") as file:
+    registry_models = json.load(file)
 
 # Read JSON file into a dictionary
 with open("models.json", "r") as file:
@@ -45,6 +67,119 @@ def train_fn(df, save_path, task_type, label, rounds, edge_server_url):
     print(stderr)
 
     return "success"
+
+# function to download models from mlflow registry
+def download_model_from_registry(model_name, version, save_path):
+    try:
+        # model URI
+        model_uri = f"models:/{model_name}/{version}"
+        
+        # create directory if it doesn't exist
+        os.makedirs(save_path, exist_ok=True)
+        
+        # download the model
+        loaded_model = mlflow.tensorflow.load_model(model_uri)
+        loaded_model.save(os.path.join(save_path, "model.keras"))
+        
+        # download all artifacts associated with this model version
+        client = mlflow.tracking.MlflowClient()
+        model_details = client.get_model_version(model_name, version)
+        run_id = model_details.run_id
+        
+        # download artifacts from the run
+        artifacts_dir = mlflow.artifacts.download_artifacts(run_id=run_id)
+        
+        # copy scaler.pkl from artifacts to the model directory
+        scaler_source = os.path.join(artifacts_dir, "scaler.pkl")
+        if os.path.exists(scaler_source):
+            shutil.copy(scaler_source, os.path.join(save_path, "scaler.pkl"))
+        
+        return save_path, True
+    except Exception as e:
+        st.error(f"Error downloading model: {e}")
+        return None, False
+
+def create_supervised_model_pred_dialog(model):
+    @st.dialog(f"Upload Data for {model['name']}")
+    def supervised_model_pred_dialog():
+        # File uploader for Home page
+        file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
+        # Create a text input field
+        label = st.text_input("Prediction Column Name:")
+        if st.button("Submit"):
+            if file is not None:
+                # Check the file type and read it appropriately
+                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
+                    df = pd.read_excel(file)  # Read Excel file
+                else:
+                    df = pd.read_csv(file)  # Read CSV file
+                df = df.head(10000)
+                try:
+                    # Show status updates
+                    with st.spinner("Inference in progress..."):
+                        results = inf(df, label, model["path"], model["task"], edge_server_url)
+                        st.write("Prediction Results:")
+                        st.dataframe(results)
+                except Exception as e:
+                    st.error(f"Error: {e}")
+    return supervised_model_pred_dialog
+
+def create_unsupervised_model_pred_dialog(model):
+    @st.dialog(f"Upload Data for {model['name']}")
+    def unsupervised_model_pred_dialog():
+        # File uploader for Home page
+        file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
+        label = ""
+        if st.button("Submit"):
+            if file is not None:
+                # Check the file type and read it appropriately
+                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
+                    df = pd.read_excel(file)  # Read Excel file
+                else:
+                    df = pd.read_csv(file)  # Read CSV file
+                df = df.head(10000)
+                try:
+                    # Show status updates
+                    with st.spinner("Inference in progress..."):
+                        results = inf(df, label, model["path"], model["task"], edge_server_url)
+                        st.write("Prediction Results:")
+                        # Display in Streamlit
+                        st.title("UMAP Visualization of Encoded Features")
+                        # Create a Matplotlib figure
+                        fig, ax = plt.subplots(figsize=(8, 6))
+                        scatter = ax.scatter(results["umap_1"], results["umap_2"], c=np.arange(len(results)), cmap="viridis", alpha=0.7)
+                        ax.set_xlabel("UMAP 1")
+                        ax.set_ylabel("UMAP 2")
+                        ax.set_title("UMAP Projection of Latent Space")
+                        plt.colorbar(scatter, ax=ax)
+                        # Show plot in Streamlit
+                        st.pyplot(fig)
+                except Exception as e:
+                    st.error(f"Error: {e}")
+    return unsupervised_model_pred_dialog
+
+def create_anomaly_model_pred_dialog(model):
+    @st.dialog(f"Upload Data for {model['name']}")
+    def anomaly_model_pred_dialog():
+        # File uploader for Home page
+        file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
+        label = "Anomaly"
+        if st.button("Submit"):
+            if file is not None:
+                # Check the file type and read it appropriately
+                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
+                    df = pd.read_excel(file)  # Read Excel file
+                else:
+                    df = pd.read_csv(file)  # Read CSV file
+                df = df.head(10000)
+                try:
+                    # Show status updates
+                    with st.spinner("Inference in progress..."):
+                        results = inf(df, label, model["path"], model["task"], edge_server_url)
+                        st.dataframe(results)
+                except Exception as e:
+                    st.error(f"Error: {e}")
+    return anomaly_model_pred_dialog
 
 
 # Set page configuration
@@ -90,7 +225,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 st.markdown('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">', unsafe_allow_html=True)
 
 # Create a sidebar for navigation
-page = st.sidebar.selectbox("Select Page", ["Home", "Models", "Train", "Dashboards", "About"])
+page = st.sidebar.selectbox("Select Page", ["Home", "Models", "Train", "Registry", "Dashboards", "About"])
 
 # Page content based on selection
 if page == "Home":
@@ -111,108 +246,6 @@ elif page == "Models":
     
     # Create a grid layout for cards
     cols = st.columns(3)  # 3 cards per row
-
-    def create_supervised_model_pred_dialog(model):
-        @st.dialog(f"Upload Data for {model['name']}")
-        def supervised_model_pred_dialog():
-            # File uploader for Home page
-            file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-
-            # Create a text input field
-            label = st.text_input("Prediction Column Name:")
-
-            if st.button("Submit"):
-                if file is not None:
-                    # Check the file type and read it appropriately
-                    if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                        df = pd.read_excel(file)  # Read Excel file
-                    else:
-                        df = pd.read_csv(file)  # Read CSV file
-
-                    df = df.head(10000)
-
-                    try:
-                        # Show status updates
-                        with st.spinner("Inference in progress..."):
-                            results = inf(df, label, model["path"], model["task"], edge_server_url)
-                            st.write("Prediction Results:")
-                            st.dataframe(results)
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-
-        return supervised_model_pred_dialog
-    
-
-    def create_unsupervised_model_pred_dialog(model):
-        @st.dialog(f"Upload Data for {model['name']}")
-        def unsupervised_model_pred_dialog():
-            # File uploader for Home page
-            file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-
-            label = ""
-
-            if st.button("Submit"):
-                if file is not None:
-                    # Check the file type and read it appropriately
-                    if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                        df = pd.read_excel(file)  # Read Excel file
-                    else:
-                        df = pd.read_csv(file)  # Read CSV file
-
-                    df = df.head(10000)
-
-                    try:
-                        # Show status updates
-                        with st.spinner("Inference in progress..."):
-                            results = inf(df, label, model["path"], model["task"], edge_server_url)
-                            st.write("Prediction Results:")
-                            # Display in Streamlit
-                            st.title("UMAP Visualization of Encoded Features")
-
-                            # Create a Matplotlib figure
-                            fig, ax = plt.subplots(figsize=(8, 6))
-                            scatter = ax.scatter(results["umap_1"], results["umap_2"], c=np.arange(len(results)), cmap="viridis", alpha=0.7)
-                            ax.set_xlabel("UMAP 1")
-                            ax.set_ylabel("UMAP 2")
-                            ax.set_title("UMAP Projection of Latent Space")
-                            plt.colorbar(scatter, ax=ax)
-
-                            # Show plot in Streamlit
-                            st.pyplot(fig)
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-
-        return unsupervised_model_pred_dialog
-    
-
-    def create_anomaly_model_pred_dialog(model):
-        @st.dialog(f"Upload Data for {model['name']}")
-        def anomaly_model_pred_dialog():
-            # File uploader for Home page
-            file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-
-            label = "Anomaly"
-
-            if st.button("Submit"):
-                if file is not None:
-                    # Check the file type and read it appropriately
-                    if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                        df = pd.read_excel(file)  # Read Excel file
-                    else:
-                        df = pd.read_csv(file)  # Read CSV file
-
-                    df = df.head(10000)
-
-                    try:
-                        # Show status updates
-                        with st.spinner("Inference in progress..."):
-                            results = inf(df, label, model["path"], model["task"], edge_server_url)
-                            st.dataframe(results)
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-
-        return anomaly_model_pred_dialog
-
 
     for i, model in enumerate(models["models"]):
         with cols[i % 3]:  # Distribute cards across columns
@@ -300,6 +333,136 @@ elif page == "Train":
                     else:
                         create_supervised_dialog(model)()  # Call the function factory and execute it
 
+# added new page called registry
+elif page == "Registry":
+    st.title("Model Registry")
+    
+    try:
+        # getting all registered models
+        registered_models = client.search_registered_models()
+        
+        if not registered_models:
+            st.info("No models found in the registry. Train some models and register them first.")
+        else:
+            # creating grid layout for cards
+            cols = st.columns(3)  # 3 cards per row
+            
+            for i, model in enumerate(registered_models):
+                model_name = model.name
+                
+                # get latest version
+                versions = client.get_latest_versions(model_name)
+                if not versions:
+                    continue
+                    
+                latest_version = versions[0]
+                
+                # extract model details
+                run_id = latest_version.run_id
+                version_num = latest_version.version
+                
+                # get run details
+                run = client.get_run(run_id)
+                task_type = run.data.tags.get("task_type", "Unknown")
+                description = run.data.tags.get("description", "No description available")
+                
+                # path where the model would be saved
+                save_dir = f"models/registry/{model_name}/v{version_num}"
+                model_path = f"{save_dir}/model.keras"
+                
+                # check if model is downloaded AND exists in registry_models.json
+                model_is_downloaded = os.path.exists(model_path) and any(
+                    m["name"] == model_name and m["path"] == model_path for m in registry_models["models"]
+                )
+                
+                # create card
+                with cols[i % 3]:
+                    with st.container(border=True):
+                        # placeholder image based on task type
+                        if "classification" in task_type.lower():
+                            img_path = "img.jpg"
+                        elif "regression" in task_type.lower():
+                            img_path = "img.jpg"
+                        elif "anomaly" in task_type.lower():
+                            img_path = "img.jpg"
+                        else:
+                            img_path = "img.jpg"
+                            
+                        if os.path.exists(img_path):
+                            st.image(img_path, use_container_width=True)
+                        
+                        st.markdown(f"### {model_name}")
+                        st.markdown(f"**Version:** {version_num}")
+                        st.markdown(f"**Task:** {task_type}")
+                        st.markdown(f"**Description:** {description}")
+                        
+                        # create buttons side by side using columns
+                        btn_cols = st.columns(2)
+                        
+                        # download Button (always visible)
+                        with btn_cols[0]:
+                            # show different button text based on download status
+                            button_text = "Downloaded ✓" if model_is_downloaded else "Download Model"
+                            download_button = st.button(button_text, key=f"download-{model_name}-{version_num}", 
+                                                       disabled=model_is_downloaded)
+                            
+                            if download_button:
+                                # show download dialog
+                                with st.spinner(f"Downloading {model_name} version {version_num}..."):
+                                    os.makedirs(save_dir, exist_ok=True)
+                                    
+                                    # download model and add to registry_models.json
+                                    model_path, success = download_model_from_registry(model_name, version_num, save_dir)
+                                    
+                                    if success:
+                                        # create new model entry
+                                        new_model = {
+                                            "name": model_name,
+                                            "image": img_path,
+                                            "path": f"{save_dir}/model.keras",
+                                            "description": description,
+                                            "task": task_type
+                                        }
+                                        
+                                        # add to registry models list if not already there
+                                        if not any(m["name"] == model_name and m["path"] == f"{save_dir}/model.keras" 
+                                                 for m in registry_models["models"]):
+                                            registry_models["models"].append(new_model)
+                                            
+                                            # save updated registry_models.json
+                                            with open(registry_models_file, "w") as f:
+                                                json.dump(registry_models, f, indent=4)
+                                                
+                                        st.success(f"Model {model_name} v{version_num} downloaded successfully!")
+                                        st.info("The model is now available for use directly from the Registry page.")
+                                        # force a rerun to update the UI
+                                        st.rerun()
+                        
+                        # use model button (only visible if model is downloaded)
+                        with btn_cols[1]:
+                            if model_is_downloaded:
+                                # find the model in registry_models.json
+                                downloaded_model = next((m for m in registry_models["models"] 
+                                                       if m["name"] == model_name and m["path"] == model_path), None)
+                                
+                                if downloaded_model and st.button("Use Model", key=f"use-reg-{model_name}-{version_num}"):
+                                    # show the appropriate dialog based on task type
+                                    if "unsupervised classification" in task_type.lower():
+                                        create_unsupervised_model_pred_dialog(downloaded_model)()
+                                    elif "anomaly detection" in task_type.lower():
+                                        create_anomaly_model_pred_dialog(downloaded_model)()
+                                    elif "classification" in task_type.lower():
+                                        create_supervised_model_pred_dialog(downloaded_model)()
+                                    else:
+                                        # default to supervised prediction dialog
+                                        create_supervised_model_pred_dialog(downloaded_model)()
+                            else:
+                                # show disabled button or text indicating download needed
+                                st.button("Use Model", key=f"use-reg-{model_name}-{version_num}", disabled=True)
+    
+    except Exception as e:
+        st.error(f"Error connecting to MLflow server: {e}")
+        st.info("Make sure MLflow server is running at " + mlflow_tracking_uri)
 
 
 elif page == "Dashboards":

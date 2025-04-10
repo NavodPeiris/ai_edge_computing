@@ -2,7 +2,7 @@ import mysql.connector
 
 # Database connection
 conn = mysql.connector.connect(
-    host="localhost",  # or use "mysql-fyp" if running inside a Docker container
+    host="127.0.0.1",  # or use "mysql-fyp" if running inside a Docker container
     user="root",
     password="rootpassword",
     database="mydb"
