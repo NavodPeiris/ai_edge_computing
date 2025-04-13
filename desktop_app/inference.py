@@ -49,7 +49,7 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url):
         scaler = pickle.load(f)
 
     X_encoded[num_cols] = scaler.fit_transform(X_encoded[num_cols])
-    X_encoded.to_csv("infer.csv")
+    #X_encoded.to_csv("infer.csv")
 
     # Convert to numpy arrays
     X_res = np.array(X_encoded, dtype=np.float32)

@@ -83,7 +83,7 @@ class FederatedClient(fl.client.NumPyClient):
         with open(f"{base_path}/scaler.pkl", "wb") as f:
             pickle.dump(scaler, f)
 
-        X_encoded.to_csv("train.csv")
+        #X_encoded.to_csv("train.csv")
 
         # Convert to numpy arrays
         X_res = np.array(X_encoded, dtype=np.float32)

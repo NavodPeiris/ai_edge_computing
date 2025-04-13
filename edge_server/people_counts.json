@@ -1,30 +1,30 @@
 {
-    "video_path": "people_counting_data/people_20250325_085927.avi",
+    "video_path": "people_counting_data/people_20250406_142057.avi",
     "interval_seconds": 5,
     "total_intervals": 4,
     "frames_directory": "people_counting_data",
     "counts": [
         {
             "interval": 1,
-            "timestamp": "2025-03-25_14-31-46",
+            "timestamp": "2025-04-06_20-39-58",
             "frame_number": 125,
             "people_count": 38
         },
         {
             "interval": 2,
-            "timestamp": "2025-03-25_14-31-49",
+            "timestamp": "2025-04-06_20-40-01",
             "frame_number": 250,
             "people_count": 34
         },
         {
             "interval": 3,
-            "timestamp": "2025-03-25_14-31-51",
+            "timestamp": "2025-04-06_20-40-04",
             "frame_number": 375,
             "people_count": 35
         },
         {
             "interval": 4,
-            "timestamp": "2025-03-25_14-31-54",
+            "timestamp": "2025-04-06_20-40-07",
             "frame_number": 500,
             "people_count": 39
         }
