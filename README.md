@@ -47,6 +47,6 @@ cd desktop_app
 streamlit run app.py
 ```
 
-### Alternative method to start Central server, Edge server, Desktop app and MLflow ui
+### Run Whole Simulation
 
 - Use **Start_project.bat**

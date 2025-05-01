@@ -1,0 +1,16 @@
+artifact_uri: mlflow-artifacts:/149029487467224665/503d38e5790940ac87686b5887cb5eba/artifacts
+deleted_time: 1746012402324
+end_time: 1745999879650
+entry_point_name: ''
+experiment_id: '149029487467224665'
+lifecycle_stage: deleted
+run_id: 503d38e5790940ac87686b5887cb5eba
+run_name: colorful-koi-98
+run_uuid: 503d38e5790940ac87686b5887cb5eba
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745999878189
+status: 3
+tags: []
+user_id: ASUS
