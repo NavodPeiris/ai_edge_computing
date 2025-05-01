@@ -1,25 +1,33 @@
 import streamlit as st
 import sqlite3
 import hashlib
+import mysql.connector
 
-# DB Setup
-conn = sqlite3.connect("users.db")
-c = conn.cursor()
-c.execute('''CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT)''')
+# Database connection
+conn = mysql.connector.connect(
+    host="localhost", 
+    user="root",
+    password="rootpassword",
+    database="mydb"
+)
+
+cursor = conn.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT, user_id TEXT)''')
 conn.commit()
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 def check_credentials(username, password):
-    c.execute("SELECT * FROM users WHERE username=? AND password=?", 
+    cursor.execute("SELECT * FROM users WHERE username=? AND password=?", 
               (username, hash_password(password)))
-    return c.fetchone()
+    return cursor.fetchone()
 
 def register_user(username, password):
     try:
-        c.execute("INSERT INTO users (username, password) VALUES (?, ?)", 
-                  (username, hash_password(password)))
+        cursor.execute("INSERT INTO users (username, password, user_id) VALUES (?, ?, ?)", 
+                  (username, hash_password(password), hash_password(username)))
         conn.commit()
         return True
     except sqlite3.IntegrityError:
@@ -42,7 +50,7 @@ with tab1:
             st.session_state.logged_in = True
             st.session_state.username = username
             st.success("Login successful!")
-            st.switch_page("app.py")  # ✅ will redirect to Home
+            st.switch_page("app.py")
         else:
             st.error("Invalid username or password")
 
