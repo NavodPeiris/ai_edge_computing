@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/880837473876409857/68894cb531414ff59a2b1bfa0889692c/artifacts
+end_time: 1746001521694
+entry_point_name: ''
+experiment_id: '880837473876409857'
+lifecycle_stage: active
+run_id: 68894cb531414ff59a2b1bfa0889692c
+run_name: valuable-snake-982
+run_uuid: 68894cb531414ff59a2b1bfa0889692c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746001489803
+status: 3
+tags: []
+user_id: ASUS

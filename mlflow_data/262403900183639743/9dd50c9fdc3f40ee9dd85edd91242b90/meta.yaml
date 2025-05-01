@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/262403900183639743/9dd50c9fdc3f40ee9dd85edd91242b90/artifacts
+end_time: 1745997743935
+entry_point_name: ''
+experiment_id: '262403900183639743'
+lifecycle_stage: active
+run_id: 9dd50c9fdc3f40ee9dd85edd91242b90
+run_name: unequaled-finch-124
+run_uuid: 9dd50c9fdc3f40ee9dd85edd91242b90
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745997719028
+status: 3
+tags: []
+user_id: ASUS

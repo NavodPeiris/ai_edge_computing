@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/507893471775702031/8806d4e6ec304e89b517a21c84e8b090/artifacts
+end_time: 1745994132643
+entry_point_name: ''
+experiment_id: '507893471775702031'
+lifecycle_stage: active
+run_id: 8806d4e6ec304e89b517a21c84e8b090
+run_name: likeable-shrike-520
+run_uuid: 8806d4e6ec304e89b517a21c84e8b090
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745994107277
+status: 3
+tags: []
+user_id: ASUS

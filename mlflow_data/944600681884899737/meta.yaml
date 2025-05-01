@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/944600681884899737
+creation_time: 1746012067708
+experiment_id: '944600681884899737'
+last_update_time: 1746012067708
+lifecycle_stage: active
+name: detr-resnet-50

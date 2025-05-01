@@ -49,7 +49,13 @@ write_api = client.write_api()
 app = FastAPI()
 
 # Load the trained model once at server startup
-model = tf.keras.models.load_model('violence_detection/violence_detection_models/model.h5')
+# model = tf.keras.models.load_model('violence_detection/violence_detection_models/model.h5')
+
+try:
+    model = tf.keras.models.load_model('violence_detection/violence_detection_models/model.h5')
+except FileNotFoundError:
+    print("Warning: Model file not found. Some functionality will be limited.")
+    model = None
 
 import psutil
 

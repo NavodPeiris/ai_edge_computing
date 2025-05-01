@@ -15,3 +15,7 @@ bs4
 crawl4ai
 autokeras
 flwr
+openpyxl
+umap
+streamlit
+mlflow 

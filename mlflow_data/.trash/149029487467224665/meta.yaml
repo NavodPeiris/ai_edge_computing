@@ -1,0 +1,7 @@
+artifact_location: mlflow-artifacts:/149029487467224665
+creation_time: 1745999877835
+experiment_id: '149029487467224665'
+last_update_time: 1746012402324
+lifecycle_stage: deleted
+name: Intel/dpt-large
+tags: {}

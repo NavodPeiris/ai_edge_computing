@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/507893471775702031/67493136efb6467290e9e387a3eeb0fd/artifacts
+end_time: 1745996295464
+entry_point_name: ''
+experiment_id: '507893471775702031'
+lifecycle_stage: active
+run_id: 67493136efb6467290e9e387a3eeb0fd
+run_name: sedate-grub-763
+run_uuid: 67493136efb6467290e9e387a3eeb0fd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745996270972
+status: 3
+tags: []
+user_id: ASUS

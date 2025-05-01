@@ -1,5 +1,17 @@
-version: '1'
+version: "2"
 services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow
+    container_name: mlflow
+    hostname: "mlflow"
+    ports:
+      - "5001:5000"
+    volumes:
+      - "./mlflow_data:/mlruns"
+    command: mlflow server --gunicorn-opts '--timeout 120' --host 0.0.0.0 --port 5000
+    environment:
+      - MLFLOW_TRACKING_URI=http://localhost:5000
+
   grafana:
     image: grafana/grafana
     container_name: grafana_fyp
@@ -9,7 +21,7 @@ services:
     environment:
       - GF_SECURITY_ALLOW_EMBEDDING=true
     volumes:
-      - "C:/navod/Academic/sem7/fyp/grafana:/var/lib/grafana"
+      - "./grafana:/var/lib/grafana"
 
   influxdb:
     image: influxdb
@@ -18,7 +30,7 @@ services:
     ports:
       - "8086:8086"
     volumes:
-      - "C:/navod/Academic/sem7/fyp/influxdb:/var/lib/influxdb2"
+      - "./influxdb:/var/lib/influxdb2"
 
   mysql:
     image: mysql:8.0
@@ -30,4 +42,4 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: mydb
     volumes:
-      - "C:/navod/Academic/sem7/fyp/mysql:/var/lib/mysql"
+      - "./mysql:/var/lib/mysql"
