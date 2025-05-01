@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
+import tensorflow as tf
 from inference import infer
 import json
 import subprocess
@@ -13,6 +14,26 @@ from mlflow.models import Model
 import base64
 from PIL import Image, ImageDraw, ImageFont
 import torch
+
+# Set page configuration
+st.set_page_config(
+    page_title="Edge Runner",
+    initial_sidebar_state="expanded",
+    page_icon="bizsuite_logo_no_background.ico",
+    layout="wide",  # Use wide layout
+)
+
+if "logged_in" not in st.session_state or not st.session_state.logged_in:
+    st.warning("You are not logged in.")
+    st.stop()
+
+st.title("Welcome to the Edge Runner Home Page!")
+st.success(f"Welcome {st.session_state['username']}!")
+
+if st.button("Logout"):
+    st.session_state.logged_in = False
+    st.session_state.username = ""
+    st.switch_page("Login") 
 
 edge_server_url = "http://127.0.0.1:8001"
 
