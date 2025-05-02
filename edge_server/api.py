@@ -29,8 +29,6 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 from vehicle_counter import count_vehicles
 from people_counter import count_people
 
-from events_holidays_crawling.holidays_crawler import extract_holidays
-from events_holidays_crawling.events import extract_events
 
 # InfluxDB connection parameters
 url = "http://localhost:8086"  # InfluxDB 2.x URL
@@ -438,25 +436,3 @@ async def deliver_model(params: DeliverScaler):
         raise HTTPException(status_code=404, detail="Scaler file not found")
     
     return FileResponse(params.scaler_path, filename=os.path.basename(params.scaler_path))
-
-
-@app.post("/holidays_fetch/")
-async def holidays_fetch(year: str = Form(...)):
-    data = extract_holidays(year)
-    return {"data": data}
-
-
-@app.get("/events_fetch/")
-async def events_fetch():
-    data = extract_events()
-    return {"data": data}
-
-# TODO
-@app.post("/people_pred/")
-async def people_pred():
-    pass
-
-# TODO
-@app.get("/traffic_pred/")
-async def traffic_pred():
-    pass

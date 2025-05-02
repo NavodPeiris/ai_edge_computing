@@ -58,7 +58,7 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url):
 
 
 
-def infer(df, label, task_type, model_path, server_url):
+def infer(df, labels, task_type, model_path, server_url):
     base_path = "/".join(model_path.split("/")[:-1])
     os.makedirs(base_path, exist_ok=True)  
     
@@ -75,7 +75,7 @@ def infer(df, label, task_type, model_path, server_url):
         else:
             print(f"Error: {response.json()['detail']}")
 
-    if task_type == "classification" or task_type == "regression":
+    if task_type == "classification":
         # Load the model
         model = load_model(model_path)
 
@@ -85,8 +85,29 @@ def infer(df, label, task_type, model_path, server_url):
         # Apply thresholding
         predictions = np.where(predictions > 0.5, 1, 0)
 
-        # Append predictions as a new column to the DataFrame
-        df[label] = predictions
+        if len(labels) > 1:
+            for i, label in enumerate(labels):
+                # Append predictions as a new column to the DataFrame
+                df[label] = predictions[:, i] if predictions.ndim > 1 else predictions
+        else:
+            # Append predictions as a new column to the DataFrame
+            df[labels[0]] = predictions 
+
+    elif task_type == "regression" or task_type == "forecasting":
+        # Load the model
+        model = load_model(model_path)
+
+        # Perform inference
+        predictions = model.predict(X)
+
+        if len(labels) > 1:
+            for i, label in enumerate(labels):
+                # Append predictions as a new column to the DataFrame
+                df[label] = predictions[:, i] if predictions.ndim > 1 else predictions
+        else:
+            # Append predictions as a new column to the DataFrame
+            df[labels[0]] = predictions.flatten()  # Flatten in case it's a 2D array 
+
     elif task_type == "unsupervised classification":
         # Load the trained autoencoder model
         autoencoder = load_model(model_path)
@@ -109,6 +130,7 @@ def infer(df, label, task_type, model_path, server_url):
 
         # Create a hover text column showing the actual data record
         df["hover_text"] = df.apply(lambda row: "<br>".join([f"{col}: {row[col]:.2f}" for col in df.columns[:-2]]), axis=1)
+
     elif task_type == "anomaly detection":
         # Load the trained autoencoder model
         autoencoder = load_model(model_path)
@@ -125,6 +147,6 @@ def infer(df, label, task_type, model_path, server_url):
         # Label samples: 1 = anomaly, 0 = normal
         anomaly_labels = (reconstruction_error > threshold).astype(int)
 
-        df[label] = anomaly_labels
+        df[labels[0]] = anomaly_labels
 
     return df

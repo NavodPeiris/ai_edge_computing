@@ -13,11 +13,11 @@ import pickle
 import os
 
 class FederatedClient(fl.client.NumPyClient):
-    def __init__(self, df, save_path, task_type, label):
+    def __init__(self, df, save_path, task_type, labels):
         self.df = df
         self.save_path = save_path
         self.task_type = task_type
-        self.label = label
+        self.labels = labels
 
         self.model = None
         self.X_train, self.X_test, self.y_train, self.y_test, self.input_dim, self.output_dim = self.load_and_preprocess_data()
@@ -27,13 +27,13 @@ class FederatedClient(fl.client.NumPyClient):
     def load_and_preprocess_data(self):
     
         # Separate features and target
-        if self.label != "":
-            X = self.df.drop(columns=[self.label])
+        if self.labels != []:
+            X = self.df.drop(self.labels, axis=1)
         else:
             X = self.df
 
-        if self.label != "":
-            y = self.df[self.label]
+        if self.labels != []:
+            y = self.df[self.labels]
 
         # Fill missing values in X
         for col in X.columns:
@@ -43,13 +43,14 @@ class FederatedClient(fl.client.NumPyClient):
                 else:  # Numerical feature
                     X[col].fillna(X[col].median(), inplace=True)
 
-        if self.label != "":
+        if self.labels != []:
             # Fill missing values in y (if needed)
-            if y.isnull().sum() > 0:
-                if y.dtype == 'object':  
-                    y.fillna(y.mode()[0], inplace=True)
-                else:
-                    y.fillna(y.median(), inplace=True)
+            for col in y.columns:
+                if y[col].isnull().sum() > 0:
+                    if y[col].dtype == 'object':
+                        y[col].fillna(y[col].mode()[0], inplace=True)
+                    else:
+                        y[col].fillna(y[col].median(), inplace=True)
 
         # Identify datetime columns correctly
         datetime_cols = [col for col in X.columns if np.issubdtype(X[col].dtype, np.datetime64)]
@@ -61,15 +62,22 @@ class FederatedClient(fl.client.NumPyClient):
         # One-hot encode categorical features in X
         X_encoded = pd.get_dummies(X, drop_first=True)
 
-        if self.label != "":
-            # Encode target (y)
-            if y.dtype == 'object':
-                if len(y.unique()) == 2:
-                    y_encoded = LabelEncoder().fit_transform(y)  # Binary classification
+        if self.labels != []:
+            y_encoded = pd.DataFrame()
+
+            for col in y.columns:
+                if y[col].dtype == 'object':
+                    unique_vals = y[col].nunique()
+                    if unique_vals == 2:
+                        # Binary classification for this column
+                        y_encoded[col] = LabelEncoder().fit_transform(y[col])
+                    else:
+                        # Multi-class classification → one-hot encoding
+                        dummies = pd.get_dummies(y[col], prefix=col, drop_first=True)
+                        y_encoded = pd.concat([y_encoded, dummies], axis=1)
                 else:
-                    y_encoded = pd.get_dummies(y, drop_first=True).values  # Multi-class classification
-            else:
-                y_encoded = y.values  # Regression task (numerical y)
+                    # Regression (numerical)
+                    y_encoded[col] = y[col]
 
         # Scale only original numerical features in X
         num_cols = X.select_dtypes(include=['number']).columns.difference(datetime_cols)
@@ -90,13 +98,13 @@ class FederatedClient(fl.client.NumPyClient):
 
         y_res = np.array([])
 
-        if self.label != "":
+        if self.labels != []:
             y_res = np.array(y_encoded, dtype=np.float32)
             print("y_res:")
             print(y_res)
 
         # Split the data
-        if self.label != "":
+        if self.labels != []:
             X_train, X_test, y_train, y_test = train_test_split(X_res, y_res, test_size=0.2, random_state=42)
         else:
             X_train = X_res
@@ -111,9 +119,9 @@ class FederatedClient(fl.client.NumPyClient):
             output_shape = y_res.shape[1] if y_res.ndim > 1 else 1  # Handle one-hot encoding for multi-class
         elif self.task_type == 'unsupervised classification' or self.task_type == 'anomaly detection':
             output_shape = input_shape
-        else:
+        elif self.task_type == 'forecasting' or self.task_type == 'regression':
             # For regression, output shape is the number of target values (typically 1 for single target)
-            output_shape = 1
+            output_shape = len(self.labels)
 
         return X_train, X_test, y_train, y_test, input_shape, output_shape
 
@@ -173,7 +181,7 @@ class FederatedClient(fl.client.NumPyClient):
             else:
                 model.add(layers.Dense(self.output_dim, activation='softmax'))  # Multi-class classification
                 loss_fn = 'categorical_crossentropy'
-        else:  # Regression task
+        else:  # regression task or forecasting
             model = models.Sequential()
             model.add(layers.InputLayer(input_shape=(self.input_dim,)))
 
@@ -224,9 +232,9 @@ class FederatedClient(fl.client.NumPyClient):
         loss, accuracy = self.model.evaluate(self.X_test, self.y_test, verbose=0)
         return loss, len(self.X_test), {"accuracy": accuracy}
 
-def create_client(df, save_path, task_type, label):
+def create_client(df, save_path, task_type, labels):
     # Initialize the Flower client
-    client = FederatedClient(df=df, save_path=save_path, task_type=task_type, label=label)
+    client = FederatedClient(df=df, save_path=save_path, task_type=task_type, labels=labels)
     return client
 
 def sig_start_server(rounds: str, model_json: str, save_path: str, edge_server_url):
@@ -297,9 +305,10 @@ parser = argparse.ArgumentParser(description="flwr server script")
 parser.add_argument("--file_path", type=str, required=True)
 parser.add_argument("--save_path", type=str, required=True)
 parser.add_argument("--task_type", type=str, required=True)
-parser.add_argument("--label", type=str, required=True)
+parser.add_argument('--labels', nargs='+', type=str, required=False, default=[])
 parser.add_argument("--rounds", type=str, required=True)
 parser.add_argument("--edge_server_url", type=str, required=True)
+
 
 # Parse the arguments
 args = parser.parse_args()
@@ -313,7 +322,7 @@ if __name__ == "__main__":
 
     df = pd.read_excel(args.file_path)
 
-    client = create_client(df, args.save_path, args.task_type, args.label)
+    client = create_client(df, args.save_path, args.task_type, args.labels)
     upload_scaler(args.save_path, args.edge_server_url)
 
     model = client.build_model()

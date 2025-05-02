@@ -20,6 +20,7 @@ client = InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api()
 query_api = client.query_api()
 
+locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
 
 # Function to generate edge_server data for influxDB
 def generate_edge_server_data(row):
@@ -29,6 +30,7 @@ def generate_edge_server_data(row):
         .field("humidity", row["humidity"])  # Ambient temperature
         .field("rain", row["rain"])  # Module temperature
         .field("temperature", row["temperature"])  # Irradiation
+        .tag("location", random.choice(locations))
         .time(datetime.utcnow())  # Current timestamp in UTC
     )
 

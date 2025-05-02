@@ -47,6 +47,18 @@ cd desktop_app
 streamlit run app.py
 ```
 
+login creds:
+```
+username: navod
+password: navod123
+```
+
 ### Run Whole Simulation
 
 - Use **Start_project.bat**
+- make sure docker is running
+- run command:
+```
+start Start_project.bat
+```
+

@@ -5,12 +5,15 @@ import websockets
 import cv2
 import base64
 import numpy as np
+import random
 
 async def send_video():
     uri = "ws://localhost:8001/common_cam_ws"
     
     # Path to the video file
     video_path = "non_violence_videos/video.mp4"
+
+    locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
     
     async with websockets.connect(uri) as websocket:
         cap = cv2.VideoCapture(video_path)
@@ -37,7 +40,7 @@ async def send_video():
                 
                 # Create JSON payload
                 data = {
-                    "location": "Dehiwala",
+                    "location": random.choice(locations),
                     "frame": encoded_frame,
                     "fps": fps
                 }

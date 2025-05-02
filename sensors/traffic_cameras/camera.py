@@ -4,12 +4,15 @@ import time
 import cv2
 import json
 import websockets
+import random
 
 async def send_video():
     uri = "ws://localhost:8001/traffic_cam_ws"
     
     # Path to the video file
     video_path = "vehicles360.mp4"
+
+    locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
     
     async with websockets.connect(uri) as websocket:
         cap = cv2.VideoCapture(video_path)
@@ -36,7 +39,7 @@ async def send_video():
                 
                 # Create JSON payload
                 data = {
-                    "location": "Dehiwala",
+                    "location": random.choice(locations),
                     "frame": encoded_frame,
                     "fps": fps
                 }

@@ -19,3 +19,5 @@ openpyxl
 umap
 streamlit
 mlflow 
+mysqlclient
+SQLAlchemy

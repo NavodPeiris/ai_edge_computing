@@ -41,5 +41,3 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: mydb
-    volumes:
-      - "./mysql:/var/lib/mysql"
