@@ -21,13 +21,16 @@ client = InfluxDBClient(url=url, token=token, org=org)
 query_api = client.query_api()
 write_api = client.write_api()
 
+locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+
 # Function to fetch the latest 7 points from InfluxDB
-def fetch_latest_data():
+def fetch_latest_data(location):
     
     query = f'''
     from(bucket: "{bucket}")
         |> range(start: -30d)  // Adjust the range as needed
         |> filter(fn: (r) => r._measurement == "weather_data_gen")
+        |> filter(fn: (r) => r.location == "{location}")  // Filter by location tag
         |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")  
     '''
 
@@ -77,7 +80,7 @@ def fetch_latest_data():
 
 
 # Function to write predicted data to InfluxDB
-def write_predicted_data(prediction, latest_time):
+def write_predicted_data(prediction, latest_time, location):
     
     # Add 1 minute to the latest time
     if latest_time:
@@ -92,6 +95,7 @@ def write_predicted_data(prediction, latest_time):
             .field("humidity", prediction[0])  # Ambient temperature
             .field("rain", int(prediction[1] >= 0.7))  # Module temperature
             .field("temperature", prediction[2])  # Irradiation
+            .tag("location", location)
             .time(new_time)  # Current timestamp in UTC
         )
         
@@ -105,21 +109,22 @@ def write_predicted_data(prediction, latest_time):
 # Function to process data
 def process_infer():
     while True:
-        try:
-            # Fetch the latest 7 points
-            latest_data, latest_time = fetch_latest_data()
-            
-            if len(latest_data) == 7:
-                # Predict the next point using the infer_model function
-                prediction = infer_multi_output(latest_data)
+        for location in locations:
+            try:
+                # Fetch the latest 7 points
+                latest_data, latest_time = fetch_latest_data(location)
                 
-                # Write the predicted data to InfluxDB
-                write_predicted_data(prediction, latest_time)
-                print(f"Prediction written successfully.")
-            else:
-                print(f"Not enough data to make a prediction.")
-        except Exception as e:
-            print(f"Error processing: {e}")
+                if len(latest_data) == 7:
+                    # Predict the next point using the infer_model function
+                    prediction = infer_multi_output(latest_data)
+                    
+                    # Write the predicted data to InfluxDB
+                    write_predicted_data(prediction, latest_time, location)
+                    print(f"Prediction written successfully.")
+                else:
+                    print(f"Not enough data to make a prediction.")
+            except Exception as e:
+                print(f"Error processing: {e}")
 
         time.sleep(20)
 

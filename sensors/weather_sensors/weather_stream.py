@@ -23,14 +23,14 @@ query_api = client.query_api()
 locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
 
 # Function to generate edge_server data for influxDB
-def generate_edge_server_data(row):
+def generate_edge_server_data(row, location):
     #print(row)
     return (
         Point("weather_data_gen")  # Measurement name
         .field("humidity", row["humidity"])  # Ambient temperature
         .field("rain", row["rain"])  # Module temperature
         .field("temperature", row["temperature"])  # Irradiation
-        .tag("location", random.choice(locations))
+        .tag("location", location)
         .time(datetime.utcnow())  # Current timestamp in UTC
     )
 
@@ -45,10 +45,11 @@ def edge_server_stream():
     try:
         for index, row in df.iterrows():
             try:
-                point = generate_edge_server_data(row)
-                write_api = client.write_api()
-                write_api.write(bucket=bucket, org=org, record=point)  # Write the point to InfluxDB
-                print(f"Data written: {point}")
+                for location in locations:
+                    point = generate_edge_server_data(row, location)
+                    write_api = client.write_api()
+                    write_api.write(bucket=bucket, org=org, record=point)  # Write the point to InfluxDB
+                    print(f"Data written: {point}")
                 time.sleep(60)  # Wait for 60 seconds before processing the next row
             except Exception as e:
                 print(f"Error while writing data: {e}")

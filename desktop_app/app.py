@@ -26,7 +26,7 @@ st.title("Welcome to the Edge Runner Home Page!")
 st.success(f"Welcome {st.session_state['username']}!")
 
 os.makedirs(f"models/{st.session_state.user_id}", exist_ok=True)
-os.makedirs(f"registry", exist_ok=True)
+os.makedirs(f"models/registry", exist_ok=True)
 
 if st.button("Logout"):
     st.session_state.logged_in = False

@@ -12,6 +12,6 @@ start /min cmd /k "cd sensors/traffic_cameras && python camera.py"
 start /min cmd /k "cd sensors/weather_sensors && python weather_stream.py"
 start /min cmd /k "cd edge_server/power_gen_pred && python realtime_pred.py"
 start /min cmd /k "cd edge_server/weather_pred && python realtime_pred.py"
-start /min cmd /k "cd desktop_app && streamlit run app.py --no-browser"
+start /min cmd /k "cd desktop_app && streamlit run app.py"
 timeout /t 10 /nobreak >nul
 start http://localhost:8501

@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 import json
@@ -183,7 +184,7 @@ class VehicleCounter:
 
         return ccw(p1, p3, p4) != ccw(p2, p3, p4) and ccw(p1, p2, p3) != ccw(p1, p2, p4)
 
-    def process_video(self):
+    def process_video(self, post_fix):
         """Process video and count vehicles"""
         cap = cv2.VideoCapture(self.video_path)
         if not cap.isOpened():
@@ -215,20 +216,27 @@ class VehicleCounter:
             'frames_processed': frame_count // 2
         }
 
-        with open('counting_results.json', 'w') as f:
+        """
+        with open(f'traffic_counting_data/counting_results_{post_fix}.json', 'w') as f:
             json.dump(results, f, indent=4)
+        """
+        os.remove(self.video_path)
 
         return results
 
-def count_vehicles(video_filename):
+def count_vehicles(video_filename, post_fix):
     counter = VehicleCounter(video_filename, 'traffic_counting_data/traffic_config.json')
-    results = counter.process_video()
+    results = counter.process_video(post_fix)
     
     print("\nVehicle Counting Results:")
     for line_idx in results['vehicles_in'].keys():
         print(f"\nLine {line_idx}:")
         print(f"Vehicles IN: {results['vehicles_in'][line_idx]}")
+
+    for line_idx in results['vehicles_out'].keys():
         print(f"Vehicles OUT: {results['vehicles_out'][line_idx]}")
     
     print(f"\nTotal processing time: {results['processing_time']:.2f} seconds")
     print(f"Frames processed: {results['frames_processed']}")
+
+    return results

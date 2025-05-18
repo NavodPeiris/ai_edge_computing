@@ -20,50 +20,6 @@ client = InfluxDBClient(url=url, token=token, org=org)
 write_api = client.write_api()
 query_api = client.query_api()
 
-"""
-plant_to_node = {
-    "edge_server1": {
-        "id": 1,
-        "lat": 6.916528,
-        "lon": 79.893854,
-    },
-    "plant1": {
-        "id": 2,
-        "lat": 6.924790,
-        "lon": 79.881042,
-    },
-    "plant2": {
-        "id": 3,
-        "lat": 6.898374,
-        "lon": 79.881699,
-    },
-    "plant3": {
-        "id": 4,
-        "lat": 6.880436,
-        "lon": 79.882466,
-    },
-    "plant4": {
-        "id": 5,
-        "lat": 6.917724,
-        "lon": 79.906338,
-    },
-    "plant5": {
-        "id": 6,
-        "lat": 6.896308,
-        "lon": 79.908090,
-    },
-    "plant6": {
-        "id": 7,
-        "lat": 6.882285,
-        "lon": 79.910718,
-    },
-    "plant7": {
-        "id": 8,
-        "lat": 6.881415,
-        "lon": 79.894292,
-    },
-}
-"""
 
 plant_to_node = {
     "edge_server1": {
@@ -88,7 +44,6 @@ plant_to_node = {
     }
 }
 
-locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
 
 # which plants are going to be covered by clouds next
 cloud_cover_next = []
@@ -132,7 +87,6 @@ def station_stream(station_list):
                                 "title": record["title"],
                                 "lat": record["lat"],
                                 "lon": record["lon"],
-                                "location": record["location"],
                                 "color": record["color"],
                                 "next": record["next"],
                                 "irradiation": record["_value"],  # Use _value for irradiation
@@ -151,7 +105,6 @@ def station_stream(station_list):
                                 .tag("title", str(last_station_point["title"]))  # title for node
                                 .tag("lat", float(last_station_point["lat"]))  # latitude of node
                                 .tag("lon", float(last_station_point["lon"]))  # longitude of node
-                                .tag("location", str(last_station_point["location"]))  # location of node
                                 .tag("color", str("blue"))  # Color of node based on irradiation value
                                 .tag("next", int(last_station_point["next"]))  # Color of node based on irradiation value
                                 .field("irradiation", float(0.4))  # Irradiation
@@ -191,7 +144,6 @@ def station_stream(station_list):
                                     "title": record["title"],
                                     "lat": record["lat"],
                                     "lon": record["lon"],
-                                    "location": record["location"],
                                     "color": record["color"],
                                     "next": record["next"],
                                     "irradiation": record["_value"],  # Use _value for irradiation
@@ -217,7 +169,6 @@ def station_stream(station_list):
                                 .tag("title", str(station["title"]))  # title for node
                                 .tag("lat", float(station["lat"]))  # latitude of node
                                 .tag("lon", float(station["lon"]))  # longitude of node
-                                .tag("location", str(station["location"])) # location of node
                                 .tag("color", str(current_station_color))  # Color of node based on irradiation value
                                 .tag("next", int(station["next"]))  # Color of node based on irradiation value
                                 .field("irradiation", float(irradiation))  # Irradiation
@@ -238,7 +189,6 @@ def station_stream(station_list):
                                     .tag("title", str(prev_point["title"]))  # Title for node
                                     .tag("lat", float(prev_point["lat"]))  # Latitude of node
                                     .tag("lon", float(prev_point["lon"]))  # Longitude of node
-                                    .tag("location", str(station["location"])) # location of node
                                     .tag("color", "blue")  # Color of node based on irradiation value
                                     .tag("next", int(prev_point["next"]))  # Next station ID
                                     .field("irradiation", 0.4)  # Irradiation
@@ -271,7 +221,6 @@ def station_stream(station_list):
                                 .tag("title", str(station["title"]))  # title for node
                                 .tag("lat", float(station["lat"]))  # latitude of node
                                 .tag("lon", float(station["lon"]))  # longitude of node
-                                .tag("location", str(station["location"])) # location of node
                                 .tag("color", str(current_station_color))  # Color of node based on irradiation value
                                 .tag("next", int(station["next"]))  # Color of node based on irradiation value
                                 .field("irradiation", float(irradiation))  # Irradiation
@@ -313,7 +262,6 @@ def parse_csv_row_to_point(row):
         .tag("title", str(row["PLANT_ID"]))  # title for node
         .tag("lat", float(plant_to_node[row["PLANT_ID"]]["lat"]))  # latitude of node
         .tag("lon", float(plant_to_node[row["PLANT_ID"]]["lon"]))  # longitude of 
-        .tag("location", random.choice(locations)) # location of node
         .tag("color", str(color))  # Color of node based on irradiation value
         .tag("plant_id", str(row["PLANT_ID"]))  # Plant ID from CSV
         .field("ambient_temperature", float(row["AMBIENT_TEMPERATURE"]))  # Ambient temperature
@@ -332,7 +280,6 @@ def generate_edge_server_data():
         .tag("title", "edge_server1")  # title for node
         .tag("lat", float(plant_to_node["edge_server1"]["lat"]))  # latitude of node
         .tag("lon", float(plant_to_node["edge_server1"]["lon"]))  # longitude of node
-        .tag("location", random.choice(locations))  # location of node
         .tag("color", "green")  # Color of node based on irradiation value
         .tag("plant_id", "edge_server1")  # Plant ID from CSV
         .field("ambient_temperature", float(28.0))  # Ambient temperature

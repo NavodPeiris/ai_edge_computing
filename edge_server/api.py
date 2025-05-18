@@ -117,138 +117,88 @@ image_model = VGG16(include_top=True, weights='imagenet')
 transfer_layer = image_model.get_layer('fc2')
 image_model_transfer = Model(inputs=image_model.input, outputs=transfer_layer.output)
 
+
 @app.websocket("/common_cam_ws")
 async def common_camera_websocket_endpoint(websocket: WebSocket):
-    print("WebSocket Connection Attempt")
     await websocket.accept()
+    
     violence_detection_frames = []
     people_counting_frames = []
-
+    out = None
     fourcc = cv2.VideoWriter.fourcc(*"mp4v")
-    out = None  # Video writer (initialized later)
-    video_filename = f"people_counting_data/people_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.avi"
+    fps = 25
+    duration = 20
+    max_frames = None
+    video_filename = None
 
     try:
         while True:
-            # Receive JSON message from the client
             message = await websocket.receive_text()
             data = json.loads(message)
 
-            # Extract location
             location = data.get("location", "Unknown")
-            # Extract location
-            fps = data.get("fps", 25)
+            fps = int(data.get("fps", fps))
+            if max_frames is None:
+                max_frames = fps * duration
 
-            duration = 20  # Record duration in seconds
-            max_frames = int(fps * duration)  # Total frames for 20 seconds
-
-            # Decode the Base64-encoded frame
             frame_data = base64.b64decode(data["frame"])
             frame_array = np.frombuffer(frame_data, dtype=np.uint8)
             frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
-
             if frame is None:
-                print("Error: Failed to decode frame")
                 continue
 
-            height, width, _ = frame.shape  # Get frame dimensions
-
-            # Initialize video writer once
+            height, width, _ = frame.shape
             if out is None:
+                timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')
+                post_fix = f"{location}_{timestamp}"
+                video_filename = f"people_counting_data/people_{post_fix}.avi"
                 out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
             people_counting_frames.append(frame)
-            out.write(frame)  # Write frame to video
+            out.write(frame)
 
-            # Resize frame to 224x224 (to match model input size)
-            violence_detection_frame = cv2.resize(frame, (224, 224))
-            violence_detection_frames.append(violence_detection_frame)
+            violence_detection_frames.append(cv2.resize(frame, (224, 224)))
 
-            # Process every 20 frames
             if len(violence_detection_frames) == 20:
-                print(f"Running violence detection... (Location: {location})")
-
-                # Normalize frames
                 input_data = np.array(violence_detection_frames, dtype=np.float16) / 255.0
-
-                # Run feature extraction
-                transfer_values = image_model_transfer.predict(input_data, batch_size=len(violence_detection_frames))
-
-                # Reshape for the custom model
+                transfer_values = image_model_transfer.predict(input_data, batch_size=20)
                 transfer_values_sequence = transfer_values.reshape(1, 20, 4096)
-
-                # Run inference with the custom model
                 prediction = model.predict(transfer_values_sequence)[0]
-                violence_score, non_violence_score = prediction[0], prediction[1]
 
-                if violence_score > non_violence_score:
-                    print(f"Violence detected at {location}")
-                    
-                    try:
-                        # If no conflict, write the new point
-                        pred_point = (
-                            Point("violence")  # Measurement name
-                            .tag("location", location) 
-                            .field("is_violence", int(1))
-                            .time(datetime.utcnow())  # Current timestamp in UTC
-                        )
-                        
-                        write_api.write(bucket=common_camera_bucket, org=org, record=pred_point)  # Write the point to InfluxDB
-                        print(f"violence data written: {pred_point}")
-                    
-                    except Exception as e:
-                        print(f"Error checking or writing data: {e}")
-                    
-                else:
-                    print(f"No violence detected at {location}")
-                    try:
-                        # If no conflict, write the new point
-                        pred_point = (
-                            Point("violence")  # Measurement name
-                            .tag("location", location) 
-                            .field("is_violence", int(0))
-                            .time(datetime.utcnow())  # Current timestamp in UTC
-                        )
-                        
-                        write_api.write(bucket=common_camera_bucket, org=org, record=pred_point)  # Write the point to InfluxDB
-                        print(f"violence data written: {pred_point}")
-                    
-                    except Exception as e:
-                        print(f"Error checking or writing data: {e}")
-
-                # Clear the frame buffer
+                is_violence = int(prediction[0] > prediction[1])
+                violence_point = (
+                    Point("violence")
+                    .tag("location", location)
+                    .field("is_violence", is_violence)
+                    .time(datetime.utcnow())
+                )
+                write_api.write(bucket=common_camera_bucket, org=org, record=violence_point)
                 violence_detection_frames = []
 
-
-            # Stop recording after 20 seconds
             if len(people_counting_frames) == max_frames:
-                print(f"Video saved: {video_filename}")
-
-                # Reset for the next 20-sec segment
-                people_counting_frames = []
                 out.release()
-
+                out = None
                 interval_seconds = 5
-                results = count_people(video_filename, interval_seconds)
+                results = count_people(video_filename, post_fix, interval_seconds)
 
-                for i in range(len(results)):
-                    try:
-                        # If no conflict, write the new point
-                        pred_point = (
-                            Point("people_count")  # Measurement name
-                            .tag("location", location) 
-                            .field("count", results[i]["people_count"])
-                            .time(datetime.utcnow() + pd.Timedelta(seconds=interval_seconds * i))  # Current timestamp in UTC
-                        )
-                        
-                        write_api.write(bucket=common_camera_bucket, org=org, record=pred_point)  # Write the point to InfluxDB
-                        print(f"people count data written: {pred_point}")
-                    
-                    except Exception as e:
-                        print(f"Error checking or writing data: {e}")
+                for i, res in enumerate(results):
+                    ts = datetime.utcnow() + pd.Timedelta(seconds=interval_seconds * i)
+                    point = (
+                        Point("people_count")
+                        .tag("location", location)
+                        .field("count", res["people_count"])
+                        .time(ts)
+                    )
+                    write_api.write(bucket=common_camera_bucket, org=org, record=point)
+
+                people_counting_frames = []
+                time.sleep(60)
+
     except WebSocketDisconnect:
-        print("Client disconnected")
+        print(f"Client from {location} disconnected")
     finally:
+        if out:
+            out.release()
         cv2.destroyAllWindows()
 
 
@@ -256,12 +206,16 @@ async def common_camera_websocket_endpoint(websocket: WebSocket):
 async def traffic_camera_websocket_endpoint(websocket: WebSocket):
     print("WebSocket Connection Attempt")
     await websocket.accept()
-    
+
+    # Initialize per-client state
     frames = []
-    
+    out = None
+    fps = 25
+    start_time = datetime.utcnow()
+    duration = 20  # seconds
+    max_frames = None
+    video_filename = None
     fourcc = cv2.VideoWriter.fourcc(*"mp4v")
-    out = None  # Video writer (initialized later)
-    video_filename = f"traffic_counting_data/traffic_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.avi"
 
     try:
         while True:
@@ -269,15 +223,13 @@ async def traffic_camera_websocket_endpoint(websocket: WebSocket):
             message = await websocket.receive_text()
             data = json.loads(message)
 
-            # Extract location
+            # Extract and set per-client metadata
             location = data.get("location", "Unknown")
-            # Extract location
-            fps = data.get("fps", 25)
+            fps = int(data.get("fps", fps))
+            if max_frames is None:
+                max_frames = fps * duration
 
-            duration = 20  # Record duration in seconds
-            max_frames = int(fps * duration)  # Total frames for 20 seconds
-
-            # Decode the Base64-encoded frame
+            # Decode Base64-encoded frame
             frame_data = base64.b64decode(data["frame"])
             frame_array = np.frombuffer(frame_data, dtype=np.uint8)
             frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
@@ -286,51 +238,47 @@ async def traffic_camera_websocket_endpoint(websocket: WebSocket):
                 print("Error: Failed to decode frame")
                 continue
 
-            height, width, _ = frame.shape  # Get frame dimensions
+            height, width, _ = frame.shape
 
-            # Initialize video writer once
             if out is None:
+                timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')
+                post_fix = f"{location}_{timestamp}"
+                video_filename = f"traffic_counting_data/traffic_{post_fix}.avi"
                 out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
 
             frames.append(frame)
-            out.write(frame)  # Write frame to video
+            out.write(frame)
 
-            # Stop recording after 20 seconds
+            # Once enough frames collected
             if len(frames) == max_frames:
                 print(f"Video saved: {video_filename}")
-
-                # Reset for the next 20-sec segment
                 frames = []
                 out.release()
+                out = None  # Reset for next recording
 
-                count_vehicles(video_filename)
-
-                counting_res = json.load(open('counting_results.json', 'r'))
-                vehicles_in = 0
-                vehicles_out = 0
-
-                for line_idx in counting_res['vehicles_in'].keys():
-                    vehicles_in = counting_res['vehicles_in'][line_idx]
-                    vehicles_out = counting_res['vehicles_out'][line_idx]
+                counting_res = count_vehicles(video_filename, post_fix)
 
                 try:
-                    # If no conflict, write the new point
+                    vehicles_in = sum(counting_res['vehicles_in'].values())
+                    vehicles_out = sum(counting_res['vehicles_out'].values())
+
                     pred_point = (
-                        Point("vehicles_count")  # Measurement name
-                        .tag("location", location) 
+                        Point("vehicles_count")
+                        .tag("location", location)
                         .field("vehicles_coming_in", vehicles_in)
                         .field("vehicles_going_out", vehicles_out)
-                        .time(datetime.utcnow())  # Current timestamp in UTC
+                        .time(datetime.utcnow())
                     )
-                    
-                    write_api.write(bucket=traffic_camera_bucket, org=org, record=pred_point)  # Write the point to InfluxDB
-                    print(f"traffic data written: {pred_point}")
-                
+
+                    write_api.write(bucket=traffic_camera_bucket, org=org, record=pred_point)
+                    print(f"Traffic data written: {pred_point}")
+                    time.sleep(60)
+
                 except Exception as e:
-                    print(f"Error checking or writing data: {e}")
+                    print(f"Error during data processing or writing to DB: {e}")
 
     except WebSocketDisconnect:
-        print("Client disconnected")
+        print(f"Client disconnected from {location}")
     finally:
         if out:
             out.release()

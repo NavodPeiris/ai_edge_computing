@@ -40,6 +40,10 @@ token: 3wvWUxmtdBM03hm9YgTEa91s6ofQ73G4gQ54uNR0Ek59zpJNMGOagj1UR1GKw3D1f5Elw-zS7
 url:http://localhost:5001/
 ```
 
+#### ingest models to MLflow
+
+run temp python files in mlflow folder
+
 #### run desktop-app:
 
 ```

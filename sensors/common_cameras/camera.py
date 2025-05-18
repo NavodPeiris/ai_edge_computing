@@ -1,19 +1,25 @@
 import asyncio
 import json
 import time
+import traceback
 import websockets
 import cv2
 import base64
 import numpy as np
 import random
+from concurrent.futures import ThreadPoolExecutor
 
-async def send_video():
+locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+
+def send_video_sync(location):
+    asyncio.run(send_video(location))
+    
+
+async def send_video(location):
     uri = "ws://localhost:8001/common_cam_ws"
     
     # Path to the video file
     video_path = "non_violence_videos/video.mp4"
-
-    locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
     
     async with websockets.connect(uri) as websocket:
         cap = cv2.VideoCapture(video_path)
@@ -40,7 +46,7 @@ async def send_video():
                 
                 # Create JSON payload
                 data = {
-                    "location": random.choice(locations),
+                    "location": location,
                     "frame": encoded_frame,
                     "fps": fps
                 }
@@ -56,5 +62,37 @@ async def send_video():
             cap.release()
 
 
+# Wrapper to catch and log exceptions in threads
+def thread_wrapper(func, *args, **kwargs):
+    try:
+        func(*args, **kwargs)
+    except Exception as e:
+        print(f"Unhandled exception in thread: {e}")
+        traceback.print_exc()  # Print the traceback for debugging
+
+
+def main():
+    try:
+        with ThreadPoolExecutor(max_workers=len(locations)) as executor:
+            # Store futures in a list
+            futures = []
+
+            # Stream station data
+            for location in locations:
+                futures.append(executor.submit(thread_wrapper, send_video_sync, location))
+
+            # Wait for all futures to complete
+            for future in futures:
+                try:
+                    future.result()  # Raise exceptions if any occurred in the thread
+                except Exception as e:
+                    print(f"Error in thread: {e}")
+                    traceback.print_exc()  # Print traceback for debugging
+
+    except KeyboardInterrupt:
+        print("\nStreaming stopped.")
+
+
 # Run the client
-asyncio.run(send_video())
+main()
+

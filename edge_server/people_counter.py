@@ -6,10 +6,11 @@ from datetime import datetime
 import os
 
 class SimpleCounter:
-    def __init__(self, video_path, interval_seconds=5, debug=True):
+    def __init__(self, video_path, post_fix, interval_seconds=5, debug=True):
         self.video_path = video_path
         self.interval_seconds = interval_seconds
         self.debug = debug
+        self.post_fix = post_fix
         
         # Initialize YOLO
         self.net = cv2.dnn.readNet(
@@ -180,7 +181,8 @@ class SimpleCounter:
                 max_count_in_interval = 0
                 best_frame_data = None
         
-        output_path = "people_counts.json"
+        """
+        output_path = f"people_counting_data/people_counts_{self.post_fix}.json"
         with open(output_path, 'w') as f:
             json.dump({
                 "video_path": self.video_path,
@@ -196,11 +198,15 @@ class SimpleCounter:
         
         print(f"\nResults saved to {output_path}")
         print(f"Verification frames saved in {self.output_dir}")
+        """
+        cap.release()
+        os.remove(self.video_path)
+
         return self.results
 
 
-def count_people(video_path, interval_seconds):
+def count_people(video_path, post_fix, interval_seconds):
     # Change debug=True to see the debug video
-    counter = SimpleCounter(video_path, interval_seconds=interval_seconds, debug=False)
+    counter = SimpleCounter(video_path, post_fix, interval_seconds=interval_seconds, debug=False)
     results = counter.count_people()
     return results
