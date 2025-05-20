@@ -1,7 +1,9 @@
+import asyncio
 import base64
 import json
 import shutil
 import time
+import concurrent
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -46,14 +48,6 @@ write_api = client.write_api()
 
 app = FastAPI()
 
-# Load the trained model once at server startup
-# model = tf.keras.models.load_model('violence_detection/violence_detection_models/model.h5')
-
-try:
-    model = tf.keras.models.load_model('violence_detection/violence_detection_models/model.h5')
-except FileNotFoundError:
-    print("Warning: Model file not found. Some functionality will be limited.")
-    model = None
 
 import psutil
 
@@ -112,151 +106,173 @@ def clean_up_models(folder_path):
     print(f"Renamed {latest_model} to {new_model_name}")
 
 
-# Load the base model for feature extraction
-image_model = VGG16(include_top=True, weights='imagenet')
-transfer_layer = image_model.get_layer('fc2')
-image_model_transfer = Model(inputs=image_model.input, outputs=transfer_layer.output)
+process_pool = concurrent.futures.ProcessPoolExecutor(max_workers=2)
+
+# getting t-14 days
+end_date = datetime.utcnow().date()
+start_date = end_date - timedelta(days=14)
+
+# Generate list of dates from start_date to end_date (inclusive)
+common_cam_date_list = [(start_date + timedelta(days=i)).isoformat() for i in range(15)]
+traffic_cam_date_list = [(start_date + timedelta(days=i)).isoformat() for i in range(15)]
 
 
 @app.websocket("/common_cam_ws")
 async def common_camera_websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    
-    violence_detection_frames = []
-    people_counting_frames = []
-    out = None
-    fourcc = cv2.VideoWriter.fourcc(*"mp4v")
-    fps = 25
-    duration = 20
-    max_frames = None
-    video_filename = None
+
+    frame_queue = asyncio.Queue()
+    recording_task = None
+    location = "Unknown"
 
     try:
         while True:
             message = await websocket.receive_text()
             data = json.loads(message)
 
-            location = data.get("location", "Unknown")
-            fps = int(data.get("fps", fps))
-            if max_frames is None:
-                max_frames = fps * duration
+            if len(common_cam_date_list) > 0:
 
-            frame_data = base64.b64decode(data["frame"])
-            frame_array = np.frombuffer(frame_data, dtype=np.uint8)
-            frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
-            if frame is None:
-                continue
+                location = data.get("location", "Unknown")
+                fps = int(data.get("fps", 25))
 
-            height, width, _ = frame.shape
-            if out is None:
-                timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')
-                post_fix = f"{location}_{timestamp}"
-                video_filename = f"people_counting_data/people_{post_fix}.avi"
-                out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
+                frame_data = base64.b64decode(data["frame"])
+                frame_array = np.frombuffer(frame_data, dtype=np.uint8)
+                frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
+                
 
-            people_counting_frames.append(frame)
-            out.write(frame)
+                if frame is not None:
+                    await frame_queue.put((frame, fps, location))
 
-            violence_detection_frames.append(cv2.resize(frame, (224, 224)))
-
-            if len(violence_detection_frames) == 20:
-                input_data = np.array(violence_detection_frames, dtype=np.float16) / 255.0
-                transfer_values = image_model_transfer.predict(input_data, batch_size=20)
-                transfer_values_sequence = transfer_values.reshape(1, 20, 4096)
-                prediction = model.predict(transfer_values_sequence)[0]
-
-                is_violence = int(prediction[0] > prediction[1])
-                violence_point = (
-                    Point("violence")
-                    .tag("location", location)
-                    .field("is_violence", is_violence)
-                    .time(datetime.utcnow())
-                )
-                write_api.write(bucket=common_camera_bucket, org=org, record=violence_point)
-                violence_detection_frames = []
-
-            if len(people_counting_frames) == max_frames:
-                out.release()
-                out = None
-                interval_seconds = 5
-                results = count_people(video_filename, post_fix, interval_seconds)
-
-                for i, res in enumerate(results):
-                    ts = datetime.utcnow() + pd.Timedelta(seconds=interval_seconds * i)
-                    point = (
-                        Point("people_count")
-                        .tag("location", location)
-                        .field("count", res["people_count"])
-                        .time(ts)
-                    )
-                    write_api.write(bucket=common_camera_bucket, org=org, record=point)
-
-                people_counting_frames = []
-                time.sleep(60)
+                    if recording_task is None or recording_task.done():
+                        recording_task = asyncio.create_task(
+                            handle_people_stream(frame_queue) 
+                        )
 
     except WebSocketDisconnect:
         print(f"Client from {location} disconnected")
     finally:
-        if out:
-            out.release()
+        if recording_task:
+            recording_task.cancel()
         cv2.destroyAllWindows()
+
+async def handle_people_stream(queue: asyncio.Queue):
+    frames = []
+    out = None
+    fps = 25
+    duration = 20
+    location = "Unknown"
+    video_filename = None
+    fourcc = cv2.VideoWriter.fourcc(*"mp4v")
+
+    while len(common_cam_date_list) > 0:
+        try:
+            frame, fps, location = await queue.get()
+            if out is None:
+                timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')
+                post_fix = f"{location}_{timestamp}"
+                video_filename = f"people_counting_data/people_{post_fix}.avi"
+                height, width, _ = frame.shape
+                out = await asyncio.to_thread(cv2.VideoWriter, video_filename, fourcc, fps, (width, height))
+
+            frames.append(frame)
+            await asyncio.to_thread(out.write, frame)
+
+            if len(frames) >= fps * duration:
+                out.release()
+                out = None
+
+                results = await asyncio.get_event_loop().run_in_executor(
+                    process_pool, count_people, video_filename, post_fix, 5
+                )
+
+                for i, res in enumerate(results):
+                    point = (
+                        Point("people_count")
+                        .tag("location", location)
+                        .field("count", res["people_count"])
+                        .time(common_cam_date_list.pop(0))
+                    )
+                    write_api.write(bucket=common_camera_bucket, org=org, record=point)
+
+                frames.clear()
+                await asyncio.sleep(60)
+
+        except asyncio.CancelledError:
+            if out:
+                out.release()
+            break
 
 
 @app.websocket("/traffic_cam_ws")
 async def traffic_camera_websocket_endpoint(websocket: WebSocket):
-    print("WebSocket Connection Attempt")
     await websocket.accept()
 
-    # Initialize per-client state
-    frames = []
-    out = None
-    fps = 25
-    start_time = datetime.utcnow()
-    duration = 20  # seconds
-    max_frames = None
-    video_filename = None
-    fourcc = cv2.VideoWriter.fourcc(*"mp4v")
+    frame_queue = asyncio.Queue()
+    recording_task = None
+    location = "Unknown"
 
     try:
         while True:
-            # Receive JSON message from the client
             message = await websocket.receive_text()
             data = json.loads(message)
 
-            # Extract and set per-client metadata
-            location = data.get("location", "Unknown")
-            fps = int(data.get("fps", fps))
-            if max_frames is None:
-                max_frames = fps * duration
+            if len(traffic_cam_date_list) > 0:
 
-            # Decode Base64-encoded frame
-            frame_data = base64.b64decode(data["frame"])
-            frame_array = np.frombuffer(frame_data, dtype=np.uint8)
-            frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
+                location = data.get("location", "Unknown")
+                fps = int(data.get("fps", 25))
 
-            if frame is None:
-                print("Error: Failed to decode frame")
-                continue
+                # Decode base64 frame
+                frame_data = base64.b64decode(data["frame"])
+                frame_array = np.frombuffer(frame_data, dtype=np.uint8)
+                frame = cv2.imdecode(frame_array, cv2.IMREAD_COLOR)
 
-            height, width, _ = frame.shape
+                if frame is not None:
+                    await frame_queue.put((frame, fps, location))
+
+                    if recording_task is None or recording_task.done():
+                        recording_task = asyncio.create_task(
+                            handle_traffic_stream(frame_queue)
+                        )
+
+    except WebSocketDisconnect:
+        print(f"Client from {location} disconnected")
+    finally:
+        if recording_task:
+            recording_task.cancel()
+        cv2.destroyAllWindows()
+
+
+async def handle_traffic_stream(queue: asyncio.Queue):
+    frames = []
+    out = None
+    fps = 25
+    duration = 20
+    location = "Unknown"
+    video_filename = None
+    fourcc = cv2.VideoWriter.fourcc(*"mp4v")
+
+    while len(traffic_cam_date_list) > 0:
+        try:
+            frame, fps, location = await queue.get()
 
             if out is None:
                 timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S_%f')
                 post_fix = f"{location}_{timestamp}"
                 video_filename = f"traffic_counting_data/traffic_{post_fix}.avi"
-                out = cv2.VideoWriter(video_filename, fourcc, fps, (width, height))
+                height, width, _ = frame.shape
+                out = await asyncio.to_thread(cv2.VideoWriter, video_filename, fourcc, fps, (width, height))
 
             frames.append(frame)
-            out.write(frame)
+            await asyncio.to_thread(out.write, frame)
 
-            # Once enough frames collected
-            if len(frames) == max_frames:
-                print(f"Video saved: {video_filename}")
-                frames = []
+            if len(frames) >= fps * duration:
                 out.release()
-                out = None  # Reset for next recording
+                out = None
 
-                counting_res = count_vehicles(video_filename, post_fix)
+                # Run inference in separate process
+                counting_res = await asyncio.get_event_loop().run_in_executor(
+                    process_pool, count_vehicles, video_filename, post_fix
+                )
 
                 try:
                     vehicles_in = sum(counting_res['vehicles_in'].values())
@@ -267,23 +283,23 @@ async def traffic_camera_websocket_endpoint(websocket: WebSocket):
                         .tag("location", location)
                         .field("vehicles_coming_in", vehicles_in)
                         .field("vehicles_going_out", vehicles_out)
-                        .time(datetime.utcnow())
+                        .time(traffic_cam_date_list.pop(0))
                     )
 
                     write_api.write(bucket=traffic_camera_bucket, org=org, record=pred_point)
                     print(f"Traffic data written: {pred_point}")
-                    time.sleep(60)
 
                 except Exception as e:
                     print(f"Error during data processing or writing to DB: {e}")
 
-    except WebSocketDisconnect:
-        print(f"Client disconnected from {location}")
-    finally:
-        if out:
-            out.release()
-        cv2.destroyAllWindows()
+                frames.clear()
+                await asyncio.sleep(60)
 
+        except asyncio.CancelledError:
+            if out:
+                out.release()
+            break
+        
 
 # Path to the data folder
 DATA_FOLDER = Path("./storage")

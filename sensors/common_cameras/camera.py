@@ -9,7 +9,8 @@ import numpy as np
 import random
 from concurrent.futures import ThreadPoolExecutor
 
-locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+#locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+locations = ["malabe"]
 
 def send_video_sync(location):
     asyncio.run(send_video(location))
@@ -19,7 +20,7 @@ async def send_video(location):
     uri = "ws://localhost:8001/common_cam_ws"
     
     # Path to the video file
-    video_path = "non_violence_videos/video.mp4"
+    video_path = "video.mp4"
     
     async with websockets.connect(uri) as websocket:
         cap = cv2.VideoCapture(video_path)

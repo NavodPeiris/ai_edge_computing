@@ -21,7 +21,8 @@ client = InfluxDBClient(url=url, token=token, org=org)
 query_api = client.query_api()
 write_api = client.write_api()
 
-locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+#locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+locations = ["malabe"]
 
 # Function to fetch the latest 7 points from InfluxDB
 def fetch_latest_data(location):
@@ -47,7 +48,7 @@ def fetch_latest_data(location):
                     "humidity": record["humidity"],
                     "rain": record["rain"],
                     "temperature": record["temperature"],
-                    "time": record["_time"]
+                    "time": record["_time"].date()
                 })
 
         points.sort(key=lambda x: x["time"], reverse=True)
@@ -56,7 +57,6 @@ def fetch_latest_data(location):
         # If no points found, return empty DataFrame and None
         if not points:
             return pd.DataFrame(), None
-        
 
         processed_points = []
         for point in points:
@@ -66,11 +66,53 @@ def fetch_latest_data(location):
                 "temperature": point["temperature"]
             })
         
-        # Convert the points to a pandas DataFrame
-        latest_data = pd.DataFrame(processed_points)
+        pred_query = f'''
+            from(bucket: "{bucket}")
+                |> range(start: time(v: "{points[0]['time']}"), stop: 14d)  
+                |> filter(fn: (r) => r._measurement == "weather_data_pred")
+                |> filter(fn: (r) => r.location == "{location}")
+                |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+        '''
+
+        # Execute the query
+        pred_result = query_api.query(org=org, query=pred_query)
+
+        # Extract the points into a list of dictionaries
+        pred_points = []
+
+        for table in pred_result:
+            for record in table.records:
+                pred_points.append({
+                    "humidity": record["humidity"],
+                    "rain": record["rain"],
+                    "temperature": record["temperature"],
+                    "time": record["_time"].date()
+                })
+
+        pred_points.sort(key=lambda x: x["time"], reverse=True)
+
+        pred_processed_points = []
+        for point in pred_points:
+            pred_processed_points.append({
+                "humidity": point["humidity"],
+                "rain": point["rain"],
+                "temperature": point["temperature"]
+            })
+
+        combined_points = pred_processed_points + processed_points
+
+        combined_points = combined_points[:7]
         
-        # Extract the time of the latest point
-        latest_time = points[0]["time"] if not len(points) == 0 else None
+        # Convert the points to a pandas DataFrame
+        latest_data = pd.DataFrame(combined_points)
+
+        if len(pred_points) > 0:
+            latest_time = pred_points[0]["time"]
+        elif len(points) > 0:
+            latest_time = points[0]["time"]
+        else:
+            latest_time = None
+        
         
         return latest_data, latest_time
 
@@ -84,7 +126,7 @@ def write_predicted_data(prediction, latest_time, location):
     
     # Add 1 minute to the latest time
     if latest_time:
-        new_time = (latest_time + pd.Timedelta(minutes=1)).isoformat()
+        new_time = (latest_time + pd.Timedelta(days=1)).isoformat()
     else:
         new_time = datetime.utcnow().isoformat()  # Default to current UTC time if no latest_time provided
 
@@ -107,26 +149,26 @@ def write_predicted_data(prediction, latest_time, location):
 
 
 # Function to process data
-def process_infer():
-    while True:
-        for location in locations:
-            try:
-                # Fetch the latest 7 points
-                latest_data, latest_time = fetch_latest_data(location)
+def process_infer(location):
+    while True:  
+        try:
+            # Fetch the latest 7 points
+            latest_data, latest_time = fetch_latest_data(location)
+            
+            # only 7 days into future
+            if len(latest_data) == 7 and latest_time != datetime.utcnow().date() + timedelta(days=7):
+                # Predict the next point using the infer_model function
+                prediction = infer_multi_output(latest_data)
                 
-                if len(latest_data) == 7:
-                    # Predict the next point using the infer_model function
-                    prediction = infer_multi_output(latest_data)
-                    
-                    # Write the predicted data to InfluxDB
-                    write_predicted_data(prediction, latest_time, location)
-                    print(f"Prediction written successfully.")
-                else:
-                    print(f"Not enough data to make a prediction.")
-            except Exception as e:
-                print(f"Error processing: {e}")
+                # Write the predicted data to InfluxDB
+                write_predicted_data(prediction, latest_time, location)
+                print(f"Prediction written successfully.")
+            else:
+                print(f"Not enough data to make a prediction or forecast ended")
+        except Exception as e:
+            print(f"Error processing: {e}")
 
-        time.sleep(20)
+        #time.sleep(20)
 
 
 # Wrapper to catch and log exceptions in threads
@@ -142,11 +184,12 @@ def thread_wrapper(func, *args, **kwargs):
 try:
     print("realtime predictions for weather... Press Ctrl+C to stop.")
     
-    with ThreadPoolExecutor(max_workers=1) as executor:
+    with ThreadPoolExecutor(max_workers=len(locations)) as executor:
             # Store futures in a list
             futures = []
 
-            futures.append(executor.submit(thread_wrapper, process_infer))
+            for location in locations:
+                futures.append(executor.submit(thread_wrapper, process_infer, location))
                 
             # Wait for all futures to complete
             for future in futures:

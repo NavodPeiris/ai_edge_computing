@@ -8,7 +8,8 @@ import websockets
 import random
 from concurrent.futures import ThreadPoolExecutor
 
-locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+#locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+locations = ["malabe"]
 
 def send_video_sync(location):
     asyncio.run(send_video(location))

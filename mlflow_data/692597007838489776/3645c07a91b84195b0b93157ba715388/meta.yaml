@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/692597007838489776/3645c07a91b84195b0b93157ba715388/artifacts
+end_time: 1747740568974
+entry_point_name: ''
+experiment_id: '692597007838489776'
+lifecycle_stage: active
+run_id: 3645c07a91b84195b0b93157ba715388
+run_name: suave-chimp-40
+run_uuid: 3645c07a91b84195b0b93157ba715388
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747740532257
+status: 3
+tags: []
+user_id: ASUS

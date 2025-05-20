@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/299964540032896922
+creation_time: 1747739895156
+experiment_id: '299964540032896922'
+last_update_time: 1747739895156
+lifecycle_stage: active
+name: donut-base-finetuned-docvqa

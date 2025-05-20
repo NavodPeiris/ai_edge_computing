@@ -1,7 +1,7 @@
 aliases: {}
-creation_timestamp: 1746014271591
+creation_timestamp: 1747740632817
 deployment_job_id: null
 deployment_job_state: null
 description: ''
-last_updated_timestamp: 1746014271719
+last_updated_timestamp: 1747740632964
 name: detr-resnet-50-panoptic

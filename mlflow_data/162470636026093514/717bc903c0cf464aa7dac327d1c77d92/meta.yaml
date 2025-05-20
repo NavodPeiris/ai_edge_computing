@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/162470636026093514/717bc903c0cf464aa7dac327d1c77d92/artifacts
+end_time: 1747740498409
+entry_point_name: ''
+experiment_id: '162470636026093514'
+lifecycle_stage: active
+run_id: 717bc903c0cf464aa7dac327d1c77d92
+run_name: bustling-conch-530
+run_uuid: 717bc903c0cf464aa7dac327d1c77d92
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1747740423787
+status: 3
+tags: []
+user_id: ASUS

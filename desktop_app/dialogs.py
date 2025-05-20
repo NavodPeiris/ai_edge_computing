@@ -7,6 +7,10 @@ import crowd_crawler
 import weather_crawler
 import traffic_crawler
 
+import future_crowd_crawler
+import future_weather_crawler
+import future_traffic_crawler
+
 import event_crawler
 import holidays_crawler
 import pandas as pd
@@ -562,22 +566,182 @@ def create_supervised_model_pred_dialog(model, model_path):
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
         # Create a text input field
         label = st.text_input("Prediction Column Name:")
+
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date Column Name:")
+
+            enable_crowd_count = st.toggle("Add predicted crowd count data", key="enable_crowd_count")
+            if enable_crowd_count:
+                cc_df = future_crowd_crawler.fetch_latest_data()
+
+                cc_locs = cc_df["location"].unique().tolist()
+                cc_selected_loc = st.multiselect("Pick locations", cc_locs, key="cc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                cc_df = cc_df[cc_df["location"].isin(cc_selected_loc)]
+                cc_df = cc_df.groupby("date").agg({
+                    "count": "sum"
+                }).reset_index()
+
+                cc_df = cc_df.rename(columns={"date": date_col_name, "count": "crowd_count"})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])   # Convert to datetime
+
+
+            enable_traffic_count = st.toggle("Add predicted traffic count data", key="enable_traffic_count")
+            if enable_traffic_count:
+                tc_df = future_traffic_crawler.fetch_latest_data()
+
+                tc_locs = tc_df["location"].unique().tolist()
+                tc_selected_loc = st.multiselect("Pick locations", tc_locs, key="tc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                tc_df = tc_df[tc_df["location"].isin(tc_selected_loc)]
+                tc_df = tc_df.groupby("date").agg({
+                    "vehicles_coming_in": "sum",
+                    "vehicles_going_out": "sum"
+                }).reset_index()
+
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])   # Convert to datetime
+
+            
+            enable_weather_data = st.toggle("Add predicted weather data", key="enable_weather_data")
+            if enable_weather_data:
+                w_df = future_weather_crawler.fetch_latest_data()
+
+                w_locs = w_df["location"].unique().tolist()
+                w_selected_loc = st.multiselect("Pick locations", w_locs, key="w_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                w_df = w_df[w_df["location"].isin(w_selected_loc)]
+                w_df = w_df.groupby("date").agg({
+                    'humidity': 'mean',
+                    'rain': 'mean',
+                    'temperature': 'mean'
+                }).reset_index()
+
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])   # Convert to datetime
+
+            
+            enable_events_data = st.toggle("Add events data", key="enable_events_data")
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+
+                e_locs = e_df["location"].unique().tolist()
+                e_selected_loc = st.multiselect("Pick locations", e_locs, key="e_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                e_df = e_df[e_df["location"].isin(e_selected_loc)]
+                e_df = e_df.groupby("date").agg({
+                    "estimated_visitors": "sum",
+                    "location": "count"
+                }).rename(columns={"location": "event_count"}).reset_index()
+
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])   # Convert to datetime
+
+                print(e_df)
+
+            
+            enable_holidays_data = st.toggle("Add holidays data", key="enable_holidays_data")
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])   # Convert to datetime
+
+        
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                print("label:", "N/A")
+                print("task:", model["task"])
+                print("save_path:", model_path)
+                if df is not None:
+                    
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])   # Convert to datetime
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            print(df)
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                            
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
         if st.button("Submit"):
-            if file is not None:
-                # Check the file type and read it appropriately
-                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                    df = pd.read_excel(file)  # Read Excel file
-                else:
-                    df = pd.read_csv(file)  # Read CSV file
-                df = df.head(10000)
-                try:
-                    # Show status updates
-                    with st.spinner("Inference in progress..."):
-                        results = inf(df, [label], model_path, model["task"], edge_server_url)
-                        st.write("Prediction Results:")
-                        st.dataframe(results)
-                except Exception as e:
-                    st.error(f"Error: {e}")
+            # Check the file type and read it appropriately
+            if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
+                df = pd.read_excel(file)  # Read Excel file
+            else:
+                df = pd.read_csv(file)  # Read CSV file
+            df = df.head(10000)
+            try:
+                # Show status updates
+                with st.spinner("Inference in progress..."):
+                    results = inf(df, [label], model_path, model["task"], edge_server_url)
+                    st.write("Prediction Results:")
+                    st.dataframe(results)
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
     return supervised_model_pred_dialog
 
 
@@ -588,32 +752,186 @@ def create_unsupervised_model_pred_dialog(model, model_path):
         # File uploader for Home page
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
         label = ""
+
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date Column Name:")
+
+            enable_crowd_count = st.toggle("Add predicted crowd count data", key="enable_crowd_count")
+            if enable_crowd_count:
+                cc_df = future_crowd_crawler.fetch_latest_data()
+
+                cc_locs = cc_df["location"].unique().tolist()
+                cc_selected_loc = st.multiselect("Pick locations", cc_locs, key="cc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                cc_df = cc_df[cc_df["location"].isin(cc_selected_loc)]
+                cc_df = cc_df.groupby("date").agg({
+                    "count": "sum"
+                }).reset_index()
+
+                cc_df = cc_df.rename(columns={"date": date_col_name, "count": "crowd_count"})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])   # Convert to datetime
+
+
+            enable_traffic_count = st.toggle("Add predicted traffic count data", key="enable_traffic_count")
+            if enable_traffic_count:
+                tc_df = future_traffic_crawler.fetch_latest_data()
+
+                tc_locs = tc_df["location"].unique().tolist()
+                tc_selected_loc = st.multiselect("Pick locations", tc_locs, key="tc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                tc_df = tc_df[tc_df["location"].isin(tc_selected_loc)]
+                tc_df = tc_df.groupby("date").agg({
+                    "vehicles_coming_in": "sum",
+                    "vehicles_going_out": "sum"
+                }).reset_index()
+
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])   # Convert to datetime
+
+            
+            enable_weather_data = st.toggle("Add predicted weather data", key="enable_weather_data")
+            if enable_weather_data:
+                w_df = future_weather_crawler.fetch_latest_data()
+
+                w_locs = w_df["location"].unique().tolist()
+                w_selected_loc = st.multiselect("Pick locations", w_locs, key="w_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                w_df = w_df[w_df["location"].isin(w_selected_loc)]
+                w_df = w_df.groupby("date").agg({
+                    'humidity': 'mean',
+                    'rain': 'mean',
+                    'temperature': 'mean'
+                }).reset_index()
+
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])   # Convert to datetime
+
+            
+            enable_events_data = st.toggle("Add events data", key="enable_events_data")
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+
+                e_locs = e_df["location"].unique().tolist()
+                e_selected_loc = st.multiselect("Pick locations", e_locs, key="e_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                e_df = e_df[e_df["location"].isin(e_selected_loc)]
+                e_df = e_df.groupby("date").agg({
+                    "estimated_visitors": "sum",
+                    "location": "count"
+                }).rename(columns={"location": "event_count"}).reset_index()
+
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])   # Convert to datetime
+
+                print(e_df)
+
+            
+            enable_holidays_data = st.toggle("Add holidays data", key="enable_holidays_data")
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])   # Convert to datetime
+
+        
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                print("label:", "N/A")
+                print("task:", model["task"])
+                print("save_path:", model_path)
+                if df is not None:
+                    
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])   # Convert to datetime
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            print(df)
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                            
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
         if st.button("Submit"):
-            if file is not None:
-                # Check the file type and read it appropriately
-                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                    df = pd.read_excel(file)  # Read Excel file
-                else:
-                    df = pd.read_csv(file)  # Read CSV file
-                df = df.head(10000)
-                try:
-                    # Show status updates
-                    with st.spinner("Inference in progress..."):
-                        results = inf(df, [label], model_path, model["task"], edge_server_url)
-                        st.write("Prediction Results:")
-                        # Display in Streamlit
-                        st.title("UMAP Visualization of Encoded Features")
-                        # Create a Matplotlib figure
-                        fig, ax = plt.subplots(figsize=(8, 6))
-                        scatter = ax.scatter(results["umap_1"], results["umap_2"], c=np.arange(len(results)), cmap="viridis", alpha=0.7)
-                        ax.set_xlabel("UMAP 1")
-                        ax.set_ylabel("UMAP 2")
-                        ax.set_title("UMAP Projection of Latent Space")
-                        plt.colorbar(scatter, ax=ax)
-                        # Show plot in Streamlit
-                        st.pyplot(fig)
-                except Exception as e:
-                    st.error(f"Error: {e}")
+            try:
+                # Show status updates
+                with st.spinner("Inference in progress..."):
+                    results = inf(df, [label], model_path, model["task"], edge_server_url)
+                    st.write("Prediction Results:")
+                    # Display in Streamlit
+                    st.title("UMAP Visualization of Encoded Features")
+                    # Create a Matplotlib figure
+                    fig, ax = plt.subplots(figsize=(8, 6))
+                    scatter = ax.scatter(results["umap_1"], results["umap_2"], c=np.arange(len(results)), cmap="viridis", alpha=0.7)
+                    ax.set_xlabel("UMAP 1")
+                    ax.set_ylabel("UMAP 2")
+                    ax.set_title("UMAP Projection of Latent Space")
+                    plt.colorbar(scatter, ax=ax)
+                    # Show plot in Streamlit
+                    st.pyplot(fig)
+            except Exception as e:
+                st.error(f"Error: {e}")
+
     return unsupervised_model_pred_dialog
 
 
@@ -624,21 +942,175 @@ def create_anomaly_model_pred_dialog(model, model_path):
         # File uploader for Home page
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
         label = "Anomaly"
+
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date Column Name:")
+
+            enable_crowd_count = st.toggle("Add predicted crowd count data", key="enable_crowd_count")
+            if enable_crowd_count:
+                cc_df = future_crowd_crawler.fetch_latest_data()
+
+                cc_locs = cc_df["location"].unique().tolist()
+                cc_selected_loc = st.multiselect("Pick locations", cc_locs, key="cc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                cc_df = cc_df[cc_df["location"].isin(cc_selected_loc)]
+                cc_df = cc_df.groupby("date").agg({
+                    "count": "sum"
+                }).reset_index()
+
+                cc_df = cc_df.rename(columns={"date": date_col_name, "count": "crowd_count"})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])   # Convert to datetime
+
+
+            enable_traffic_count = st.toggle("Add predicted traffic count data", key="enable_traffic_count")
+            if enable_traffic_count:
+                tc_df = future_traffic_crawler.fetch_latest_data()
+
+                tc_locs = tc_df["location"].unique().tolist()
+                tc_selected_loc = st.multiselect("Pick locations", tc_locs, key="tc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                tc_df = tc_df[tc_df["location"].isin(tc_selected_loc)]
+                tc_df = tc_df.groupby("date").agg({
+                    "vehicles_coming_in": "sum",
+                    "vehicles_going_out": "sum"
+                }).reset_index()
+
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])   # Convert to datetime
+
+            
+            enable_weather_data = st.toggle("Add predicted weather data", key="enable_weather_data")
+            if enable_weather_data:
+                w_df = future_weather_crawler.fetch_latest_data()
+
+                w_locs = w_df["location"].unique().tolist()
+                w_selected_loc = st.multiselect("Pick locations", w_locs, key="w_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                w_df = w_df[w_df["location"].isin(w_selected_loc)]
+                w_df = w_df.groupby("date").agg({
+                    'humidity': 'mean',
+                    'rain': 'mean',
+                    'temperature': 'mean'
+                }).reset_index()
+
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])   # Convert to datetime
+
+            
+            enable_events_data = st.toggle("Add events data", key="enable_events_data")
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+
+                e_locs = e_df["location"].unique().tolist()
+                e_selected_loc = st.multiselect("Pick locations", e_locs, key="e_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                e_df = e_df[e_df["location"].isin(e_selected_loc)]
+                e_df = e_df.groupby("date").agg({
+                    "estimated_visitors": "sum",
+                    "location": "count"
+                }).rename(columns={"location": "event_count"}).reset_index()
+
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])   # Convert to datetime
+
+                print(e_df)
+
+            
+            enable_holidays_data = st.toggle("Add holidays data", key="enable_holidays_data")
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])   # Convert to datetime
+
+        
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                print("label:", "N/A")
+                print("task:", model["task"])
+                print("save_path:", model_path)
+                if df is not None:
+                    
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])   # Convert to datetime
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            print(df)
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                            
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
         if st.button("Submit"):
-            if file is not None:
-                # Check the file type and read it appropriately
-                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                    df = pd.read_excel(file)  # Read Excel file
-                else:
-                    df = pd.read_csv(file)  # Read CSV file
-                df = df.head(10000)
-                try:
-                    # Show status updates
-                    with st.spinner("Inference in progress..."):
-                        results = inf(df, [label], model_path, model["task"], edge_server_url)
-                        st.dataframe(results)
-                except Exception as e:
-                    st.error(f"Error: {e}")
+            try:
+                # Show status updates
+                with st.spinner("Inference in progress..."):
+                    results = inf(df, [label], model_path, model["task"], edge_server_url)
+                    st.dataframe(results)
+            except Exception as e:
+                st.error(f"Error: {e}")
+
     return anomaly_model_pred_dialog
 
 
@@ -650,24 +1122,177 @@ def create_forecasting_model_pred_dialog(model, model_path):
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
         labels = st.text_input("Forecast column names (comma seperated):")
         
-
         labels = labels.split(",") if labels else []
 
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date Column Name:")
+
+            enable_crowd_count = st.toggle("Add predicted crowd count data", key="enable_crowd_count")
+            if enable_crowd_count:
+                cc_df = future_crowd_crawler.fetch_latest_data()
+
+                cc_locs = cc_df["location"].unique().tolist()
+                cc_selected_loc = st.multiselect("Pick locations", cc_locs, key="cc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                cc_df = cc_df[cc_df["location"].isin(cc_selected_loc)]
+                cc_df = cc_df.groupby("date").agg({
+                    "count": "sum"
+                }).reset_index()
+
+                cc_df = cc_df.rename(columns={"date": date_col_name, "count": "crowd_count"})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])   # Convert to datetime
+
+
+            enable_traffic_count = st.toggle("Add predicted traffic count data", key="enable_traffic_count")
+            if enable_traffic_count:
+                tc_df = future_traffic_crawler.fetch_latest_data()
+
+                tc_locs = tc_df["location"].unique().tolist()
+                tc_selected_loc = st.multiselect("Pick locations", tc_locs, key="tc_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                tc_df = tc_df[tc_df["location"].isin(tc_selected_loc)]
+                tc_df = tc_df.groupby("date").agg({
+                    "vehicles_coming_in": "sum",
+                    "vehicles_going_out": "sum"
+                }).reset_index()
+
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])   # Convert to datetime
+
+            
+            enable_weather_data = st.toggle("Add predicted weather data", key="enable_weather_data")
+            if enable_weather_data:
+                w_df = future_weather_crawler.fetch_latest_data()
+
+                w_locs = w_df["location"].unique().tolist()
+                w_selected_loc = st.multiselect("Pick locations", w_locs, key="w_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                w_df = w_df[w_df["location"].isin(w_selected_loc)]
+                w_df = w_df.groupby("date").agg({
+                    'humidity': 'mean',
+                    'rain': 'mean',
+                    'temperature': 'mean'
+                }).reset_index()
+
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])   # Convert to datetime
+
+            
+            enable_events_data = st.toggle("Add events data", key="enable_events_data")
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+
+                e_locs = e_df["location"].unique().tolist()
+                e_selected_loc = st.multiselect("Pick locations", e_locs, key="e_selected_loc")
+
+                # Filter the DataFrame based on selected locations
+                e_df = e_df[e_df["location"].isin(e_selected_loc)]
+                e_df = e_df.groupby("date").agg({
+                    "estimated_visitors": "sum",
+                    "location": "count"
+                }).rename(columns={"location": "event_count"}).reset_index()
+
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])   # Convert to datetime
+
+                print(e_df)
+
+            
+            enable_holidays_data = st.toggle("Add holidays data", key="enable_holidays_data")
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])   # Convert to datetime
+
+        
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                print("label:", "N/A")
+                print("task:", model["task"])
+                print("save_path:", model_path)
+                if df is not None:
+                    
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])   # Convert to datetime
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            print(df)
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                            
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
+
         if st.button("Submit"):
-            if file is not None:
-                # Check the file type and read it appropriately
-                if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                    df = pd.read_excel(file)  # Read Excel file
-                else:
-                    df = pd.read_csv(file)  # Read CSV file
-                df = df.head(10000)
-                try:
-                    # Show status updates
-                    with st.spinner("Inference in progress..."):
-                        results = inf(df, labels, model_path, model["task"], edge_server_url)
-                        st.dataframe(results)
-                except Exception as e:
-                    st.error(f"Error: {e}")
+            try:
+                # Show status updates
+                with st.spinner("Inference in progress..."):
+                    results = inf(df, labels, model_path, model["task"], edge_server_url)
+                    st.dataframe(results)
+            except Exception as e:
+                st.error(f"Error: {e}")
+
     return forecasting_model_pred_dialog
 
 

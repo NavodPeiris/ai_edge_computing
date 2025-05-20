@@ -2,7 +2,7 @@ import time
 import csv
 from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
-from datetime import datetime, time as dt_time
+from datetime import datetime, time as dt_time, timedelta
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 import random
@@ -17,10 +17,20 @@ bucket = "weather_data"  # Bucket name
 
 # Initialize InfluxDB client
 client = InfluxDBClient(url=url, token=token, org=org)
-write_api = client.write_api()
+write_api = client.write_api(write_options=SYNCHRONOUS)
 query_api = client.query_api()
 
-locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+#locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
+locations = ["malabe"]
+
+# getting t-14 days
+end_date = datetime.utcnow().date()
+start_date = end_date - timedelta(days=14)
+
+# Generate list of dates from start_date to end_date (inclusive)
+date_list = [(start_date + timedelta(days=i)).isoformat() for i in range(15)]
+
+print(date_list)
 
 # Function to generate edge_server data for influxDB
 def generate_edge_server_data(row, location):
@@ -31,7 +41,7 @@ def generate_edge_server_data(row, location):
         .field("rain", row["rain"])  # Module temperature
         .field("temperature", row["temperature"])  # Irradiation
         .tag("location", location)
-        .time(datetime.utcnow())  # Current timestamp in UTC
+        .time(row["datetime_utc"])  # Current timestamp in UTC
     )
 
 
@@ -42,6 +52,9 @@ def edge_server_stream():
     df.columns = df.columns.str.strip()  # Remove spaces in column names
     df.index = pd.to_datetime(df['datetime_utc'])  # Set datetime as index
 
+    df = df.head(len(date_list))
+    df['datetime_utc'] = date_list
+
     try:
         for index, row in df.iterrows():
             try:
@@ -50,11 +63,11 @@ def edge_server_stream():
                     write_api = client.write_api()
                     write_api.write(bucket=bucket, org=org, record=point)  # Write the point to InfluxDB
                     print(f"Data written: {point}")
-                time.sleep(60)  # Wait for 60 seconds before processing the next row
             except Exception as e:
                 print(f"Error while writing data: {e}")
                 traceback.print_exc()  # Print the traceback for debugging
                 return  # Exit the loop and stop the thread
+        time.sleep(60) # wait until data is written 
     except Exception as e:
         print(f"Error in stream: {e}")
         traceback.print_exc()  # Print the traceback for debugging

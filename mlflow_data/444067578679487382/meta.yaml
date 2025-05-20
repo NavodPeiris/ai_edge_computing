@@ -1,0 +1,6 @@
+artifact_location: mlflow-artifacts:/444067578679487382
+creation_time: 1747740600675
+experiment_id: '444067578679487382'
+last_update_time: 1747740600675
+lifecycle_stage: active
+name: detr-resnet-50-panoptic

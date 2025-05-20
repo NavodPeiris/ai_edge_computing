@@ -71,17 +71,6 @@ try:
     delete_api.delete(
         start="1900-01-01T00:00:00Z",
         stop="2100-01-01T00:00:00Z",
-        predicate=f'_measurement="violence"',
-        bucket="common_camera_data",
-        org=org,
-    )
-
-
-    # Delete data using the delete API
-    delete_api = client.delete_api()
-    delete_api.delete(
-        start="1900-01-01T00:00:00Z",
-        stop="2100-01-01T00:00:00Z",
         predicate=f'_measurement="people_count"',
         bucket="common_camera_data",
         org=org,
@@ -94,6 +83,27 @@ try:
         start="1900-01-01T00:00:00Z",
         stop="2100-01-01T00:00:00Z",
         predicate=f'_measurement="vehicles_count"',
+        bucket="traffic_camera_data",
+        org=org,
+    )
+
+
+    # Delete data using the delete API
+    delete_api = client.delete_api()
+    delete_api.delete(
+        start="1900-01-01T00:00:00Z",
+        stop="2100-01-01T00:00:00Z",
+        predicate=f'_measurement="pred_people_count"',
+        bucket="common_camera_data",
+        org=org,
+    )
+
+    # Delete data using the delete API
+    delete_api = client.delete_api()
+    delete_api.delete(
+        start="1900-01-01T00:00:00Z",
+        stop="2100-01-01T00:00:00Z",
+        predicate=f'_measurement="pred_vehicles_count"',
         bucket="traffic_camera_data",
         org=org,
     )
