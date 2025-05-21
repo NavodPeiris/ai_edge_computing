@@ -15,5 +15,3 @@ start /min cmd /k "cd edge_server/weather_pred && python realtime_pred.py"
 start /min cmd /k "cd edge_server/traffic_pred && python traffic_pred.py"
 start /min cmd /k "cd edge_server/crowd_pred && python crowd_pred.py"
 start /min cmd /k "cd desktop_app && streamlit run app.py"
-timeout /t 10 /nobreak >nul
-start http://localhost:8501
