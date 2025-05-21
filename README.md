@@ -28,89 +28,89 @@ url:http://localhost:5001/
 
 ### Run The Simulation Manually
 
-#### start influxdb, grafana, MLflow, MySQL services
+#### 1. start influxdb, grafana, MLflow, MySQL services
 ```
 docker-compose up -d
 ```
 
-#### ingest models to MLflow
+#### 2. ingest models to MLflow
 
 run temp python files in mlflow folder
 
-#### start central server
+#### 3. start central server
 
 ```
 cd central_server
 uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-#### ingest events
+#### 4. ingest events
 
 ```
 cd central_server/event_ingester
 python events_ingest.py
 ```
 
-#### start edge server
+#### 5. start edge server
 
 ```
 cd edge_server
 uvicorn api:app --host 0.0.0.0 --port 8001 --reload
 ```
 
-#### start common_cameras
+#### 6. start common_cameras
 
 ```
 cd sensors/common_cameras
 python camera.py
 ```
 
-#### start power plants
+#### 7. start power plants
 
 ```
 cd sensors/power_plants
 python plants.py
 ```
 
-#### start traffic cameras
+#### 8. start traffic cameras
 
 ```
 cd sensors/traffic_cameras
 python camera.py
 ```
 
-#### start weather data stream
+#### 9. start weather data stream
 
 ```
 cd sensors/weather_sensors
 python weather_stream.py
 ```
 
-#### start realtime solar power prediction
+#### 10. start realtime solar power prediction
 ```
 cd edge_server/power_gen_pred
 python realtime_pred.py
 ```
 
-#### start realtime weather prediction
+#### 11. start realtime weather prediction
 ```
 cd edge_server/weather_pred
 python realtime_pred.py
 ```
 
-#### start realtime traffic prediction
+#### 12. start realtime traffic prediction
 ```
 cd edge_server/traffic_pred
 python traffic_pred.py
 ```
 
-#### start realtime crowd prediction
+#### 13. start realtime crowd prediction
 ```
 cd edge_server/crowd_pred
 python crowd_pred.py
 ```
 
-#### run local web app:
+#### 14. run local web app:
 
 ```
 cd desktop_app
