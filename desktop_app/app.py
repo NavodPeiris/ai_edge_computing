@@ -1,4 +1,13 @@
 import streamlit as st
+
+# Set page configuration
+st.set_page_config(
+    page_title="Edge Runner",
+    initial_sidebar_state="expanded",
+    page_icon="bizsuite_logo_no_background.ico",
+    layout="wide",  # Use wide layout
+)
+
 import pandas as pd
 import os
 import json
@@ -9,14 +18,6 @@ import shutil
 from mlflow.models import Model
 from utils import edge_server_url, grafana_url, mlflow_tracking_uri, client
 from dialogs import create_supervised_dialog, create_supervised_model_pred_dialog, create_unsupervised_dialog, create_unsupervised_model_pred_dialog, create_forecasting_dialog, create_forecasting_model_pred_dialog, create_anomaly_model_pred_dialog, create_registry_model_pred_dialog
-
-# Set page configuration
-st.set_page_config(
-    page_title="Edge Runner",
-    initial_sidebar_state="expanded",
-    page_icon="bizsuite_logo_no_background.ico",
-    layout="wide",  # Use wide layout
-)
 
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.warning("You are not logged in.")
