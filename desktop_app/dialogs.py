@@ -19,6 +19,8 @@ import mlflow
 from mlflow.tracking import MlflowClient
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, mean_squared_error, mean_absolute_error, r2_score
 
 from utils import edge_server_url, mlflow_tracking_uri, client, train_fn, inf
 
@@ -727,20 +729,46 @@ def create_supervised_model_pred_dialog(model, model_path):
             st.button("Merge", key="merge-disabled", disabled=True)
 
         if st.button("Submit"):
-            # Check the file type and read it appropriately
-            if file.name.endswith('.xlsx') or file.name.endswith('.xls'):
-                df = pd.read_excel(file)  # Read Excel file
-            else:
-                df = pd.read_csv(file)  # Read CSV file
-            df = df.head(10000)
             try:
+                # Reset file pointer to beginning
+                file.seek(0)
+                
+                # Check if file is empty
+                if file.tell() == file.seek(0, 2):  # seek to end and check position
+                    st.error("The uploaded file is empty.")
+                    return
+                
+                # Reset file pointer again
+                file.seek(0)
+                
+                try:
+                    # Try to read with pandas
+                    df = pd.read_csv(file, encoding='utf-8')  # Explicitly specify encoding
+                except UnicodeDecodeError:
+                    # If UTF-8 fails, try with a different encoding
+                    file.seek(0)
+                    df = pd.read_csv(file, encoding='latin1')
+                except pd.errors.EmptyDataError:
+                    st.error("The file appears to be empty or corrupted. Please check the file content.")
+                    return
+                except Exception as e:
+                    st.error(f"Error reading the file: {str(e)}\nPlease make sure it's a valid CSV file.")
+                    return
+                
+                # Verify that we have data
+                if df.empty:
+                    st.error("The uploaded file contains no data.")
+                    return
+                
+                df = df.head(10000)
+                
                 # Show status updates
                 with st.spinner("Inference in progress..."):
                     results = inf(df, [label], model_path, model["task"], edge_server_url)
                     st.write("Prediction Results:")
                     st.dataframe(results)
             except Exception as e:
-                st.error(f"Error: {e}")
+                st.error(f"Error: {str(e)}")
                 
     return supervised_model_pred_dialog
 
@@ -914,6 +942,38 @@ def create_unsupervised_model_pred_dialog(model, model_path):
 
         if st.button("Submit"):
             try:
+                # Reset file pointer to beginning
+                file.seek(0)
+                
+                # Check if file is empty
+                if file.tell() == file.seek(0, 2):  # seek to end and check position
+                    st.error("The uploaded file is empty.")
+                    return
+                
+                # Reset file pointer again
+                file.seek(0)
+                
+                try:
+                    # Try to read with pandas
+                    df = pd.read_csv(file, encoding='utf-8')  # Explicitly specify encoding
+                except UnicodeDecodeError:
+                    # If UTF-8 fails, try with a different encoding
+                    file.seek(0)
+                    df = pd.read_csv(file, encoding='latin1')
+                except pd.errors.EmptyDataError:
+                    st.error("The file appears to be empty or corrupted. Please check the file content.")
+                    return
+                except Exception as e:
+                    st.error(f"Error reading the file: {str(e)}\nPlease make sure it's a valid CSV file.")
+                    return
+                
+                # Verify that we have data
+                if df.empty:
+                    st.error("The uploaded file contains no data.")
+                    return
+                
+                df = df.head(10000)
+                
                 # Show status updates
                 with st.spinner("Inference in progress..."):
                     results = inf(df, [label], model_path, model["task"], edge_server_url)
@@ -1104,12 +1164,44 @@ def create_anomaly_model_pred_dialog(model, model_path):
 
         if st.button("Submit"):
             try:
+                # Reset file pointer to beginning
+                file.seek(0)
+                
+                # Check if file is empty
+                if file.tell() == file.seek(0, 2):  # seek to end and check position
+                    st.error("The uploaded file is empty.")
+                    return
+                
+                # Reset file pointer again
+                file.seek(0)
+                
+                try:
+                    # Try to read with pandas
+                    df = pd.read_csv(file, encoding='utf-8')  # Explicitly specify encoding
+                except UnicodeDecodeError:
+                    # If UTF-8 fails, try with a different encoding
+                    file.seek(0)
+                    df = pd.read_csv(file, encoding='latin1')
+                except pd.errors.EmptyDataError:
+                    st.error("The file appears to be empty or corrupted. Please check the file content.")
+                    return
+                except Exception as e:
+                    st.error(f"Error reading the file: {str(e)}\nPlease make sure it's a valid CSV file.")
+                    return
+                
+                # Verify that we have data
+                if df.empty:
+                    st.error("The uploaded file contains no data.")
+                    return
+                
+                df = df.head(10000)
+                
                 # Show status updates
                 with st.spinner("Inference in progress..."):
                     results = inf(df, [label], model_path, model["task"], edge_server_url)
                     st.dataframe(results)
             except Exception as e:
-                st.error(f"Error: {e}")
+                st.error(f"Error: {str(e)}")
 
     return anomaly_model_pred_dialog
 
@@ -1286,6 +1378,38 @@ def create_forecasting_model_pred_dialog(model, model_path):
 
         if st.button("Submit"):
             try:
+                # Reset file pointer to beginning
+                file.seek(0)
+                
+                # Check if file is empty
+                if file.tell() == file.seek(0, 2):  # seek to end and check position
+                    st.error("The uploaded file is empty.")
+                    return
+                
+                # Reset file pointer again
+                file.seek(0)
+                
+                try:
+                    # Try to read with pandas
+                    df = pd.read_csv(file, encoding='utf-8')  # Explicitly specify encoding
+                except UnicodeDecodeError:
+                    # If UTF-8 fails, try with a different encoding
+                    file.seek(0)
+                    df = pd.read_csv(file, encoding='latin1')
+                except pd.errors.EmptyDataError:
+                    st.error("The file appears to be empty or corrupted. Please check the file content.")
+                    return
+                except Exception as e:
+                    st.error(f"Error reading the file: {str(e)}\nPlease make sure it's a valid CSV file.")
+                    return
+                
+                # Verify that we have data
+                if df.empty:
+                    st.error("The uploaded file contains no data.")
+                    return
+                
+                df = df.head(10000)
+                
                 # Show status updates
                 with st.spinner("Inference in progress..."):
                     results = inf(df, labels, model_path, model["task"], edge_server_url)
@@ -1417,3 +1541,488 @@ def create_registry_model_pred_dialog(model_name, model_path, task_type):
                 except Exception as e:
                     st.error(f"Error: {e}")
     return registry_model_pred_dialog
+
+def create_supervised_model_test_dialog(model, model_path):
+    @st.dialog(f"Test {model['name']}")
+    def supervised_model_test_dialog():
+        # File uploader for test data
+        file = st.file_uploader("Upload test data (Excel or CSV file)", type=["xlsx", "xls", "csv"])
+        label = st.text_input("Target column name:")
+        
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date column name:")
+            enable_crowd_data = st.toggle("Include crowd data", key="enable_crowd_data")
+            enable_traffic_data = st.toggle("Include traffic data", key="enable_traffic_data")
+            enable_weather_data = st.toggle("Include weather data", key="enable_weather_data")
+            enable_events_data = st.toggle("Include events data", key="enable_events_data")
+            enable_holidays_data = st.toggle("Include holidays data", key="enable_holidays_data")
+
+            if enable_crowd_data:
+                cc_df = crowd_crawler.fetch_latest_data()
+                cc_df = cc_df.rename(columns={"date": date_col_name})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])   # Convert to datetime
+
+            if enable_traffic_data:
+                tc_df = traffic_crawler.fetch_latest_data()
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])   # Convert to datetime
+
+            if enable_weather_data:
+                w_df = weather_crawler.fetch_latest_data()
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])   # Convert to datetime
+
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])   # Convert to datetime
+
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])   # Convert to datetime
+
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                if df is not None:
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])   # Convert to datetime
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
+        if st.button("Submit"):
+            try:
+                # Store actual values
+                actual_values = df[label].values
+                # Drop the target column for prediction
+                test_df = df.drop(columns=[label])
+                
+                # Get predictions
+                with st.spinner("Testing in progress..."):
+                    results = inf(test_df, [label], model_path, model["task"], edge_server_url)
+                    predictions = results[label].values
+                    
+                    # Calculate accuracy
+                    if model["task"] == "classification":
+                        accuracy = np.mean(predictions == actual_values) * 100
+                        st.write(f"Test Accuracy: {accuracy:.2f}%")
+                        
+                        # Create confusion matrix
+                        cm = confusion_matrix(actual_values, predictions)
+                        fig, ax = plt.subplots()
+                        sns.heatmap(cm, annot=True, fmt='d', ax=ax)
+                        plt.title('Confusion Matrix')
+                        plt.ylabel('True Label')
+                        plt.xlabel('Predicted Label')
+                        st.pyplot(fig)
+                        
+                    else:  # For regression tasks
+                        mse = mean_squared_error(actual_values, predictions)
+                        rmse = np.sqrt(mse)
+                        mae = mean_absolute_error(actual_values, predictions)
+                        r2 = r2_score(actual_values, predictions)
+                        
+                        st.write(f"Mean Squared Error: {mse:.4f}")
+                        st.write(f"Root Mean Squared Error: {rmse:.4f}")
+                        st.write(f"Mean Absolute Error: {mae:.4f}")
+                        st.write(f"R² Score: {r2:.4f}")
+                        
+                        # Plot actual vs predicted values
+                        fig, ax = plt.subplots()
+                        plt.scatter(actual_values, predictions)
+                        plt.plot([actual_values.min(), actual_values.max()], [actual_values.min(), actual_values.max()], 'r--', lw=2)
+                        plt.title('Actual vs Predicted Values')
+                        plt.xlabel('Actual Values')
+                        plt.ylabel('Predicted Values')
+                        st.pyplot(fig)
+                    
+                    # Show detailed results
+                    results_df = pd.DataFrame({
+                        'Actual': actual_values,
+                        'Predicted': predictions
+                    })
+                    st.write("Detailed Results:")
+                    st.dataframe(results_df)
+                    
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
+    return supervised_model_test_dialog
+
+def create_forecasting_model_test_dialog(model, model_path):
+    @st.dialog(f"Test {model['name']}")
+    def forecasting_model_test_dialog():
+        # File uploader for test data
+        file = st.file_uploader("Upload test data (Excel or CSV file)", type=["xlsx", "xls", "csv"])
+        labels = st.text_input("Target column names (comma separated):")
+        
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date column name:")
+            enable_crowd_data = st.toggle("Include crowd data", key="enable_crowd_data")
+            enable_traffic_data = st.toggle("Include traffic data", key="enable_traffic_data")
+            enable_weather_data = st.toggle("Include weather data", key="enable_weather_data")
+            enable_events_data = st.toggle("Include events data", key="enable_events_data")
+            enable_holidays_data = st.toggle("Include holidays data", key="enable_holidays_data")
+
+            if enable_crowd_data:
+                cc_df = crowd_crawler.fetch_latest_data()
+                cc_df = cc_df.rename(columns={"date": date_col_name})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])
+
+            if enable_traffic_data:
+                tc_df = traffic_crawler.fetch_latest_data()
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])
+
+            if enable_weather_data:
+                w_df = weather_crawler.fetch_latest_data()
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])
+
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])
+
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])
+
+        labels = labels.split(",") if labels else []
+        
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                if df is not None:
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
+        if st.button("Submit"):
+            try:
+                # Store actual values for each target
+                actual_values = {label: df[label].values for label in labels}
+                # Drop the target columns for prediction
+                test_df = df.drop(columns=labels)
+                
+                # Get predictions
+                with st.spinner("Testing in progress..."):
+                    results = inf(test_df, labels, model_path, model["task"], edge_server_url)
+                    
+                    # For each target variable
+                    for label in labels:
+                        predictions = results[label].values
+                        st.subheader(f"Results for {label}")
+                        
+                        # Calculate metrics
+                        mse = mean_squared_error(actual_values[label], predictions)
+                        rmse = np.sqrt(mse)
+                        mae = mean_absolute_error(actual_values[label], predictions)
+                        r2 = r2_score(actual_values[label], predictions)
+                        
+                        st.write(f"Mean Squared Error: {mse:.4f}")
+                        st.write(f"Root Mean Squared Error: {rmse:.4f}")
+                        st.write(f"Mean Absolute Error: {mae:.4f}")
+                        st.write(f"R² Score: {r2:.4f}")
+                        
+                        # Plot actual vs predicted values
+                        fig, ax = plt.subplots()
+                        plt.scatter(actual_values[label], predictions)
+                        plt.plot([actual_values[label].min(), actual_values[label].max()], [actual_values[label].min(), actual_values[label].max()], 'r--', lw=2)
+                        plt.title(f'Actual vs Predicted Values - {label}')
+                        plt.xlabel('Actual Values')
+                        plt.ylabel('Predicted Values')
+                        st.pyplot(fig)
+                        
+                        # Show detailed results
+                        results_df = pd.DataFrame({
+                            'Actual': actual_values[label],
+                            'Predicted': predictions
+                        })
+                        st.write("Detailed Results:")
+                        st.dataframe(results_df)
+                    
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
+    return forecasting_model_test_dialog
+
+def create_unsupervised_model_test_dialog(model, model_path):
+    @st.dialog(f"Test {model['name']}")
+    def unsupervised_model_test_dialog():
+        st.warning("Testing for unsupervised models is not available as they don't have ground truth labels.")
+        st.info("Please use the 'Use Model' button to visualize the clustering results.")
+                
+    return unsupervised_model_test_dialog
+
+def create_anomaly_model_test_dialog(model, model_path):
+    @st.dialog(f"Test {model['name']}")
+    def anomaly_model_test_dialog():
+        # File uploader for test data
+        file = st.file_uploader("Upload test data (Excel or CSV file)", type=["xlsx", "xls", "csv"])
+        label = st.text_input("Anomaly label column name (1 for anomaly, 0 for normal):")
+        
+        has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
+
+        date_col_name = None
+        cc_df = None
+        tc_df = None
+        w_df = None
+        e_df = None
+        h_df = None
+
+        if has_datecol:
+            date_col_name = st.text_input("Date column name:")
+            enable_crowd_data = st.toggle("Include crowd data", key="enable_crowd_data")
+            enable_traffic_data = st.toggle("Include traffic data", key="enable_traffic_data")
+            enable_weather_data = st.toggle("Include weather data", key="enable_weather_data")
+            enable_events_data = st.toggle("Include events data", key="enable_events_data")
+            enable_holidays_data = st.toggle("Include holidays data", key="enable_holidays_data")
+
+            if enable_crowd_data:
+                cc_df = crowd_crawler.fetch_latest_data()
+                cc_df = cc_df.rename(columns={"date": date_col_name})
+                cc_df[date_col_name] = pd.to_datetime(cc_df[date_col_name])
+
+            if enable_traffic_data:
+                tc_df = traffic_crawler.fetch_latest_data()
+                tc_df = tc_df.rename(columns={"date": date_col_name})
+                tc_df[date_col_name] = pd.to_datetime(tc_df[date_col_name])
+
+            if enable_weather_data:
+                w_df = weather_crawler.fetch_latest_data()
+                w_df = w_df.rename(columns={"date": date_col_name})
+                w_df[date_col_name] = pd.to_datetime(w_df[date_col_name])
+
+            if enable_events_data:
+                e_df = event_crawler.fetch_latest_data()
+                e_df = e_df.rename(columns={"date": date_col_name})
+                e_df[date_col_name] = pd.to_datetime(e_df[date_col_name])
+
+            if enable_holidays_data:
+                h_df = holidays_crawler.fetch_latest_data()
+                h_df["holiday_name"] = True
+                h_df = h_df.rename(columns={"holiday_name": "is_holiday"})
+                h_df = h_df.rename(columns={"date": date_col_name})
+                h_df[date_col_name] = pd.to_datetime(h_df[date_col_name])
+
+        df = None
+        if file is not None:
+            df = pd.read_excel(file) if file.name.endswith(('.xlsx', '.xls')) else pd.read_csv(file)
+            df = df.head(10000)
+
+        if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
+            if st.button("Merge", key="merge-enabled"):
+                if df is not None:
+                    if date_col_name is not None:
+                        df[date_col_name] = pd.to_datetime(df[date_col_name])
+
+                        if cc_df is not None:
+                            df = pd.merge(df, cc_df, on=date_col_name, how="left")
+                            for col in ['crowd_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if tc_df is not None:
+                            df = pd.merge(df, tc_df, on=date_col_name, how="left")
+                            for col in ['vehicles_coming_in', 'vehicles_going_out']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if w_df is not None:
+                            df = pd.merge(df, w_df, on=date_col_name, how="left")
+                            for col in ['humidity', 'rain', 'temperature']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+                            
+                        if e_df is not None:
+                            df = pd.merge(df, e_df, on=date_col_name, how="left")
+                            for col in ['estimated_visitors', 'event_count']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(df[col].mean()).round().astype(int)
+                                else:
+                                    df[col] = 0
+
+                        if h_df is not None:
+                            df = pd.merge(df, h_df, on=date_col_name, how="left")
+                            for col in ['is_holiday']:
+                                if col in df.columns and not df[col].isna().all():
+                                    df[col] = df[col].replace([float('inf'), float('-inf')], pd.NA).fillna(False)
+                                else:
+                                    df[col] = False
+                    
+                    st.write("Data after merging:")
+                    st.dataframe(df)
+        else:
+            st.button("Merge", key="merge-disabled", disabled=True)
+
+        if st.button("Submit"):
+            try:
+                # Store actual anomaly labels
+                actual_values = df[label].values
+                # Drop the label column for prediction
+                test_df = df.drop(columns=[label])
+                
+                # Get predictions
+                with st.spinner("Testing in progress..."):
+                    results = inf(test_df, [label], model_path, model["task"], edge_server_url)
+                    predictions = results[label].values
+                    
+                    # Calculate metrics
+                    accuracy = accuracy_score(actual_values, predictions) * 100
+                    precision = precision_score(actual_values, predictions) * 100
+                    recall = recall_score(actual_values, predictions) * 100
+                    f1 = f1_score(actual_values, predictions) * 100
+                    
+                    st.write(f"Accuracy: {accuracy:.2f}%")
+                    st.write(f"Precision: {precision:.2f}%")
+                    st.write(f"Recall: {recall:.2f}%")
+                    st.write(f"F1 Score: {f1:.2f}%")
+                    
+                    # Create confusion matrix
+                    cm = confusion_matrix(actual_values, predictions)
+                    fig, ax = plt.subplots()
+                    sns.heatmap(cm, annot=True, fmt='d', ax=ax)
+                    plt.title('Confusion Matrix')
+                    plt.ylabel('True Label')
+                    plt.xlabel('Predicted Label')
+                    st.pyplot(fig)
+                    
+                    # Show detailed results
+                    results_df = pd.DataFrame({
+                        'Actual': actual_values,
+                        'Predicted': predictions
+                    })
+                    st.write("Detailed Results:")
+                    st.dataframe(results_df)
+                    
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
+    return anomaly_model_test_dialog
+    return anomaly_model_test_dialog

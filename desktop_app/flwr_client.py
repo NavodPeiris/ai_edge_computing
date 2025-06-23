@@ -19,32 +19,36 @@ class FederatedClient(fl.client.NumPyClient):
         self.task_type = task_type
         self.labels = labels
 
-        self.model = None
+        # Load and preprocess data first
         self.X_train, self.X_test, self.y_train, self.y_test, self.input_dim, self.output_dim = self.load_and_preprocess_data()
         print("input: ", self.input_dim)
         print("output: ", self.output_dim)
+        
+        # Initialize model in constructor
+        self.model = self.build_model()
+        # Initial training to ensure model has valid weights
+        self.model.fit(self.X_train, self.y_train, epochs=1, batch_size=32, verbose=1)
 
     def load_and_preprocess_data(self):
     
         # Separate features and target
         if self.labels != []:
             X = self.df.drop(self.labels, axis=1)
+            y = self.df[self.labels]
         else:
             X = self.df
-
-        if self.labels != []:
-            y = self.df[self.labels]
+            y = None
 
         # Fill missing values in X
         for col in X.columns:
             if X[col].isnull().sum() > 0:
-                if X[col].dtype == 'object':  # Categorical feature2
+                if X[col].dtype == 'object':  # Categorical feature
                     X[col].fillna(X[col].mode()[0], inplace=True)
                 else:  # Numerical feature
                     X[col].fillna(X[col].median(), inplace=True)
 
-        if self.labels != []:
-            # Fill missing values in y (if needed)
+        if y is not None:
+            # Fill missing values in y
             for col in y.columns:
                 if y[col].isnull().sum() > 0:
                     if y[col].dtype == 'object':
@@ -62,66 +66,53 @@ class FederatedClient(fl.client.NumPyClient):
         # One-hot encode categorical features in X
         X_encoded = pd.get_dummies(X, drop_first=True)
 
-        if self.labels != []:
+        # Handle target variable encoding
+        if y is not None:
             y_encoded = pd.DataFrame()
-
             for col in y.columns:
                 if y[col].dtype == 'object':
                     unique_vals = y[col].nunique()
                     if unique_vals == 2:
-                        # Binary classification for this column
+                        # Binary classification
                         y_encoded[col] = LabelEncoder().fit_transform(y[col])
                     else:
-                        # Multi-class classification → one-hot encoding
+                        # Multi-class classification
                         dummies = pd.get_dummies(y[col], prefix=col, drop_first=True)
                         y_encoded = pd.concat([y_encoded, dummies], axis=1)
                 else:
-                    # Regression (numerical)
+                    # Regression/forecasting
                     y_encoded[col] = y[col]
 
-        # Scale only original numerical features in X
-        num_cols = X.select_dtypes(include=['number']).columns.difference(datetime_cols)
+        # Scale numerical features
+        num_cols = X_encoded.select_dtypes(include=['number']).columns.difference(datetime_cols)
         scaler = StandardScaler()
         X_encoded[num_cols] = scaler.fit_transform(X_encoded[num_cols])
 
-        base_path = "/".join(self.save_path.split("/")[:-1])
-
-        os.makedirs(base_path, exist_ok=True)
         # Save the scaler
+        base_path = "/".join(self.save_path.split("/")[:-1])
+        os.makedirs(base_path, exist_ok=True)
         with open(f"{base_path}/scaler.pkl", "wb") as f:
             pickle.dump(scaler, f)
 
-        #X_encoded.to_csv("train.csv")
-
         # Convert to numpy arrays
         X_res = np.array(X_encoded, dtype=np.float32)
-
-        y_res = np.array([])
-
-        if self.labels != []:
-            y_res = np.array(y_encoded, dtype=np.float32)
-            print("y_res:")
-            print(y_res)
-
-        # Split the data
-        if self.labels != []:
-            X_train, X_test, y_train, y_test = train_test_split(X_res, y_res, test_size=0.2, random_state=42)
-        else:
-            X_train = X_res
-            X_test = X_res
-            y_train = X_res
-            y_test = X_res
-
-        input_shape = X_res.shape[1]
         
-        if self.task_type == 'classification' and y_res.size > 0:
-            # For binary classification or multi-class classification
-            output_shape = y_res.shape[1] if y_res.ndim > 1 else 1  # Handle one-hot encoding for multi-class
-        elif self.task_type == 'unsupervised classification' or self.task_type == 'anomaly detection':
-            output_shape = input_shape
-        elif self.task_type == 'forecasting' or self.task_type == 'regression':
-            # For regression, output shape is the number of target values (typically 1 for single target)
-            output_shape = len(self.labels)
+        # Handle different task types
+        if self.task_type in ['unsupervised classification', 'anomaly detection']:
+            # For unsupervised learning, use input as both features and target
+            X_train, X_test = train_test_split(X_res, test_size=0.2, random_state=42)
+            y_train, y_test = X_train.copy(), X_test.copy()
+            input_shape = X_res.shape[1]
+            output_shape = input_shape  # For autoencoder, output shape matches input
+        else:
+            # For supervised learning tasks
+            y_res = np.array(y_encoded, dtype=np.float32)
+            X_train, X_test, y_train, y_test = train_test_split(X_res, y_res, test_size=0.2, random_state=42)
+            input_shape = X_res.shape[1]
+            if self.task_type == 'classification':
+                output_shape = y_res.shape[1] if y_res.ndim > 1 else 1
+            else:  # regression or forecasting
+                output_shape = len(self.labels)
 
         return X_train, X_test, y_train, y_test, input_shape, output_shape
 
@@ -199,38 +190,50 @@ class FederatedClient(fl.client.NumPyClient):
 
         return model
 
+    def get_parameters(self, config):
+        """Return current model parameters."""
+        return self.model.get_weights()
 
     def fit(self, parameters, config):
-        # Load parameters into the model
-        if self.model is None:
-            self.model = self.build_model()
-            self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
-
+        """Train model on local data."""
         if parameters:
             self.model.set_weights(parameters)
-
-        # Train the Keras model
-        self.model.fit(self.X_train, self.y_train, epochs=5, validation_split=0.2)
-
+        
+        # Train the model
+        history = self.model.fit(
+            self.X_train, 
+            self.y_train, 
+            epochs=5, 
+            batch_size=32,
+            validation_split=0.2,
+            verbose=1
+        )
+        
+        # Save model after training
         self.model.save(self.save_path)
-
-        # Return updated weights
-        return self.model.get_weights(), len(self.X_train), {}
-
+        
+        # Return updated model parameters and metrics
+        return self.model.get_weights(), len(self.X_train), {
+            "loss": history.history["loss"][-1],
+            "val_loss": history.history["val_loss"][-1] if "val_loss" in history.history else None
+        }
 
     def evaluate(self, parameters, config):
-        # Ensure the Keras model is initialized
-        if self.model is None:
-            if self.model is None:
-                self.model = self.build_model()
-                self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
-
+        """Evaluate model on local data."""
         if parameters:
             self.model.set_weights(parameters)
-
-        # Evaluate the Keras model
-        loss, accuracy = self.model.evaluate(self.X_test, self.y_test, verbose=0)
-        return loss, len(self.X_test), {"accuracy": accuracy}
+        
+        # Evaluate the model
+        results = self.model.evaluate(self.X_test, self.y_test, verbose=0)
+        
+        if isinstance(results, list):
+            loss = results[0]
+            metrics = {m: v for m, v in zip(self.model.metrics_names[1:], results[1:])}
+        else:
+            loss = results
+            metrics = {}
+            
+        return loss, len(self.X_test), metrics
 
 def create_client(df, save_path, task_type, labels):
     # Initialize the Flower client

@@ -17,7 +17,7 @@ from mlflow.tracking import MlflowClient
 import shutil
 from mlflow.models import Model
 from utils import edge_server_url, grafana_url, mlflow_tracking_uri, client
-from dialogs import create_supervised_dialog, create_supervised_model_pred_dialog, create_unsupervised_dialog, create_unsupervised_model_pred_dialog, create_forecasting_dialog, create_forecasting_model_pred_dialog, create_anomaly_model_pred_dialog, create_registry_model_pred_dialog
+from dialogs import create_supervised_dialog, create_supervised_model_pred_dialog, create_unsupervised_dialog, create_unsupervised_model_pred_dialog, create_forecasting_dialog, create_forecasting_model_pred_dialog, create_anomaly_model_pred_dialog, create_registry_model_pred_dialog, create_unsupervised_model_test_dialog, create_anomaly_model_test_dialog, create_supervised_model_test_dialog, create_forecasting_model_test_dialog
 
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.warning("You are not logged in.")
@@ -107,7 +107,7 @@ elif page == "Models":
                 st.markdown(f"### {model['name']}")  # Model title
                 st.markdown(f"{model['description']}")  # Model description
 
-                btn_cols = st.columns(2)
+                btn_cols = st.columns(3)  # Changed to 3 columns for buttons
 
                 with btn_cols[0]:
                     if st.button("Train Model", key=f"model-train-{i}"):
@@ -116,14 +116,27 @@ elif page == "Models":
                         elif model["task"] == "forecasting":
                             create_forecasting_dialog(model, model_path)()
                         elif model["task"] == "classification":
-                            create_supervised_dialog(model, model_path)()  
-                        
+                            create_supervised_dialog(model, model_path)()
 
-                # Clickable button inside the card
+                # Test Model button
                 with btn_cols[1]:
                     if model_is_trained:
-                        if st.button("Use Model", key=f"model-use-{i}"):
+                        if st.button("Test Model", key=f"model-test-{i}"):
+                            if model["task"] == "unsupervised classification":
+                                create_unsupervised_model_test_dialog(model, model_path)()
+                            elif model["task"] == "anomaly detection":
+                                create_anomaly_model_test_dialog(model, model_path)()
+                            elif model["task"] == "classification":
+                                create_supervised_model_test_dialog(model, model_path)()
+                            elif model["task"] == "forecasting":
+                                create_forecasting_model_test_dialog(model, model_path)()
+                    else:
+                        st.button("Test Model", key=f"model-test-{i}", disabled=True)
 
+                # Use Model button
+                with btn_cols[2]:
+                    if model_is_trained:
+                        if st.button("Use Model", key=f"model-use-{i}"):
                             if model["task"] == "unsupervised classification":
                                 create_unsupervised_model_pred_dialog(model, model_path)()
                             elif model["task"] == "anomaly detection":
@@ -133,7 +146,7 @@ elif page == "Models":
                             elif model["task"] == "forecasting":
                                 create_forecasting_model_pred_dialog(model, model_path)()
                     else:
-                        st.button("Use Model", key=f"model-{i}", disabled=True)
+                        st.button("Use Model", key=f"model-use-{i}", disabled=True)
 
 
 # added new page called registry
