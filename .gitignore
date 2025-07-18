@@ -1,19 +1,4 @@
 __pycache__
-mysql/mysql.sock
-
-# InfluxDB
-influxdb/engine/
-influxdb/wal/
-influxdb/*.bolt
-influxdb/*.sqlite
-influxdb/data/
-
-# Grafana
-grafana/grafana.db
-grafana/plugins/
-grafana/csv/
-grafana/pdf/
-grafana/png/
 
 # Python
 *.py[cod]
