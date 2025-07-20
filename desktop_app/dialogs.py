@@ -1,3 +1,4 @@
+import requests
 import streamlit as st
 import base64
 from PIL import Image, ImageDraw, ImageFont
@@ -22,14 +23,36 @@ import numpy as np
 
 from utils import edge_server_url, mlflow_tracking_uri, client, train_fn, inf
 
+def showPortMsg(msg:str):
+    st.info(msg)
+
+
 # used for supervised classification tasks
 def create_supervised_dialog(model, model_path):
     """Factory function to create a supervised training dialog for a specific model."""
     @st.dialog(f"Upload Data for {model['name']}")
     def supervised_model_train_dialog():
+        initializer = st.toggle("Is Federated Training Initializer?", key="is_initializer")
+        port = ""
+
+        if initializer:
+            num_clients = str(int(st.number_input("Number of training clients", min_value=1, step=1, key="num_clients")))
+        else:
+            port = str(int(st.number_input("Port of federated learning server", min_value=1, step=1, key="port")))
+
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-        label = st.text_input("Label Name:")
-        rounds = str(int(st.number_input("Num of Rounds to train:", min_value=1, step=1)))
+
+        if initializer:
+            label = st.text_input("Label Name:")
+            rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
+            epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
+
+            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+
+            hidden_layers = []
+
+            for i in range(num_layers):
+                hidden_layers.append(str(int(st.selectbox(f"Num of Neurons in Layer {i+1}", (512, 256, 128, 64, 32), key=f"neurons-{i}"))))
 
         has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
 
@@ -193,9 +216,40 @@ def create_supervised_dialog(model, model_path):
 
         if st.button("Submit"):
             with st.spinner("Training in progress..."):
-                train_fn(df, model_path, model["task"], [label], rounds, edge_server_url)
+                # call endpoint to fetch train params
+                if port != "" and not initializer:
+                    res_params_fetched = requests.post(f"{edge_server_url}/fetch_train_params/", json={
+                        "port": port
+                    })
+
+                    if res_params_fetched.status_code == 200:
+                        res = res_params_fetched.json()
+                        task_type = str(res["task_type"])
+                        labels = str(res["labels"])
+                        rounds = str(res["rounds"])
+                        epochs = str(res["epochs"])
+                        model_json = str(res["model_json"])
+                        port = str(res["port"])
+                        hidden_layers = res["hidden_layers"]
+                        labels = res["labels"]
+                        metrics = res["metrics"]
+                        loss_fn = str(res["loss_fn"])
+                        
+                        # actual edge server url where federated server is running
+                        fed_edge_server_url = res["edge_server_url"]
+
+                        acc, loss = train_fn(st.session_state.user_id, df, model_path, task_type, labels, rounds, fed_edge_server_url, hidden_layers, epochs, initializer, port=port, model_json=model_json, metrics=metrics, loss_fn=loss_fn)
+                    else:
+                        print(f"couldn't fetch params: {res_params_fetched.status_code}")
+                        st.error(f"couldn't fetch params: {res_params_fetched.status_code}")
+                    
+                else:
+                    acc, loss = train_fn(st.session_state.user_id, df, model_path, model["task"], [label], rounds, edge_server_url, hidden_layers, epochs, initializer, num_clients, showPortMsg=showPortMsg)
+
                 st.write("Training Status: success")
-                st.rerun()
+                st.success(f"Evaluation Accuracy: {acc}%")
+                st.success(f"Evaluation Loss: {loss}%")
+                #st.rerun()
                     
     return supervised_model_train_dialog
 
@@ -205,9 +259,27 @@ def create_unsupervised_dialog(model, model_path):
     """Factory function to create an unsupervised training dialog for a specific model."""
     @st.dialog(f"Upload Data for {model['name']}")
     def unsupervised_model_train_dialog():
+        initializer = st.toggle("Is Federated Training Initializer?", key="is_initializer")
+        port = ""
+
+        if initializer:
+            num_clients = str(int(st.number_input("Number of training clients", min_value=1, step=1, key="num_clients")))
+        else:
+            port = str(int(st.number_input("Port of federated learning server", min_value=1, step=1, key="port")))
+
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-        labels = []
-        rounds = str(int(st.number_input("Num of Rounds to train:", min_value=1, step=1)))
+
+        if initializer:
+            labels = []
+            rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
+            epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
+
+            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+
+            hidden_layers = []
+
+            for i in range(num_layers):
+                hidden_layers.append(str(int(st.selectbox(f"Num of Neurons in Layer {i+1}", (512, 256, 128, 64, 32), key=f"neurons-{i}"))))
 
         has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
 
@@ -371,9 +443,40 @@ def create_unsupervised_dialog(model, model_path):
 
         if st.button("Submit"):
             with st.spinner("Training in progress..."):
-                train_fn(df, model_path, model["task"], labels, rounds, edge_server_url)
+                # call endpoint to fetch train params
+                if port != "" and not initializer:
+                    res_params_fetched = requests.post(f"{edge_server_url}/fetch_train_params/", json={
+                        "port": port
+                    })
+
+                    if res_params_fetched.status_code == 200:
+                        res = res_params_fetched.json()
+                        task_type = str(res["task_type"])
+                        labels = str(res["labels"])
+                        rounds = str(res["rounds"])
+                        epochs = str(res["epochs"])
+                        model_json = str(res["model_json"])
+                        port = str(res["port"])
+                        hidden_layers = res["hidden_layers"]
+                        labels = res["labels"]
+                        metrics = res["metrics"]
+                        loss_fn = str(res["loss_fn"])
+                        
+                        # actual edge server url where federated server is running
+                        fed_edge_server_url = res["edge_server_url"]
+
+                        acc, loss = train_fn(st.session_state.user_id, df, model_path, task_type, labels, rounds, fed_edge_server_url, hidden_layers, epochs, initializer, port=port, model_json=model_json, metrics=metrics, loss_fn=loss_fn)
+                    else:
+                        print(f"couldn't fetch params: {res_params_fetched.status_code}")
+                        st.error(f"couldn't fetch params: {res_params_fetched.status_code}")
+                    
+                else:
+                    acc, loss = train_fn(st.session_state.user_id, df, model_path, model["task"], labels, rounds, edge_server_url, hidden_layers, epochs, initializer, num_clients, showPortMsg=showPortMsg)
+
                 st.write("Training Status: success")
-                st.rerun()
+                st.success(f"Evaluation Accuracy: {acc}%")
+                st.success(f"Evaluation Loss: {loss}%")
+                #st.rerun()
 
     return unsupervised_model_train_dialog
 
@@ -383,9 +486,27 @@ def create_forecasting_dialog(model, model_path):
     """Factory function to create a supervised training dialog for a specific model."""
     @st.dialog(f"Upload Data for {model['name']}")
     def forecasting_model_train_dialog():
+        initializer = st.toggle("Is Federated Training Initializer?", key="is_initializer")
+        port = ""
+
+        if initializer:
+            num_clients = str(int(st.number_input("Number of training clients", min_value=1, step=1, key="num_clients")))
+        else:
+            port = str(int(st.number_input("Port of federated learning server", min_value=1, step=1, key="port")))
+
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-        labels = st.text_input("Forecast column names (comma seperated):")
-        rounds = str(int(st.number_input("Num of Rounds to train:", min_value=1, step=1)))
+
+        if initializer:
+            labels = st.text_input("Forecast column names (comma seperated):")
+            rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
+            epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
+
+            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+
+            hidden_layers = []
+
+            for i in range(num_layers):
+                hidden_layers.append(str(int(st.selectbox(f"Num of Neurons in Layer {i+1}", (512, 256, 128, 64, 32), key=f"neurons-{i}"))))
 
         has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
 
@@ -551,9 +672,41 @@ def create_forecasting_dialog(model, model_path):
 
         if st.button("Submit"):
             with st.spinner("Training in progress..."):
-                train_fn(df, model_path, model["task"], labels, rounds, edge_server_url)
+                # call endpoint to fetch train params
+                if port != "" and not initializer:
+                    res_params_fetched = requests.post(f"{edge_server_url}/fetch_train_params/", json={
+                        "port": port
+                    })
+
+                    if res_params_fetched.status_code == 200:
+                        res = res_params_fetched.json()
+                        task_type = str(res["task_type"])
+                        labels = str(res["labels"])
+                        rounds = str(res["rounds"])
+                        epochs = str(res["epochs"])
+                        model_json = str(res["model_json"])
+                        port = str(res["port"])
+                        hidden_layers = res["hidden_layers"]
+                        labels = res["labels"]
+                        metrics = res["metrics"]
+                        loss_fn = str(res["loss_fn"])
+                        
+                        # actual edge server url where federated server is running
+                        fed_edge_server_url = res["edge_server_url"]
+
+                        acc, loss = train_fn(st.session_state.user_id, df, model_path, task_type, labels, rounds, fed_edge_server_url, hidden_layers, epochs, initializer, port=port, model_json=model_json, metrics=metrics, loss_fn=loss_fn)
+                    else:
+                        print(f"couldn't fetch params: {res_params_fetched.status_code}")
+                        st.error(f"couldn't fetch params: {res_params_fetched.status_code}")
+                    
+                else:
+                    acc, loss = train_fn(st.session_state.user_id, df, model_path, model["task"], labels, rounds, edge_server_url, hidden_layers, epochs, initializer, num_clients, showPortMsg=showPortMsg)
+
+                
                 st.write("Training Status: success")
-                st.rerun()
+                st.success(f"Evaluation Accuracy: {acc}%")
+                st.success(f"Evaluation Loss: {loss}%")
+                #st.rerun()
                     
     return forecasting_model_train_dialog
 

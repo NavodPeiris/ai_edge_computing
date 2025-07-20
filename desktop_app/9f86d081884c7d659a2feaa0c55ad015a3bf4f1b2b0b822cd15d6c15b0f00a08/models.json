@@ -1,0 +1,10 @@
+{
+    "models": [
+        {
+            "name": "churn model",
+            "description": "model for churn prediction",
+            "model_folder": "churn_model",
+            "task": "classification"
+        }
+    ]
+}

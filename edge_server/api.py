@@ -14,7 +14,7 @@ import numpy as np
 import cv2
 from keras.applications import VGG16
 from keras.models import Model, Sequential
-from classes.flwr_server_req import FlwrRequestParams, FlwrStopParams, DeliverModel, DeliverScaler
+from classes.flwr_server_req import FlwrRequestParams, FlwrStopParams, DeliverModel, DeliverScaler, DeliverModelJson, CheckModelAvailable, DeleteModel, TrainParams, FetchTrainParams
 import subprocess
 import os
 import glob
@@ -332,8 +332,32 @@ def download_file(file_name: str):
     
     return FileResponse(file_path, media_type="application/octet-stream", filename=file_name)
 
+
+def find_and_terminate_process_on_port(port):
+    # Iterate through all running processes
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            # Get the connections of the process
+            for conn in proc.connections(kind='inet'):
+                # Check if the connection is using the specified port
+                if conn.laddr.port == port:
+                    print(f"Found process on port {port}: {proc.info}")
+                    # Terminate the process
+                    proc.terminate()
+                    print(f"Terminated process with PID: {proc.info['pid']}")
+                    return port
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            # Skip processes that no longer exist or that we don't have permission to access
+            pass
+    print(f"No process found on port {port}")
+    return port
+
+
 @app.post("/start_flwr_server/")
 async def start_process(params: FlwrRequestParams):
+
+    port = random.randrange(start=9000, stop=12000, step=1)
+    port = find_and_terminate_process_on_port(port)
     
     # Prepare the command to run the subprocess
     command = [
@@ -341,7 +365,9 @@ async def start_process(params: FlwrRequestParams):
         "flwr_server.py",  # Replace with your actual script path
         "--rounds", str(params.rounds),
         "--model_json", str(params.model_json),
-        "--save_path", str(params.save_path)
+        "--save_path", str(params.save_path),
+        "--num_clients", str(params.num_clients),
+        "--port", str(port)
     ]
     
     try:
@@ -350,10 +376,76 @@ async def start_process(params: FlwrRequestParams):
         print(f"Started subprocess with PID: {process.pid}")
 
         # Return the PID of the subprocess
-        return {"pid": process.pid}
+        return {"pid": process.pid, "port": port}
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error starting process: {str(e)}")
+    
+
+train_params = []
+    
+
+@app.post("/store_train_params/")
+async def store_train_params(params: TrainParams):
+    try:
+        train_params.append(
+            {
+                "pid": params.pid,
+                "port": params.port,
+                "task_type": params.task_type,
+                "epochs": params.epochs,
+                "rounds": params.rounds,
+                "edge_server_url": params.edge_server_url,
+                "model_json": params.model_json,
+                "hidden_layers": params.hidden_layers,
+                "labels": params.labels,
+                "metrics": params.metrics,
+                "loss_fn": params.loss_fn
+            }
+        )
+
+        return {"message": "params added successfully"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+    
+
+@app.post("/remove_train_params/")
+async def remove_train_params(params: TrainParams):
+    try:
+        train_params.remove(
+            {
+                "pid": params.pid,
+                "port": params.port,
+                "task_type": params.task_type,
+                "epochs": params.epochs,
+                "rounds": params.rounds,
+                "edge_server_url": params.edge_server_url,
+                "model_json": params.model_json,
+                "hidden_layers": params.hidden_layers,
+                "labels": params.labels,
+                "metrics": params.metrics,
+                "loss_fn": params.loss_fn
+            }
+        )
+
+        return {"message": "params removed successfully"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+    
+
+@app.post("/fetch_train_params/")
+async def fetch_train_params(params: FetchTrainParams):
+    try:
+        for obj in train_params:
+            if obj["port"] == params.port:
+                return obj
+            
+        raise HTTPException(status_code=404, detail=f"Arguments not found")
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
 
 @app.post("/stop_flwr_server/")
@@ -387,6 +479,58 @@ async def upload_scaler(save_path: str = Form(...), file: UploadFile = File(...)
     return {"message": "Scaler uploaded successfully", "filename": file.filename, "saved_path": save_path}
 
 
+@app.post("/upload_encoder/")
+async def upload_encoder(save_path: str = Form(...), file: UploadFile = File(...)):
+    # Ensure the uploaded file is a .pkl file
+    if not file.filename.endswith(".pkl"):
+        raise HTTPException(status_code=400, detail="Only .pkl files are allowed")
+    
+    base_path = "/".join(save_path.split("/")[:-1])
+    os.makedirs(base_path, exist_ok=True)
+    
+    # Save the uploaded file
+    with open(save_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    return {"message": "Encoder uploaded successfully", "filename": file.filename, "saved_path": save_path}
+
+
+@app.post("/check_model_availability/")
+async def check_model_availability(params: CheckModelAvailable):
+    if not os.path.exists(params.model_path):
+        raise HTTPException(status_code=404, detail="Models JSON file not found")
+    
+    return {"message": "model available"}
+
+@app.get("/deliver_models_json/{user_id}")
+async def deliver_model_json(user_id: str):
+    if not os.path.exists(f"models/{user_id}/models.json"):
+        raise HTTPException(status_code=404, detail="Models JSON file not found")
+    
+    return FileResponse(f"models/{user_id}/models.json", filename="models.json")
+
+@app.post("/upload_models_json/{user_id}")
+async def upload_model_json(user_id: str, params: DeliverModelJson):
+    json_content = {
+        "models": [model.model_dump() for model in params.models]
+    }
+    os.makedirs(f"models/{user_id}", exist_ok=True)
+    with open(f"models/{user_id}/models.json", "w") as f:
+        json.dump(json_content, f, indent=4)
+    
+    return {"message": "successfully uploaded the file"}
+
+@app.delete("/delete_model/")
+async def delete_model(params: DeleteModel):
+    try:
+        if os.path.exists(f"{params.model_path}"):
+            shutil.rmtree(f"{params.model_path}")
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=404, detail="something went wrong")
+    
+    return {"message": "successfully deleted the file"}
+
 @app.post("/deliver_model/")
 async def deliver_model(params: DeliverModel):
     if not os.path.exists(params.model_path):
@@ -395,8 +539,15 @@ async def deliver_model(params: DeliverModel):
     return FileResponse(params.model_path, filename=os.path.basename(params.model_path))
 
 @app.post("/deliver_scaler/")
-async def deliver_model(params: DeliverScaler):
+async def deliver_scaler(params: DeliverScaler):
     if not os.path.exists(params.scaler_path):
         raise HTTPException(status_code=404, detail="Scaler file not found")
     
     return FileResponse(params.scaler_path, filename=os.path.basename(params.scaler_path))
+
+@app.post("/deliver_encoder/")
+async def deliver_encoder(params: DeliverScaler):
+    if not os.path.exists(params.encoder_path):
+        raise HTTPException(status_code=404, detail="Scaler file not found")
+    
+    return FileResponse(params.encoder_path, filename=os.path.basename(params.encoder_path))

@@ -11,18 +11,39 @@ import time
 import argparse
 import pickle
 import os
+from sklearn.preprocessing import OneHotEncoder
+from tensorflow.keras.models import model_from_json
+import requests
 
 class FederatedClient(fl.client.NumPyClient):
-    def __init__(self, df, save_path, task_type, labels):
+    def __init__(self, df, save_path, task_type, labels, rounds, epochs, hidden_layers):
         self.df = df
         self.save_path = save_path
         self.task_type = task_type
         self.labels = labels
+        self.rounds = rounds
+        self.epochs = epochs
+        self.hidden_layers = hidden_layers
+        self.final_accuracy = None # store final evaluation accuracy
+        self.final_loss = None # store final evaluation loss
+        self.metrics = None
+        self.loss_fn = None
 
         self.model = None
         self.X_train, self.X_test, self.y_train, self.y_test, self.input_dim, self.output_dim = self.load_and_preprocess_data()
         print("input: ", self.input_dim)
         print("output: ", self.output_dim)
+
+    def init_model(self):
+        if self.model is None:
+            self.model = self.build_model()
+            self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
+
+    def init_model_with_json(self, model_json):
+        if self.model is None:
+            self.model = model_from_json(model_json)
+            self.model.compile(optimizer='adam', loss=self.loss_fn, metrics=self.metrics)
+            self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
 
     def load_and_preprocess_data(self):
     
@@ -59,8 +80,30 @@ class FederatedClient(fl.client.NumPyClient):
         for col in datetime_cols:
             X[col] = X[col].astype(np.int64) // 10**9
 
-        # One-hot encode categorical features in X
-        X_encoded = pd.get_dummies(X, drop_first=True)
+        base_path = "/".join(self.save_path.split("/")[:-1])
+
+        categorical_cols = X.select_dtypes(include=['object', 'category']).columns
+
+        encoder = OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False)
+        encoder.fit(X[categorical_cols])
+
+        # Save the encoder
+        with open(f"{base_path}/encoder.pkl", "wb") as f:
+            pickle.dump(encoder, f)
+
+        # 1. Get encoded feature names from OneHotEncoder
+        encoded_cat_cols = encoder.get_feature_names_out(categorical_cols)
+
+        # 2. Get numeric column names
+        num_cols = X.drop(columns=categorical_cols).columns
+
+        # 3. Combine data
+        X_cat = encoder.transform(X[categorical_cols])
+        X_num = X[num_cols].values  # keep column order
+        X_final = np.hstack((X_num, X_cat))
+
+        # 4. Convert to DataFrame with correct column names
+        X_final_df = pd.DataFrame(X_final, columns=list(num_cols) + list(encoded_cat_cols))
 
         if self.labels != []:
             y_encoded = pd.DataFrame()
@@ -82,19 +125,15 @@ class FederatedClient(fl.client.NumPyClient):
         # Scale only original numerical features in X
         num_cols = X.select_dtypes(include=['number']).columns.difference(datetime_cols)
         scaler = StandardScaler()
-        X_encoded[num_cols] = scaler.fit_transform(X_encoded[num_cols])
-
-        base_path = "/".join(self.save_path.split("/")[:-1])
+        X_final_df[num_cols] = scaler.fit_transform(X_final_df[num_cols])
 
         os.makedirs(base_path, exist_ok=True)
         # Save the scaler
         with open(f"{base_path}/scaler.pkl", "wb") as f:
             pickle.dump(scaler, f)
 
-        #X_encoded.to_csv("train.csv")
-
         # Convert to numpy arrays
-        X_res = np.array(X_encoded, dtype=np.float32)
+        X_res = np.array(X_final_df, dtype=np.float32)
 
         y_res = np.array([])
 
@@ -126,7 +165,7 @@ class FederatedClient(fl.client.NumPyClient):
         return X_train, X_test, y_train, y_test, input_shape, output_shape
 
     
-    def build_model(self, hidden_layers=[64, 32], activation='relu', dropout_rate=0.5):
+    def build_model(self, activation='relu', dropout_rate=0.5):
         """
         Builds a neural network dynamically, supporting feedforward (classification/regression) and autoencoder models.
 
@@ -145,23 +184,23 @@ class FederatedClient(fl.client.NumPyClient):
 
             # Encoder
             encoded = input_layer
-            for units in hidden_layers:
+            for units in self.hidden_layers:
                 encoded = layers.Dense(units, activation=activation)(encoded)
                 if dropout_rate > 0:
                     encoded = layers.Dropout(dropout_rate)(encoded)
 
             # Latent space representation
-            encoding_dim = hidden_layers[-1]  # Smallest layer is the encoded representation
+            encoding_dim = self.hidden_layers[-1]  # Smallest layer is the encoded representation
 
             # Decoder (mirroring the encoder)
             decoded = encoded
-            for units in reversed(hidden_layers[:-1]):
+            for units in reversed(self.hidden_layers[:-1]):
                 decoded = layers.Dense(units, activation=activation)(decoded)
                 if dropout_rate > 0:
                     decoded = layers.Dropout(dropout_rate)(decoded)
 
             decoded = layers.Dense(self.input_dim, activation='sigmoid')(decoded)  # Output layer for reconstruction
-            loss_fn = 'mse'
+            self.loss_fn = 'mse'
             # Define autoencoder model
             model = models.Model(input_layer, decoded)
 
@@ -170,47 +209,47 @@ class FederatedClient(fl.client.NumPyClient):
             model.add(layers.InputLayer(input_shape=(self.input_dim,)))
 
             # Add hidden layers dynamically
-            for units in hidden_layers:
+            for units in self.hidden_layers:
                 model.add(layers.Dense(units, activation=activation))
                 if dropout_rate > 0:
                     model.add(layers.Dropout(dropout_rate))  # Optional dropout for regularization
             
             if self.output_dim == 1:
                 model.add(layers.Dense(1, activation='sigmoid'))  # Binary classification
-                loss_fn = 'binary_crossentropy'
+                self.loss_fn = 'binary_crossentropy'
             else:
                 model.add(layers.Dense(self.output_dim, activation='softmax'))  # Multi-class classification
-                loss_fn = 'categorical_crossentropy'
+                self.loss_fn = 'categorical_crossentropy'
         else:  # regression task or forecasting
             model = models.Sequential()
             model.add(layers.InputLayer(input_shape=(self.input_dim,)))
 
             # Add hidden layers dynamically
-            for units in hidden_layers:
+            for units in self.hidden_layers:
                 model.add(layers.Dense(units, activation=activation))
                 if dropout_rate > 0:
                     model.add(layers.Dropout(dropout_rate))  # Optional dropout for regularization
 
             model.add(layers.Dense(self.output_dim, activation='linear'))  # No activation for regression
-            loss_fn = 'mse'  # Mean Squared Error for regression
+            self.loss_fn = 'mse'  # Mean Squared Error for regression
+
+        if self.task_type == 'classification':
+            self.metrics=['accuracy']
+        else:
+            self.metrics=['mse']
 
         # Compile the model
-        model.compile(optimizer='adam', loss=loss_fn, metrics=['accuracy'] if self.task_type == 'classification' else ['mse'])
+        model.compile(optimizer='adam', loss=self.loss_fn, metrics=self.metrics)
 
         return model
 
 
     def fit(self, parameters, config):
-        # Load parameters into the model
-        if self.model is None:
-            self.model = self.build_model()
-            self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
-
         if parameters:
             self.model.set_weights(parameters)
 
         # Train the Keras model
-        self.model.fit(self.X_train, self.y_train, epochs=5, validation_split=0.2)
+        self.model.fit(self.X_train, self.y_train, epochs=self.epochs, validation_split=0.2)
 
         self.model.save(self.save_path)
 
@@ -219,25 +258,24 @@ class FederatedClient(fl.client.NumPyClient):
 
 
     def evaluate(self, parameters, config):
-        # Ensure the Keras model is initialized
-        if self.model is None:
-            if self.model is None:
-                self.model = self.build_model()
-                self.model.fit(self.X_train, self.y_train, epochs=1, validation_split=0.2)  # Initial training to build the model
-
         if parameters:
             self.model.set_weights(parameters)
 
         # Evaluate the Keras model
         loss, accuracy = self.model.evaluate(self.X_test, self.y_test, verbose=0)
+
+        self.final_accuracy = accuracy
+        self.final_loss = loss
+
         return loss, len(self.X_test), {"accuracy": accuracy}
 
-def create_client(df, save_path, task_type, labels):
+
+def create_client(df, save_path:str, task_type:str, labels, rounds:int, epochs:int, hidden_layers):
     # Initialize the Flower client
-    client = FederatedClient(df=df, save_path=save_path, task_type=task_type, labels=labels)
+    client = FederatedClient(df=df, save_path=save_path, task_type=task_type, labels=labels, rounds=rounds, epochs=epochs, hidden_layers=hidden_layers)
     return client
 
-def sig_start_server(rounds: str, model_json: str, save_path: str, edge_server_url):
+def sig_start_server(rounds: str, model_json: str, save_path: str, edge_server_url, num_clients):
     # Define the URL of the FastAPI server
     url = f"{edge_server_url}/start_flwr_server/"
 
@@ -245,7 +283,8 @@ def sig_start_server(rounds: str, model_json: str, save_path: str, edge_server_u
     data = {
         "rounds": rounds,
         "model_json": model_json,
-        "save_path": save_path
+        "save_path": save_path,
+        "num_clients": num_clients
     }
 
     # Send the POST request
@@ -256,7 +295,7 @@ def sig_start_server(rounds: str, model_json: str, save_path: str, edge_server_u
         print("Request successful!")
         print(f"Response: {response.json()}")
         res = response.json()
-        return res["pid"]
+        return res["pid"], res["port"]
     else:
         print(f"Request failed with status code {response.status_code}")
         print(f"Error: {response.text}")
@@ -298,43 +337,149 @@ def upload_scaler(save_path, edge_server_url):
     print(response.json())
 
 
+def upload_encoder(save_path, edge_server_url):
+    base_path = "/".join(save_path.split("/")[:-1])
+    encoder_path = base_path + "/encoder.pkl"
+    url = f"{edge_server_url}/upload_encoder/"
+
+    with open(encoder_path, "rb") as f:
+        files = {"file": (encoder_path, f, "application/octet-stream")}
+        data = {"save_path": encoder_path}  # Pass the custom path
+
+        response = requests.post(url, files=files, data=data)
+
+    print(response.json())
+
+
 # Create an ArgumentParser object
 parser = argparse.ArgumentParser(description="flwr server script")
 
 # Add named arguments
-parser.add_argument("--file_path", type=str, required=True)
-parser.add_argument("--save_path", type=str, required=True)
-parser.add_argument("--task_type", type=str, required=True)
+parser.add_argument("--file_path", type=str, required=False)
+parser.add_argument("--save_path", type=str, required=False)
+parser.add_argument("--task_type", type=str, required=False)
 parser.add_argument('--labels', nargs='+', type=str, required=False, default=[])
-parser.add_argument("--rounds", type=str, required=True)
+parser.add_argument('--hidden_layers', nargs='+', type=str, required=False)
+parser.add_argument("--rounds", type=str, required=False)
+parser.add_argument("--epochs", type=str, required=False)
 parser.add_argument("--edge_server_url", type=str, required=True)
-
+parser.add_argument("--num_clients", type=str, required=False)
+parser.add_argument("--initializer", type=str, required=True)
+parser.add_argument("--port", type=str, required=False)
+parser.add_argument("--model_json", type=str, required=False)
+parser.add_argument('--metrics', nargs='+', type=str, required=False)
+parser.add_argument("--loss_fn", type=str, required=False)
 
 # Parse the arguments
 args = parser.parse_args()
 
+if args.initializer == "True":
+    args.initializer = True
+else:
+    args.initializer = False
+
+print("Initializer: ", args.initializer)
+
+hidden_layers = []
+
+# store integer neuron counts of layers
+for layer in args.hidden_layers:
+    hidden_layers.append(int(layer))
+
+    
 if __name__ == "__main__":
+
+    base_path = "/".join(args.save_path.split("/")[:-1])
+    upper_base_path = "/".join(args.save_path.split("/")[:-2])
+
+    if not os.path.exists(upper_base_path):
+        os.makedirs(upper_base_path, exist_ok=True)
+
+    if not os.path.exists(base_path):
+        os.makedirs(base_path, exist_ok=True)
     
     flwr_server_ip_and_port = args.edge_server_url.split("//")[-1]
 
     flwr_server_ip = flwr_server_ip_and_port.split(":")[0]
-    flwr_server_address = flwr_server_ip + ":8080"
 
     df = pd.read_excel(args.file_path)
 
-    client = create_client(df, args.save_path, args.task_type, args.labels)
-    upload_scaler(args.save_path, args.edge_server_url)
+    client = create_client(df, args.save_path, args.task_type, args.labels, int(args.rounds), int(args.epochs), hidden_layers)
 
-    model = client.build_model()
-    model_json = model.to_json()
+    if args.initializer:
+        upload_scaler(args.save_path, args.edge_server_url)
+        upload_encoder(args.save_path, args.edge_server_url)
 
-    pid = sig_start_server(args.rounds, model_json, args.save_path, args.edge_server_url)
-    if pid:
+        client.init_model()
+        model = client.model
+        model_json = model.to_json()
+
+        pid, port = sig_start_server(args.rounds, model_json, args.save_path, args.edge_server_url, args.num_clients)
+        flwr_server_address = flwr_server_ip + f":{port}"
+
+        print(f"Port Fed Server Running On: {port}")
+
+        if pid:
+            res_params_upload = requests.post(f"{args.edge_server_url}/store_train_params/", json={
+                "pid": str(pid),
+                "port": str(port),
+                "task_type": args.task_type,
+                "epochs": args.epochs,
+                "rounds": args.rounds,
+                "edge_server_url": args.edge_server_url,
+                "model_json": model_json,
+                "hidden_layers": hidden_layers,
+                "labels": args.labels,
+                "metrics": client.metrics,
+                "loss_fn": client.loss_fn
+            })
+
+            if res_params_upload.status_code == 200:
+                print("successfully uploaded params")
+            else:
+                print(f"couldn't upload params: {res_params_upload.status_code}")
+
+            time.sleep(30)
+
+            fl.client.start_numpy_client(server_address=flwr_server_address, client=client)
+
+            time.sleep(10)
+            sig_stop_server(pid, args.save_path, args.edge_server_url)
+
+            print(f"Final Evaluation Accuracy: {client.final_accuracy}")
+            print(f"Final Evaluation Loss: {client.final_loss}")
+
+            res_params_upload = requests.post(f"{args.edge_server_url}/remove_train_params/", json={
+                "pid": str(pid),
+                "port": str(port),
+                "task_type": args.task_type,
+                "epochs": args.epochs,
+                "rounds": args.rounds,
+                "edge_server_url": args.edge_server_url,
+                "model_json": model_json,
+                "hidden_layers": args.hidden_layers,
+                "labels": args.labels,
+                "metrics": client.metrics,
+                "loss_fn": client.loss_fn
+            })
+
+            if res_params_upload.status_code == 200:
+                print("successfully removed params")
+            else:
+                print(f"couldn't remove params: {res_params_upload.status_code}")
+
+    else:
+        flwr_server_address = flwr_server_ip + f":{args.port}"
+        client.metrics = args.metrics
+        client.loss_fn = args.loss_fn
+        client.init_model_with_json(args.model_json)
+
         time.sleep(30)
 
         fl.client.start_numpy_client(server_address=flwr_server_address, client=client)
 
         time.sleep(10)
-        sig_stop_server(pid, args.save_path, args.edge_server_url)
 
-    
+        print(f"Final Evaluation Accuracy: {client.final_accuracy}")
+        print(f"Final Evaluation Loss: {client.final_loss}")
+        

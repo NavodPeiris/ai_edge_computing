@@ -9,9 +9,9 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input
 import umap
+from sklearn.preprocessing import OneHotEncoder
 
-
-def load_and_preprocess_data(df, model_path, deliver_scaler_url):
+def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder_url):
     for col in df.columns:
         if df[col].isnull().sum() > 0:
             if df[col].dtype == 'object':  # Categorical feature2
@@ -26,33 +26,64 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url):
     for col in datetime_cols:
         df[col] = df[col].astype(np.int64) // 10**9
 
-    # One-hot encode categorical features in X
-    X_encoded = pd.get_dummies(df, drop_first=True)
+    base_path = "/".join(model_path.split("/")[:-1])
+
+    encoder_path = f"{base_path}/encoder.pkl"
+
+    # fetch encoder if not available locally
+    if not os.path.exists(encoder_path):
+        response = requests.post(deliver_encoder_url, json={"encoder_path": encoder_path})
+
+        if response.status_code == 200:
+            with open(encoder_path, "wb") as f:
+                f.write(response.content)
+            print(f"file saved as {encoder_path}")
+        else:
+            print(f"Error: {response.json()['detail']}")
+
+    with open(encoder_path, "rb") as f:
+        encoder = pickle.load(f)
+
+    categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+   
+    # 1. Get encoded feature names from OneHotEncoder
+    encoded_cat_cols = encoder.get_feature_names_out(categorical_cols)
+
+    # 2. Get numeric column names
+    num_cols = df.drop(columns=categorical_cols).columns
+
+    # 3. Combine data
+    X_cat = encoder.transform(df[categorical_cols])
+    X_num = df[num_cols].values  # keep column order
+    X_final = np.hstack((X_num, X_cat))
+
+    # 4. Convert to DataFrame with correct column names
+    X_final_df = pd.DataFrame(X_final, columns=list(num_cols) + list(encoded_cat_cols))
+
 
     # Scale only original numerical features in X (exclude datetime columns)
     num_cols = df.select_dtypes(include=['number']).columns.difference(datetime_cols)
-    base_path = "/".join(model_path.split("/")[:-1])
 
     scaler_path = f"{base_path}/scaler.pkl"
 
+    # fetch scaler if not available locally
     if not os.path.exists(scaler_path):
         response = requests.post(deliver_scaler_url, json={"scaler_path": scaler_path})
 
         if response.status_code == 200:
             with open(scaler_path, "wb") as f:
                 f.write(response.content)
-            print(f"Model saved as {scaler_path}")
+            print(f"file saved as {scaler_path}")
         else:
             print(f"Error: {response.json()['detail']}")
     
     with open(scaler_path, "rb") as f:
         scaler = pickle.load(f)
 
-    X_encoded[num_cols] = scaler.fit_transform(X_encoded[num_cols])
-    #X_encoded.to_csv("infer.csv")
+    X_final_df[num_cols] = scaler.fit_transform(X_final_df[num_cols])
 
     # Convert to numpy arrays
-    X_res = np.array(X_encoded, dtype=np.float32)
+    X_res = np.array(X_final_df, dtype=np.float32)
 
     return X_res
 
@@ -63,8 +94,9 @@ def infer(df, labels, task_type, model_path, server_url):
     os.makedirs(base_path, exist_ok=True)  
     
     # Convert DataFrame to NumPy array and ensure correct dtype
-    X = load_and_preprocess_data(df, model_path, f"{server_url}/deliver_scaler/")
+    X = load_and_preprocess_data(df, model_path, f"{server_url}/deliver_scaler/", f"{server_url}/deliver_encoder/")
 
+    # if model is not available, deliver the model
     if not os.path.exists(model_path):
         response = requests.post(f"{server_url}/deliver_model/", json={"model_path": model_path})
 

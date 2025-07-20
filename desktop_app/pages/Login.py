@@ -3,6 +3,7 @@ import hashlib
 import pandas as pd
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy import text
+import pickle
 
 # --- Set up MySQL connection using Streamlit's built-in connection ---
 # config is in .streamlit/secrets.toml
@@ -17,6 +18,10 @@ with conn.engine.begin() as connection:
             user_id VARCHAR(255)
         )
     '''))
+
+def save_session_state(file_path):
+    with open(file_path, 'wb') as f:
+        pickle.dump(st.session_state.to_dict(), f)
 
 # --- Password hashing ---
 def hash_password(password):
@@ -64,6 +69,9 @@ with tab1:
             st.session_state.logged_in = True
             st.session_state.username = username
             st.session_state.user_id = user_id
+
+            #save_session_state("session_state.pkl")
+
             st.success("Login successful!")
             st.switch_page("app.py")  
         else:

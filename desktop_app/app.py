@@ -8,7 +8,20 @@ from mlflow.tracking import MlflowClient
 import shutil
 from mlflow.models import Model
 from utils import edge_server_url, grafana_url, mlflow_tracking_uri, client
-from dialogs import create_supervised_dialog, create_supervised_model_pred_dialog, create_unsupervised_dialog, create_unsupervised_model_pred_dialog, create_forecasting_dialog, create_forecasting_model_pred_dialog, create_anomaly_model_pred_dialog, create_registry_model_pred_dialog
+from dialogs import (
+    create_supervised_dialog,
+    create_supervised_model_pred_dialog,
+    create_unsupervised_dialog,
+    create_unsupervised_model_pred_dialog,
+    create_forecasting_dialog,
+    create_forecasting_model_pred_dialog,
+    create_anomaly_model_pred_dialog,
+    create_registry_model_pred_dialog
+)
+
+import requests
+import pickle
+import shutil
 
 # Set page configuration
 st.set_page_config(
@@ -17,6 +30,19 @@ st.set_page_config(
     page_icon="bizsuite_logo_no_background.ico",
     layout="wide",  # Use wide layout
 )
+
+
+def load_session_state(file_path):
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as f:
+                loaded_state = pickle.load(f)
+                for k, v in loaded_state.items():
+                    st.session_state[k] = v
+    else:
+        print("session state file not found.")
+
+#load_session_state("session_state.pkl")
+
 
 if "logged_in" not in st.session_state or not st.session_state.logged_in:
     st.warning("You are not logged in.")
@@ -27,16 +53,37 @@ st.success(f"Welcome {st.session_state['username']}!")
 
 os.makedirs(f"models/{st.session_state.user_id}", exist_ok=True)
 os.makedirs(f"models/registry", exist_ok=True)
+os.makedirs(f"{st.session_state.user_id}", exist_ok=True)
 
 if st.button("Logout"):
     st.session_state.logged_in = False
     st.session_state.username = ""
     st.session_state.user_id = ""
+    if os.path.exists("session_state.pkl"):
+        os.remove("session_state.pkl")
     st.switch_page("pages/Login.py") 
 
+if not os.path.exists(f"{st.session_state.user_id}/models.json"):
+    # if json is on server it will send it, otherwise a json with empty models list will be saved
+    response = requests.get(f"{edge_server_url}/deliver_models_json/{st.session_state.user_id}")
+
+    if response.status_code == 200:
+        with open(f"{st.session_state.user_id}/models.json", "wb") as f:
+            f.write(response.content)
+        print(f"File saved to models.json")
+    elif response.status_code == 404:
+        default_models_json = {
+            "models": [
+
+            ]
+        }
+        with open(f"{st.session_state.user_id}/models.json", "w") as f:
+            json.dump(default_models_json, f, indent=4)
+    else:
+        print(f"Failed to download. Status code: {response.status_code}")
 
 # Read JSON file into a dictionary
-with open("models.json", "r") as file:
+with open(f"{st.session_state.user_id}/models.json", "r") as file:
     models = json.load(file)
 
 
@@ -91,14 +138,61 @@ if page == "Home":
 
 
 elif page == "Models":
+
+    st.title("Add Model")
+
+    with st.container(border=True):  # Add a border around each card    
+        model_name = st.text_input("Enter Model Name")
+        model_description = st.text_input("Enter Model Description")
+        model_folder_name = model_name.replace(" ", "_").lower()
+        model_task = st.selectbox(label="Select Model task", options=("supervised classification", "unsupervised classification", "forecasting", "anomaly detection"))
+
+        if model_task == "supervised classification":
+            model_task = "classification"
+
+        model_item = {
+            "name": model_name,
+            "description": model_description,
+            "model_folder": model_folder_name,
+            "task": model_task
+        }
+
+        if st.button("Add Model", key=f"model-add"):
+            try:
+                with st.spinner(f"Adding model..."):
+                    models["models"].insert(0, model_item)
+                    with open(f"{st.session_state.user_id}/models.json", "w") as f:
+                        json.dump(models, f, indent=4)
+
+                    try:
+                        # send updated model.json to server
+                        res_json_upload = requests.post(f"{edge_server_url}/upload_models_json/{st.session_state.user_id}", json=models)
+                        st.success("Successfully added the model")
+                    except Exception as e:
+                        st.error(f"Error: {e}")
+
+            except Exception as e:
+                print(e)
+
     st.title("Models Available")
-    
+
     # Create a grid layout for cards
     cols = st.columns(3)  # 3 cards per row
 
     for i, model in enumerate(models["models"]):
         model_path = f"models/{st.session_state.user_id}/{model['model_folder']}/model.h5"
-        model_is_trained = os.path.exists(model_path)
+        scaler_path = f"models/{st.session_state.user_id}/{model['model_folder']}/scaler.pkl"
+        encoder_path = f"models/{st.session_state.user_id}/{model['model_folder']}/encoder.pkl"
+
+        model_available_locally = os.path.exists(model_path)
+        model_available_res = requests.post(f"{edge_server_url}/check_model_availability/", json={
+            "model_path": model_path
+        })
+
+        if model_available_res.status_code == 200:
+            model_available_remote = True
+        else:
+            model_available_remote = False
 
         with cols[i % 3]:  # Distribute cards across columns
             with st.container(border=True):  # Add a border around each card
@@ -106,7 +200,7 @@ elif page == "Models":
                 st.markdown(f"### {model['name']}")  # Model title
                 st.markdown(f"{model['description']}")  # Model description
 
-                btn_cols = st.columns(2)
+                btn_cols = st.columns(3)
 
                 with btn_cols[0]:
                     if st.button("Train Model", key=f"model-train-{i}"):
@@ -118,9 +212,8 @@ elif page == "Models":
                             create_supervised_dialog(model, model_path)()  
                         
 
-                # Clickable button inside the card
                 with btn_cols[1]:
-                    if model_is_trained:
+                    if model_available_locally:
                         if st.button("Use Model", key=f"model-use-{i}"):
 
                             if model["task"] == "unsupervised classification":
@@ -131,9 +224,62 @@ elif page == "Models":
                                 create_supervised_model_pred_dialog(model, model_path)()
                             elif model["task"] == "forecasting":
                                 create_forecasting_model_pred_dialog(model, model_path)()
+                    elif model_available_remote:
+                        if st.button("Download Model", key=f"model-use-{i}"):
+                            with st.spinner(f"downloading model..."):
+                                model_file_res = requests.post(f"{edge_server_url}/deliver_model/", json={
+                                    "model_path": model_path
+                                })
+                                scaler_file_res = requests.post(f"{edge_server_url}/deliver_scaler/", json={
+                                    "scaler_path": scaler_path
+                                })
+
+                                encoder_file_res = requests.post(f"{edge_server_url}/deliver_encoder/", json={
+                                    "encoder_path": encoder_path
+                                })
+
+                                if model_file_res.status_code != 200:
+                                    st.error(f"Error: {model_file_res}")
+                                elif scaler_file_res.status_code != 200:
+                                    st.error(f"Error: {scaler_file_res}")
+                                elif encoder_file_res.status_code != 200:
+                                    st.error(f"Error: {encoder_file_res}")
+                                else:
+                                    with open(model_path, "wb") as f:
+                                        f.write(model_file_res.content)
+                                    with open(scaler_path, "wb") as f:
+                                        f.write(scaler_file_res.content)
+                                    with open(encoder_path, "wb") as f:
+                                        f.write(encoder_file_res.content)
+                                
+                                st.success("model downloaded successfully")
                     else:
                         st.button("Use Model", key=f"model-{i}", disabled=True)
 
+            
+                with btn_cols[2]:  
+                    if st.button("Delete Model", key=f"model-delete-{i}"):
+                        with st.spinner(f"Adding model..."):
+                            # remove local model folder
+                            if os.path.exists(f"models/{st.session_state.user_id}/{model['model_folder']}"):
+                                shutil.rmtree(f"models/{st.session_state.user_id}/{model['model_folder']}")
+                            # remove model record and save model json
+                            models["models"].remove(model)
+                            with open(f"{st.session_state.user_id}/models.json", "w") as f:
+                                json.dump(models, f, indent=4)
+
+                            try:
+                                # send updated model.json to server
+                                res_json_upload = requests.post(f"{edge_server_url}/upload_models_json/{st.session_state.user_id}", json=models)
+                                # delete remote model and scaler
+                                res_del_model = requests.delete(f"{edge_server_url}/delete_model/", json={
+                                    "model_path": f"models/{st.session_state.user_id}/{model['model_folder']}"
+                                })
+                                st.success("Successfully deleted the model")
+                                st.rerun()
+                            except Exception as e:
+                                st.error(f"Error: {e}")
+                    
 
 # added new page called registry
 elif page == "Registry":
@@ -222,15 +368,8 @@ elif page == "Registry":
         st.info("Make sure MLflow server is running at " + mlflow_tracking_uri)
 
         
-
-
 elif page == "Dashboards":
     # Embed Grafana view in the Streamlit app
     st.markdown(f"""
         <iframe src="{grafana_url}" width="100%" height="1080px"></iframe>
     """, unsafe_allow_html=True)
-
-
-elif page == "About":
-    st.title("About")
-    st.write("This is the About page for Edge Runner.")
