@@ -47,7 +47,7 @@ def create_supervised_dialog(model, model_path):
             rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
             epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
 
-            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+            num_layers = int(st.number_input("Num of Hidden Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
 
             hidden_layers = []
 
@@ -274,7 +274,7 @@ def create_unsupervised_dialog(model, model_path):
             rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
             epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
 
-            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+            num_layers = int(st.number_input("Num of Hidden Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
 
             hidden_layers = []
 
@@ -501,7 +501,7 @@ def create_forecasting_dialog(model, model_path):
             rounds = str(int(st.number_input("Num of Server Rounds:", min_value=1, step=1, key="rounds")))
             epochs = str(int(st.number_input("Num of Epochs:", min_value=1, step=1, key="epochs")))
 
-            num_layers = int(st.number_input("Num of Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
+            num_layers = int(st.number_input("Num of Hidden Layers:", min_value=1, max_value=10, step=1, key="num_layers"))
 
             hidden_layers = []
 
