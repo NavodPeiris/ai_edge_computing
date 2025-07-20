@@ -6,9 +6,6 @@ import time
 import concurrent
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from pathlib import Path
 import tensorflow as tf
 import numpy as np
 import cv2
@@ -116,6 +113,9 @@ start_date = end_date - timedelta(days=14)
 common_cam_date_list = [(start_date + timedelta(days=i)).isoformat() for i in range(15)]
 traffic_cam_date_list = [(start_date + timedelta(days=i)).isoformat() for i in range(15)]
 
+@app.get("/health")
+def health_check():
+    return {"message": "edge server running"}
 
 @app.websocket("/common_cam_ws")
 async def common_camera_websocket_endpoint(websocket: WebSocket):
@@ -301,39 +301,7 @@ async def handle_traffic_stream(queue: asyncio.Queue):
             break
         
 
-# Path to the data folder
-DATA_FOLDER = Path("./storage")
-
-# Mount templates and static files
-templates = Jinja2Templates(directory="templates")
-
-# Route to serve the web page
-@app.get("/", response_class=HTMLResponse)
-def list_files(request: Request):
-    """
-    Render the file list on a web page.
-    """
-    if not DATA_FOLDER.exists():
-        raise HTTPException(status_code=404, detail="Data folder not found.")
-    
-    # Get list of files in the data folder
-    files = [file.name for file in DATA_FOLDER.iterdir() if file.is_file()]
-    return templates.TemplateResponse("index.html", {"request": request, "files": files})
-
-# Route to handle file downloads
-@app.get("/download/{file_name}")
-def download_file(file_name: str):
-    """
-    Download a file from the data folder.
-    """
-    file_path = DATA_FOLDER / file_name
-    if not file_path.exists() or not file_path.is_file():
-        raise HTTPException(status_code=404, detail="File not found.")
-    
-    return FileResponse(file_path, media_type="application/octet-stream", filename=file_name)
-
-
-def find_and_terminate_process_on_port(port):
+def find_if_port_is_free(port):
     # Iterate through all running processes
     for proc in psutil.process_iter(['pid', 'name']):
         try:
@@ -341,23 +309,22 @@ def find_and_terminate_process_on_port(port):
             for conn in proc.connections(kind='inet'):
                 # Check if the connection is using the specified port
                 if conn.laddr.port == port:
-                    print(f"Found process on port {port}: {proc.info}")
-                    # Terminate the process
-                    proc.terminate()
-                    print(f"Terminated process with PID: {proc.info['pid']}")
-                    return port
+                    print(f"Port {port} is already in use by process: {proc.info}")
+                    return None  # Port is in use
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            # Skip processes that no longer exist or that we don't have permission to access
-            pass
-    print(f"No process found on port {port}")
-    return port
+            pass  # Skip problematic processes
+    print(f"Port {port} is free")
+    return port  # Port is free
 
 
 @app.post("/start_flwr_server/")
 async def start_process(params: FlwrRequestParams):
 
-    port = random.randrange(start=9000, stop=12000, step=1)
-    port = find_and_terminate_process_on_port(port)
+    port = None
+
+    while port == None:
+        port = random.randrange(start=9000, stop=12000, step=1)
+        port = find_if_port_is_free(port)
     
     # Prepare the command to run the subprocess
     command = [
