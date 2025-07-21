@@ -2,11 +2,11 @@ fastapi
 uvicorn
 opencv-python 
 websockets 
-numpy==1.19.5
+numpy
 pandas 
 influxdb-client 
 scikit-learn 
-tensorflow
+tensorflow==2.16.1
 joblib 
 h5py 
 keras

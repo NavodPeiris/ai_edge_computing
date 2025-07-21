@@ -31,12 +31,12 @@ locations = ["malabe"]
 def infer_multi_output(data, location):
     # Normalize the data
     # Load the saved scaler
-    scaler = joblib.load(f"traffic_pred_models/{location}/scaler.pkl")
+    scaler = joblib.load(f"../airflow_env/dags/traffic_pred_models/{location}/scaler.pkl")
     scaled_data = scaler.transform(data)
     reshaped_data = np.expand_dims(scaled_data, axis=0)  # Add a batch dimension
 
     # Load the trained model
-    best_model = tf.keras.models.load_model(f"traffic_pred_models/{location}/model.h5")
+    best_model = tf.keras.models.load_model(f"../airflow_env/dags/traffic_pred_models/{location}/model.h5")
     predictions = best_model.predict(reshaped_data)
     
     # Inverse transform the predictions

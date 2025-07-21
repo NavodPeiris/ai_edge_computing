@@ -1,0 +1,105 @@
+[2025-07-21T14:28:56.953+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-07-21T14:28:56.969+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: train_weather_pred.train manual__2025-07-21T14:28:52.589158+00:00 [queued]>
+[2025-07-21T14:28:56.978+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: train_weather_pred.train manual__2025-07-21T14:28:52.589158+00:00 [queued]>
+[2025-07-21T14:28:56.979+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 6
+[2025-07-21T14:28:56.991+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): train> on 2025-07-21 14:28:52.589158+00:00
+[2025-07-21T14:28:57.007+0000] {standard_task_runner.py:72} INFO - Started process 6695 to run task
+[2025-07-21T14:28:57.014+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'train_weather_pred', 'train', 'manual__2025-07-21T14:28:52.589158+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/train_weather_pred.py', '--cfg-path', '/tmp/tmpubad9q0e']
+[2025-07-21T14:28:57.020+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask train
+[2025-07-21T14:28:57.088+0000] {task_command.py:467} INFO - Running <TaskInstance: train_weather_pred.train manual__2025-07-21T14:28:52.589158+00:00 [running]> on host b2b5da5cb3ce
+[2025-07-21T14:28:57.172+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='admin' AIRFLOW_CTX_DAG_ID='train_weather_pred' AIRFLOW_CTX_TASK_ID='train' AIRFLOW_CTX_EXECUTION_DATE='2025-07-21T14:28:52.589158+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-21T14:28:52.589158+00:00'
+[2025-07-21T14:28:57.174+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-07-21T14:28:57.229+0000] {logging_mixin.py:190} INFO - Train X shape: (8, 7, 3)
+[2025-07-21T14:28:57.230+0000] {logging_mixin.py:190} INFO - Train Y shape: (8, 3)
+[2025-07-21T14:28:57.231+0000] {logging_mixin.py:190} INFO - Test X shape: (3, 7, 3)
+[2025-07-21T14:28:57.232+0000] {logging_mixin.py:190} INFO - Test Y shape: (3, 3)
+[2025-07-21T14:28:57.285+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.11/site-packages/keras/src/layers/rnn/rnn.py:199 UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+[2025-07-21T14:28:57.414+0000] {logging_mixin.py:190} INFO - Epoch 1/100
+[2025-07-21T14:28:59.378+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 2s/step - loss: 0.1699
+[2025-07-21T14:28:59.686+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:28:59.732+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 2s 2s/step - loss: 0.1699 - val_loss: 0.2742
+[2025-07-21T14:28:59.734+0000] {logging_mixin.py:190} INFO - Epoch 2/100
+[2025-07-21T14:28:59.758+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.1290
+[2025-07-21T14:28:59.804+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:28:59.849+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 114ms/step - loss: 0.1290 - val_loss: 0.2530
+[2025-07-21T14:28:59.851+0000] {logging_mixin.py:190} INFO - Epoch 3/100
+[2025-07-21T14:28:59.875+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.1010
+[2025-07-21T14:28:59.920+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:28:59.966+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 114ms/step - loss: 0.1010 - val_loss: 0.2363
+[2025-07-21T14:28:59.967+0000] {logging_mixin.py:190} INFO - Epoch 4/100
+[2025-07-21T14:28:59.993+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 0.0650
+[2025-07-21T14:29:00.040+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.092+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 124ms/step - loss: 0.0650 - val_loss: 0.2231
+[2025-07-21T14:29:00.094+0000] {logging_mixin.py:190} INFO - Epoch 5/100
+[2025-07-21T14:29:00.117+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 0.0497
+[2025-07-21T14:29:00.162+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.208+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 113ms/step - loss: 0.0497 - val_loss: 0.2133
+[2025-07-21T14:29:00.210+0000] {logging_mixin.py:190} INFO - Epoch 6/100
+[2025-07-21T14:29:00.235+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0217
+[2025-07-21T14:29:00.281+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.329+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 118ms/step - loss: 0.0217 - val_loss: 0.2092
+[2025-07-21T14:29:00.331+0000] {logging_mixin.py:190} INFO - Epoch 7/100
+[2025-07-21T14:29:00.355+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0234
+[2025-07-21T14:29:00.401+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.447+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 115ms/step - loss: 0.0234 - val_loss: 0.2087
+[2025-07-21T14:29:00.449+0000] {logging_mixin.py:190} INFO - Epoch 8/100
+[2025-07-21T14:29:00.474+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 0.0185
+[2025-07-21T14:29:00.517+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 68ms/step - loss: 0.0185 - val_loss: 0.2113
+[2025-07-21T14:29:00.519+0000] {logging_mixin.py:190} INFO - Epoch 9/100
+[2025-07-21T14:29:00.544+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 0.0227
+[2025-07-21T14:29:00.587+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 68ms/step - loss: 0.0227 - val_loss: 0.2133
+[2025-07-21T14:29:00.589+0000] {logging_mixin.py:190} INFO - Epoch 10/100
+[2025-07-21T14:29:00.613+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0300
+[2025-07-21T14:29:00.657+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 67ms/step - loss: 0.0300 - val_loss: 0.2132
+[2025-07-21T14:29:00.658+0000] {logging_mixin.py:190} INFO - Epoch 11/100
+[2025-07-21T14:29:00.681+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 22ms/step - loss: 0.0290
+[2025-07-21T14:29:00.724+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 66ms/step - loss: 0.0290 - val_loss: 0.2087
+[2025-07-21T14:29:00.726+0000] {logging_mixin.py:190} INFO - Epoch 12/100
+[2025-07-21T14:29:00.749+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 0.0413
+[2025-07-21T14:29:00.793+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.839+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 112ms/step - loss: 0.0413 - val_loss: 0.2007
+[2025-07-21T14:29:00.840+0000] {logging_mixin.py:190} INFO - Epoch 13/100
+[2025-07-21T14:29:00.865+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0318
+[2025-07-21T14:29:00.910+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:00.954+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 113ms/step - loss: 0.0318 - val_loss: 0.1940
+[2025-07-21T14:29:00.955+0000] {logging_mixin.py:190} INFO - Epoch 14/100
+[2025-07-21T14:29:00.981+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 25ms/step - loss: 0.0266
+[2025-07-21T14:29:01.026+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:01.074+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 118ms/step - loss: 0.0266 - val_loss: 0.1887
+[2025-07-21T14:29:01.076+0000] {logging_mixin.py:190} INFO - Epoch 15/100
+[2025-07-21T14:29:01.100+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0270
+[2025-07-21T14:29:01.146+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:01.192+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 116ms/step - loss: 0.0270 - val_loss: 0.1849
+[2025-07-21T14:29:01.194+0000] {logging_mixin.py:190} INFO - Epoch 16/100
+[2025-07-21T14:29:01.217+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 0.0192
+[2025-07-21T14:29:01.262+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:01.308+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 113ms/step - loss: 0.0192 - val_loss: 0.1840
+[2025-07-21T14:29:01.310+0000] {logging_mixin.py:190} INFO - Epoch 17/100
+[2025-07-21T14:29:01.332+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 22ms/step - loss: 0.0231
+[2025-07-21T14:29:01.377+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-21T14:29:01.421+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 111ms/step - loss: 0.0231 - val_loss: 0.1835
+[2025-07-21T14:29:01.423+0000] {logging_mixin.py:190} INFO - Epoch 18/100
+[2025-07-21T14:29:01.445+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 22ms/step - loss: 0.0216
+[2025-07-21T14:29:01.488+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 65ms/step - loss: 0.0216 - val_loss: 0.1838
+[2025-07-21T14:29:01.490+0000] {logging_mixin.py:190} INFO - Epoch 19/100
+[2025-07-21T14:29:01.512+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 21ms/step - loss: 0.0203
+[2025-07-21T14:29:01.556+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 65ms/step - loss: 0.0203 - val_loss: 0.1842
+[2025-07-21T14:29:01.557+0000] {logging_mixin.py:190} INFO - Epoch 20/100
+[2025-07-21T14:29:01.581+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 24ms/step - loss: 0.0264
+[2025-07-21T14:29:01.625+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 68ms/step - loss: 0.0264 - val_loss: 0.1847
+[2025-07-21T14:29:01.626+0000] {logging_mixin.py:190} INFO - Epoch 21/100
+[2025-07-21T14:29:01.649+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 23ms/step - loss: 0.0196
+[2025-07-21T14:29:01.692+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 65ms/step - loss: 0.0196 - val_loss: 0.1856
+[2025-07-21T14:29:01.693+0000] {logging_mixin.py:190} INFO - Epoch 22/100
+[2025-07-21T14:29:01.716+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 22ms/step - loss: 0.0274
+[2025-07-21T14:29:01.761+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 67ms/step - loss: 0.0274 - val_loss: 0.1860
+[2025-07-21T14:29:01.845+0000] {saving_utils.py:259} WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+[2025-07-21T14:29:02.111+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 221ms/step - loss: 0.1278
+[2025-07-21T14:29:02.124+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 234ms/step - loss: 0.1278
+[2025-07-21T14:29:02.128+0000] {logging_mixin.py:190} INFO - Test Loss: 0.12778830528259277
+[2025-07-21T14:29:02.129+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-07-21T14:29:02.138+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-07-21T14:29:02.139+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=train_weather_pred, task_id=train, run_id=manual__2025-07-21T14:28:52.589158+00:00, execution_date=20250721T142852, start_date=20250721T142856, end_date=20250721T142902
+[2025-07-21T14:29:02.242+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-07-21T14:29:02.258+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-21T14:29:02.261+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

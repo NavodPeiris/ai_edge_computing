@@ -1,0 +1,55 @@
+[2025-07-21T14:04:41.993+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-07-21T14:04:42.129+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: train_weather_pred.train manual__2025-07-21T14:03:32.648510+00:00 [queued]>
+[2025-07-21T14:04:42.137+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: train_weather_pred.train manual__2025-07-21T14:03:32.648510+00:00 [queued]>
+[2025-07-21T14:04:42.174+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 6
+[2025-07-21T14:04:42.241+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): train> on 2025-07-21 14:03:32.648510+00:00
+[2025-07-21T14:04:42.261+0000] {standard_task_runner.py:72} INFO - Started process 19617 to run task
+[2025-07-21T14:04:42.269+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'train_weather_pred', 'train', 'manual__2025-07-21T14:03:32.648510+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/train_weather_pred.py', '--cfg-path', '/tmp/tmpvbyu_xqq']
+[2025-07-21T14:04:42.610+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask train
+[2025-07-21T14:04:44.068+0000] {task_command.py:467} INFO - Running <TaskInstance: train_weather_pred.train manual__2025-07-21T14:03:32.648510+00:00 [running]> on host 57f0228775b8
+[2025-07-21T14:04:46.848+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='admin' AIRFLOW_CTX_DAG_ID='train_weather_pred' AIRFLOW_CTX_TASK_ID='train' AIRFLOW_CTX_EXECUTION_DATE='2025-07-21T14:03:32.648510+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-21T14:03:32.648510+00:00'
+[2025-07-21T14:04:48.228+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-07-21T14:04:48.723+0000] {logging_mixin.py:190} INFO - Train X shape: (8, 7, 3)
+[2025-07-21T14:04:48.750+0000] {logging_mixin.py:190} INFO - Train Y shape: (8, 3)
+[2025-07-21T14:04:48.750+0000] {logging_mixin.py:190} INFO - Test X shape: (3, 7, 3)
+[2025-07-21T14:04:48.883+0000] {logging_mixin.py:190} INFO - Test Y shape: (3, 3)
+[2025-07-21T14:04:49.880+0000] {logging_mixin.py:190} INFO - Epoch 1/100
+[2025-07-21T14:04:54.552+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.1687
+[2025-07-21T14:04:56.215+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.11/site-packages/keras/src/engine/training.py:3103 UserWarning: You are saving your model as an HDF5 file via `model.save()`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')`.
+[2025-07-21T14:04:56.267+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 6s 6s/step - loss: 0.1687 - val_loss: 0.2416
+[2025-07-21T14:04:56.269+0000] {logging_mixin.py:190} INFO - Epoch 2/100
+[2025-07-21T14:04:56.381+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.1228
+[2025-07-21T14:04:56.570+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 301ms/step - loss: 0.1228 - val_loss: 0.2272
+[2025-07-21T14:04:56.572+0000] {logging_mixin.py:190} INFO - Epoch 3/100
+[2025-07-21T14:04:56.679+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0906
+[2025-07-21T14:04:56.851+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 279ms/step - loss: 0.0906 - val_loss: 0.2161
+[2025-07-21T14:04:56.853+0000] {logging_mixin.py:190} INFO - Epoch 4/100
+[2025-07-21T14:04:56.866+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0604
+[2025-07-21T14:04:57.050+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 197ms/step - loss: 0.0604 - val_loss: 0.2094
+[2025-07-21T14:04:57.052+0000] {logging_mixin.py:190} INFO - Epoch 5/100
+[2025-07-21T14:04:57.064+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0415
+[2025-07-21T14:04:57.209+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 157ms/step - loss: 0.0415 - val_loss: 0.2065
+[2025-07-21T14:04:57.211+0000] {logging_mixin.py:190} INFO - Epoch 6/100
+[2025-07-21T14:04:57.222+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0234
+[2025-07-21T14:04:57.314+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 103ms/step - loss: 0.0234 - val_loss: 0.2077
+[2025-07-21T14:04:57.316+0000] {logging_mixin.py:190} INFO - Epoch 7/100
+[2025-07-21T14:04:57.328+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0265
+[2025-07-21T14:04:57.351+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 34ms/step - loss: 0.0265 - val_loss: 0.2131
+[2025-07-21T14:04:57.353+0000] {logging_mixin.py:190} INFO - Epoch 8/100
+[2025-07-21T14:04:57.364+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0187
+[2025-07-21T14:04:57.387+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 34ms/step - loss: 0.0187 - val_loss: 0.2158
+[2025-07-21T14:04:57.389+0000] {logging_mixin.py:190} INFO - Epoch 9/100
+[2025-07-21T14:04:57.401+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0224
+[2025-07-21T14:04:57.426+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 37ms/step - loss: 0.0224 - val_loss: 0.2164
+[2025-07-21T14:04:57.428+0000] {logging_mixin.py:190} INFO - Epoch 10/100
+[2025-07-21T14:04:57.439+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.0372
+[2025-07-21T14:04:57.469+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 41ms/step - loss: 0.0372 - val_loss: 0.2139
+[2025-07-21T14:04:58.886+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - ETA: 0s - loss: 0.1502
+[2025-07-21T14:04:58.888+0000] {logging_mixin.py:190} INFO - 1/1 [==============================] - 0s 474ms/step - loss: 0.1502
+[2025-07-21T14:04:58.890+0000] {logging_mixin.py:190} INFO - Test Loss: 0.15023650228977203
+[2025-07-21T14:04:58.891+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-07-21T14:04:58.901+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-07-21T14:04:58.902+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=train_weather_pred, task_id=train, run_id=manual__2025-07-21T14:03:32.648510+00:00, execution_date=20250721T140332, start_date=20250721T140442, end_date=20250721T140458
+[2025-07-21T14:04:59.073+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-07-21T14:04:59.088+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-21T14:04:59.223+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

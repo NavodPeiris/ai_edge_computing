@@ -4,10 +4,12 @@ import traceback
 from influxdb_client import InfluxDBClient, Point
 from datetime import datetime, timedelta
 import random
-from weather_model_infer import infer_multi_output
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from influxdb_client.client.write_api import SYNCHRONOUS
+import joblib
+import tensorflow as tf
+import numpy as np
 
 # InfluxDB connection parameters
 url = "http://localhost:8086"  # InfluxDB 2.x URL
@@ -23,6 +25,26 @@ write_api = client.write_api()
 
 #locations = ["malabe", "kandy", "mount lavinia", "maharagama"]
 locations = ["malabe"]
+
+def infer_multi_output(location, data):
+    # Normalize the data
+    # Load the saved scaler
+    scaler = joblib.load(f'../airflow_env/dags/weather_pred_models/{location}/scaler.pkl')
+    scaled_data = scaler.transform(data)
+    reshaped_data = np.expand_dims(scaled_data, axis=0)  # Add a batch dimension
+
+    # Load the trained model
+    best_model = tf.keras.models.load_model(f'../airflow_env/dags/weather_pred_models/{location}/model.h5')
+    predictions = best_model.predict(reshaped_data)
+    
+    # Inverse transform the predictions
+    predicted_values = scaler.inverse_transform(predictions)[-1]
+
+    # Format the predicted values to two decimal points
+    formatted_values = [round(value, 2) for value in predicted_values]
+
+    return formatted_values
+
 
 # Function to fetch the latest 7 points from InfluxDB
 def fetch_latest_data(location):
@@ -158,7 +180,7 @@ def process_infer(location):
             # only 7 days into future
             if len(latest_data) == 7 and latest_time != datetime.utcnow().date() + timedelta(days=7):
                 # Predict the next point using the infer_model function
-                prediction = infer_multi_output(latest_data)
+                prediction = infer_multi_output(location, latest_data)
                 
                 # Write the predicted data to InfluxDB
                 write_predicted_data(prediction, latest_time, location)

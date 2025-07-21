@@ -1,0 +1,7 @@
+numpy
+pandas 
+influxdb-client 
+scikit-learn 
+tensorflow==2.16.1
+joblib 
+matplotlib

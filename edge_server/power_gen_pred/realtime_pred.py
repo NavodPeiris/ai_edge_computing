@@ -4,10 +4,12 @@ import traceback
 from influxdb_client import InfluxDBClient, Point
 from datetime import datetime, timedelta
 import random
-from power_gen_pred import infer_model
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor
 from influxdb_client.client.write_api import SYNCHRONOUS
+import joblib
+import numpy as np
+import tensorflow as tf
 
 # InfluxDB connection parameters
 url = "http://localhost:8086"  # InfluxDB 2.x URL
@@ -274,6 +276,30 @@ def write_predicted_data(prediction, latest_time, plant_id):
         print(f"Error checking or writing data for plant_id {plant_id}: {e}")
 
 
+def infer_model(data, plant_id):
+    # Normalize the data
+    # Load the saved scaler
+    scaler = joblib.load(f'../airflow_env/dags/power_pred_models/{plant_id}/scaler.pkl')
+    scaled_data = scaler.transform(data[['AMBIENT_TEMPERATURE', 'MODULE_TEMPERATURE', 'IRRADIATION', 'PERIOD_GENERATION']])
+    scaled_data = np.delete(scaled_data, -1, axis=1)    # drop the PERIOD_GENERATION column
+    reshaped_data = np.expand_dims(scaled_data, axis=0)  # Add a batch dimension
+
+    # Load the trained model
+    best_model = tf.keras.models.load_model(f'../airflow_env/dags/power_pred_models/{plant_id}/model.h5')
+    predictions = best_model.predict(reshaped_data)
+
+    # Repeat the prediction value 4 times to create a 1x4 array
+    predictions_reshaped = np.repeat(predictions, 4).reshape(1, 4)
+
+    print(predictions_reshaped.shape)
+
+    # Now inverse transform
+    true_pred = scaler.inverse_transform(predictions_reshaped)[-1][-1]
+
+    rounded_daily_yield = round(true_pred, 2)
+    return rounded_daily_yield
+
+
 # Function to process data for a single plant
 def process_plant(plant_id):
     while True:
@@ -283,7 +309,7 @@ def process_plant(plant_id):
             
             if len(latest_data) == 4:
                 # Predict the next point using the infer_model function
-                prediction = infer_model(latest_data)
+                prediction = infer_model(latest_data, plant_id)
                 
                 # Write the predicted data to InfluxDB
                 write_predicted_data(prediction, latest_time, plant_id)
