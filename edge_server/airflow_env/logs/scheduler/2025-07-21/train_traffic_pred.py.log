@@ -1423,3 +1423,94 @@
 [2025-07-21T14:33:14.050+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:33:14.049+0000] {dag.py:3239} INFO - Sync 1 DAGs
 [2025-07-21T14:33:14.068+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:33:14.068+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
 [2025-07-21T14:33:14.084+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.442 seconds
+[2025-07-21T14:33:46.058+0000] {processor.py:186} INFO - Started process (PID=9147) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:33:46.059+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:33:46.062+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:33:46.062+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:33:49.355+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:33:49.376+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:33:49.375+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:33:49.394+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:33:49.394+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:33:49.407+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.354 seconds
+[2025-07-21T14:34:20.909+0000] {processor.py:186} INFO - Started process (PID=9245) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:20.910+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:34:20.913+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:20.913+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:24.381+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:24.403+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:24.403+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:34:24.420+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:24.419+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:34:24.433+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.532 seconds
+[2025-07-21T14:34:56.425+0000] {processor.py:186} INFO - Started process (PID=9349) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:56.426+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:34:56.429+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:56.429+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:59.960+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:34:59.982+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:59.981+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:34:59.999+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:34:59.999+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:35:00.016+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.599 seconds
+[2025-07-21T14:35:31.887+0000] {processor.py:186} INFO - Started process (PID=9447) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:35:31.889+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:35:31.892+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:35:31.891+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:35:35.311+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:35:35.333+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:35:35.331+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:35:35.352+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:35:35.352+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:35:35.370+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.489 seconds
+[2025-07-21T14:36:06.906+0000] {processor.py:186} INFO - Started process (PID=9545) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:06.907+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:36:06.909+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:06.909+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:10.544+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:10.571+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:10.571+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:36:10.589+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:10.589+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:36:10.605+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.704 seconds
+[2025-07-21T14:36:42.088+0000] {processor.py:186} INFO - Started process (PID=9643) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:42.090+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:36:42.094+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:42.093+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:45.584+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:36:45.609+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:45.609+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:36:45.627+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:36:45.627+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:36:45.644+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.565 seconds
+[2025-07-21T14:37:17.576+0000] {processor.py:186} INFO - Started process (PID=9741) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:17.577+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:37:17.579+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:17.579+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:21.029+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:21.052+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:21.051+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:37:21.070+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:21.070+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:37:21.086+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.516 seconds
+[2025-07-21T14:37:52.590+0000] {processor.py:186} INFO - Started process (PID=9839) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:52.591+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:37:52.593+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:52.593+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:56.083+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:37:56.103+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:56.103+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:37:56.118+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:37:56.118+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:37:56.135+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.555 seconds
+[2025-07-21T14:38:28.014+0000] {processor.py:186} INFO - Started process (PID=9943) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:38:28.015+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:38:28.017+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:38:28.017+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:38:31.286+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:38:31.308+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:38:31.307+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:38:31.324+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:38:31.324+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:38:31.339+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.330 seconds
+[2025-07-21T14:39:03.244+0000] {processor.py:186} INFO - Started process (PID=10041) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:03.245+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:39:03.248+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:03.247+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:06.545+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:06.565+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:06.565+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:39:06.581+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:06.581+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:39:06.594+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.354 seconds
+[2025-07-21T14:39:38.515+0000] {processor.py:186} INFO - Started process (PID=10139) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:38.517+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:39:38.520+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:38.520+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:41.994+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:39:42.017+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:42.017+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:39:42.035+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:39:42.035+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:39:42.052+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.543 seconds
+[2025-07-21T14:40:13.917+0000] {processor.py:186} INFO - Started process (PID=10237) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:13.918+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:40:13.921+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:13.920+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:17.129+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:17.152+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:17.151+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:40:17.168+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:17.168+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:40:17.182+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.271 seconds
+[2025-07-21T14:40:48.915+0000] {processor.py:186} INFO - Started process (PID=10335) to work on /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:48.916+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_traffic_pred.py for tasks to queue
+[2025-07-21T14:40:48.918+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:48.918+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:52.267+0000] {processor.py:925} INFO - DAG(s) 'train_traffic_pred' retrieved from /opt/airflow/dags/train_traffic_pred.py
+[2025-07-21T14:40:52.291+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:52.290+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T14:40:52.309+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:52.308+0000] {dag.py:4180} INFO - Setting next_dagrun for train_traffic_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T14:40:52.324+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_traffic_pred.py took 3.415 seconds

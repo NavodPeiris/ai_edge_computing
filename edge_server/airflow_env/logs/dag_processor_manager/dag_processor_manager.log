@@ -3657,3 +3657,575 @@ File Path                                PID    Runtime      # DAGs    # Errors 
 [2025-07-21T14:13:43.897+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
 [2025-07-21T14:13:44.162+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
 [2025-07-21T14:13:44.283+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15
+[2025-07-21T14:24:19.277+0000] {manager.py:483} INFO - Processing files using up to 2 processes at a time 
+[2025-07-21T14:24:19.278+0000] {manager.py:484} INFO - Process each file at most once every 30 seconds
+[2025-07-21T14:24:19.279+0000] {manager.py:485} INFO - Checking for new files in /opt/airflow/dags every 10 seconds
+[2025-07-21T14:24:19.280+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:24:19.467+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:24:19.565+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run      Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  ----------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             0           0                                                   0
+/opt/airflow/dags/train_power_pred.py                             0           0                                                   0
+/opt/airflow/dags/train_traffic_pred.py    191  0.02s             0           0                                                   0
+/opt/airflow/dags/train_weather_pred.py    188  0.04s             0           0                                                   0
+================================================================================
+[2025-07-21T14:24:29.948+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:24:30.145+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:24:40.737+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:24:40.902+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:24:49.986+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  7.41s           2025-07-21T14:24:26                      45
+/opt/airflow/dags/train_traffic_pred.py                           1           0  7.37s           2025-07-21T14:24:26                      45
+/opt/airflow/dags/train_power_pred.py                             1           0  4.83s           2025-07-21T14:24:31                      45
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.75s           2025-07-21T14:24:31                      45
+================================================================================
+[2025-07-21T14:24:50.990+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:24:51.069+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:01.186+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:01.262+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:11.755+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:11.831+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:20.122+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.88s           2025-07-21T14:25:06                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.72s           2025-07-21T14:25:07                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.69s           2025-07-21T14:25:01                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.68s           2025-07-21T14:25:01                      12
+================================================================================
+[2025-07-21T14:25:21.915+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:21.996+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:32.096+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:32.215+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:42.717+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:42.806+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:25:50.884+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.92s           2025-07-21T14:25:37                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.88s           2025-07-21T14:25:37                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.61s           2025-07-21T14:25:41                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.55s           2025-07-21T14:25:41                      12
+================================================================================
+[2025-07-21T14:25:52.896+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:25:53.044+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:03.131+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:03.315+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:13.150+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:13.318+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:21.307+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.81s           2025-07-21T14:26:17                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.77s           2025-07-21T14:26:12                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.73s           2025-07-21T14:26:12                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.67s           2025-07-21T14:26:16                      12
+================================================================================
+[2025-07-21T14:26:23.318+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:23.463+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:33.549+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:33.695+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:43.808+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:43.965+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:26:51.352+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py     5349  3.31s             1           0  4.81s           2025-07-21T14:26:17                      12
+/opt/airflow/dags/train_crowd_pred.py     5330  4.04s             1           0  4.67s           2025-07-21T14:26:16                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.54s           2025-07-21T14:26:47                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.50s           2025-07-21T14:26:47                      12
+================================================================================
+[2025-07-21T14:26:54.367+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:26:54.551+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:04.650+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:04.813+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:14.898+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:15.055+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:22.154+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.57s           2025-07-21T14:26:52                      12
+/opt/airflow/dags/train_weather_pred.py   5382  4.06s             1           0  4.54s           2025-07-21T14:26:47                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.52s           2025-07-21T14:26:51                      12
+/opt/airflow/dags/train_traffic_pred.py   5385  4.04s             1           0  4.50s           2025-07-21T14:26:47                      12
+================================================================================
+[2025-07-21T14:27:25.747+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:25.909+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:35.764+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:35.914+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:46.002+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:46.147+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:27:52.206+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.98s           2025-07-21T14:27:27                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.97s           2025-07-21T14:27:27                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.63s           2025-07-21T14:27:22                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.59s           2025-07-21T14:27:22                      12
+================================================================================
+[2025-07-21T14:27:56.263+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:27:56.422+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:06.829+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:06.999+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:17.087+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:17.234+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:22.285+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.85s           2025-07-21T14:27:58                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.81s           2025-07-21T14:27:58                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.78s           2025-07-21T14:28:02                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.74s           2025-07-21T14:28:02                      12
+================================================================================
+[2025-07-21T14:28:27.321+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:27.488+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:37.540+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:37.723+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:47.609+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:47.780+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:28:52.831+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  5.07s           2025-07-21T14:28:38                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  5.04s           2025-07-21T14:28:38                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.98s           2025-07-21T14:28:33                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.97s           2025-07-21T14:28:33                      12
+================================================================================
+[2025-07-21T14:28:57.868+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:28:58.059+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:08.174+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:29:08.366+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:18.700+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:29:18.886+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:22.934+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.79s           2025-07-21T14:29:13                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.78s           2025-07-21T14:29:08                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.76s           2025-07-21T14:29:08                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.72s           2025-07-21T14:29:13                      12
+================================================================================
+[2025-07-21T14:29:28.980+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:29:29.195+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:39.288+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:29:39.469+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:49.923+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:29:50.120+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:29:53.155+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.80s           2025-07-21T14:29:48                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.79s           2025-07-21T14:29:48                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.66s           2025-07-21T14:29:44                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.61s           2025-07-21T14:29:44                      12
+================================================================================
+[2025-07-21T14:30:00.208+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:00.398+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:10.483+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:10.679+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:20.535+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:20.761+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:23.813+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py     8599  4.25s             1           0  4.80s           2025-07-21T14:29:48                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.80s           2025-07-21T14:30:19                      12
+/opt/airflow/dags/train_crowd_pred.py     8596  4.29s             1           0  4.79s           2025-07-21T14:29:48                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.78s           2025-07-21T14:30:19                      12
+================================================================================
+[2025-07-21T14:30:30.559+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:30.746+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:40.834+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:41.043+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:51.163+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:30:51.380+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:30:54.421+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.99s           2025-07-21T14:30:24                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.98s           2025-07-21T14:30:24                      12
+/opt/airflow/dags/train_traffic_pred.py   8651  4.27s             1           0  4.80s           2025-07-21T14:30:19                      12
+/opt/airflow/dags/train_weather_pred.py   8648  4.28s             1           0  4.78s           2025-07-21T14:30:19                      12
+================================================================================
+[2025-07-21T14:31:01.895+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:02.090+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:12.183+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:12.428+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:22.524+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:22.727+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:24.760+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  5.06s           2025-07-21T14:30:55                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  5.06s           2025-07-21T14:30:55                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.68s           2025-07-21T14:30:59                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.64s           2025-07-21T14:30:59                      12
+================================================================================
+[2025-07-21T14:31:33.414+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:33.609+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:44.017+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:44.192+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:54.276+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:31:54.460+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:31:55.480+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.63s           2025-07-21T14:31:30                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.59s           2025-07-21T14:31:30                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.57s           2025-07-21T14:31:35                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.55s           2025-07-21T14:31:34                      12
+================================================================================
+[2025-07-21T14:32:04.575+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:04.753+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:15.336+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:15.520+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:25.613+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:25.790+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:25.801+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.72s           2025-07-21T14:32:05                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.71s           2025-07-21T14:32:05                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.55s           2025-07-21T14:32:10                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.40s           2025-07-21T14:32:09                      12
+================================================================================
+[2025-07-21T14:32:35.873+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:36.047+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:45.876+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:46.049+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:56.131+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:32:56.303+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:32:56.314+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.43s           2025-07-21T14:32:40                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.43s           2025-07-21T14:32:40                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.41s           2025-07-21T14:32:45                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.36s           2025-07-21T14:32:44                      12
+================================================================================
+[2025-07-21T14:33:06.391+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:06.565+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:33:17.125+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:17.320+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:33:26.472+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.47s           2025-07-21T14:33:15                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.47s           2025-07-21T14:33:15                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.33s           2025-07-21T14:33:20                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.32s           2025-07-21T14:33:19                      12
+================================================================================
+[2025-07-21T14:33:27.477+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:27.645+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:33:37.731+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:37.939+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:33:48.056+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:48.259+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:33:56.513+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.81s           2025-07-21T14:33:56                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.78s           2025-07-21T14:33:55                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.42s           2025-07-21T14:33:50                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.38s           2025-07-21T14:33:50                      12
+================================================================================
+[2025-07-21T14:33:58.133+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:33:58.321+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:08.401+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:34:08.575+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:18.664+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:34:18.842+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:26.948+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py     9313  0.48s             1           0  4.81s           2025-07-21T14:33:56                      12
+/opt/airflow/dags/train_crowd_pred.py     9294  1.50s             1           0  4.78s           2025-07-21T14:33:55                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.57s           2025-07-21T14:34:25                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.56s           2025-07-21T14:34:25                      12
+================================================================================
+[2025-07-21T14:34:28.960+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:34:29.152+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:39.862+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:34:40.051+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:50.141+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:34:50.324+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:34:57.417+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py   9349  1.01s             1           0  4.57s           2025-07-21T14:34:25                      12
+/opt/airflow/dags/train_weather_pred.py   9346  1.03s             1           0  4.56s           2025-07-21T14:34:25                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.38s           2025-07-21T14:34:30                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.32s           2025-07-21T14:34:29                      12
+================================================================================
+[2025-07-21T14:35:00.438+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:00.618+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:11.119+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:11.304+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:21.398+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:21.572+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:27.631+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.63s           2025-07-21T14:35:01                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.63s           2025-07-21T14:35:01                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.62s           2025-07-21T14:35:06                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.48s           2025-07-21T14:35:05                      12
+================================================================================
+[2025-07-21T14:35:31.659+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:31.833+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:42.050+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:42.226+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:52.317+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:35:52.537+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:35:58.598+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.65s           2025-07-21T14:35:41                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.55s           2025-07-21T14:35:36                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.51s           2025-07-21T14:35:36                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.48s           2025-07-21T14:35:41                      12
+================================================================================
+[2025-07-21T14:36:02.624+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:02.820+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:12.654+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:12.858+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:23.502+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:23.691+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:28.752+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.87s           2025-07-21T14:36:16                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.83s           2025-07-21T14:36:16                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.74s           2025-07-21T14:36:11                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.72s           2025-07-21T14:36:11                      12
+================================================================================
+[2025-07-21T14:36:33.788+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:33.962+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:44.081+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:44.283+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:54.723+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:36:54.938+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:36:58.985+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.65s           2025-07-21T14:36:51                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.62s           2025-07-21T14:36:46                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.58s           2025-07-21T14:36:46                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.57s           2025-07-21T14:36:51                      12
+================================================================================
+[2025-07-21T14:37:05.030+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:05.250+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:15.337+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:15.507+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:25.634+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:25.818+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:29.486+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.57s           2025-07-21T14:37:22                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.54s           2025-07-21T14:37:22                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.35s           2025-07-21T14:37:26                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.34s           2025-07-21T14:37:26                      12
+================================================================================
+[2025-07-21T14:37:36.025+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:36.205+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:46.292+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:46.483+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:56.597+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:37:56.768+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:37:59.820+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.61s           2025-07-21T14:37:57                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.58s           2025-07-21T14:37:57                      12
+/opt/airflow/dags/train_crowd_pred.py     9888  2.66s             1           0  4.35s           2025-07-21T14:37:26                      12
+/opt/airflow/dags/train_power_pred.py     9907  2.02s             1           0  4.34s           2025-07-21T14:37:26                      12
+================================================================================
+[2025-07-21T14:38:07.236+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:07.423+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:38:17.509+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:17.697+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:38:27.782+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:27.961+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:38:30.016+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                  PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py   9940  2.04s             1           0  4.61s           2025-07-21T14:37:57                      12
+/opt/airflow/dags/train_traffic_pred.py   9943  2.02s             1           0  4.58s           2025-07-21T14:37:57                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.45s           2025-07-21T14:38:02                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.32s           2025-07-21T14:38:01                      12
+================================================================================
+[2025-07-21T14:38:38.403+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:38.609+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:38:48.704+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:48.887+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:38:58.976+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:38:59.157+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:39:00.176+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.40s           2025-07-21T14:38:36                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.37s           2025-07-21T14:38:32                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.37s           2025-07-21T14:38:32                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.35s           2025-07-21T14:38:37                      12
+================================================================================
+[2025-07-21T14:39:09.581+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:39:09.765+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:39:19.902+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:39:20.076+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:39:30.168+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:39:30.388+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:39:30.404+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.39s           2025-07-21T14:39:07                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.34s           2025-07-21T14:39:07                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.28s           2025-07-21T14:39:11                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.27s           2025-07-21T14:39:11                      12
+================================================================================
+[2025-07-21T14:39:40.516+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:39:40.715+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:39:51.135+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:39:51.334+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:00.414+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.60s           2025-07-21T14:39:43                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.57s           2025-07-21T14:39:48                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.56s           2025-07-21T14:39:43                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.44s           2025-07-21T14:39:47                      12
+================================================================================
+[2025-07-21T14:40:01.418+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:01.588+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:11.679+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:11.851+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:21.981+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:22.167+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:30.442+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_power_pred.py                             1           0  4.44s           2025-07-21T14:40:23                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.37s           2025-07-21T14:40:22                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.32s           2025-07-21T14:40:18                      12
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.31s           2025-07-21T14:40:18                      12
+================================================================================
+[2025-07-21T14:40:32.328+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:32.506+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:42.591+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:42.813+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:40:52.929+0000] {manager.py:821} INFO - Searching for files in /opt/airflow/dags
+[2025-07-21T14:40:53.102+0000] {manager.py:824} INFO - There are 4 files in /opt/airflow/dags
+[2025-07-21T14:41:00.728+0000] {manager.py:997} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run               Last # of DB Queries
+---------------------------------------  -----  ---------  --------  ----------  --------------  -------------------  ----------------------
+/opt/airflow/dags/train_weather_pred.py                           1           0  4.47s           2025-07-21T14:40:53                      12
+/opt/airflow/dags/train_traffic_pred.py                           1           0  4.44s           2025-07-21T14:40:53                      12
+/opt/airflow/dags/train_power_pred.py                             1           0  4.42s           2025-07-21T14:40:58                      12
+/opt/airflow/dags/train_crowd_pred.py                             1           0  4.35s           2025-07-21T14:40:57                      12
+================================================================================
+[2025-07-21T14:41:01.113+0000] {manager.py:465} INFO - Exiting gracefully upon receiving signal 15

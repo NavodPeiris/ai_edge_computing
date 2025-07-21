@@ -11,7 +11,7 @@ username: admin
 pword: fyp12345
 ```
 
-#### influxdb username: navod
+#### influxdb
 
 ```
 username: navod
@@ -129,9 +129,3 @@ python crowd_pred.py
 cd desktop_app
 streamlit run app.py
 ```
-
-login creds:
-```
-username: navod
-password: navod123
-``
