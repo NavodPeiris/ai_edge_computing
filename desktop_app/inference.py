@@ -10,6 +10,8 @@ from tensorflow.keras import Model
 from tensorflow.keras.layers import Input
 import umap
 from sklearn.preprocessing import OneHotEncoder
+from sklearn.cluster import KMeans
+from keras.losses import MeanSquaredError
 
 def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder_url):
     for col in df.columns:
@@ -51,6 +53,8 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder
 
     # 2. Get numeric column names
     num_cols = df.drop(columns=categorical_cols).columns
+
+    df[categorical_cols] = df[categorical_cols].astype(str) # make all values in categorical columns str as encoder need uniform types
 
     # 3. Combine data
     X_cat = encoder.transform(df[categorical_cols])
@@ -127,7 +131,7 @@ def infer(df, labels, task_type, model_path, server_url):
 
     elif task_type == "regression" or task_type == "forecasting":
         # Load the model
-        model = load_model(model_path)
+        model = load_model(model_path, custom_objects={ "mse": MeanSquaredError() })
 
         # Perform inference
         predictions = model.predict(X)
@@ -142,30 +146,26 @@ def infer(df, labels, task_type, model_path, server_url):
 
     elif task_type == "unsupervised classification":
         # Load the trained autoencoder model
-        autoencoder = load_model(model_path)
+        autoencoder = load_model(model_path, custom_objects={ "mse": MeanSquaredError() })
 
         # Extract encoder (all layers up to latent representation)
         encoder = Model(inputs=autoencoder.input, outputs=autoencoder.layers[2].output)
 
         latent_features = encoder.predict(X)
 
-        # Apply UMAP to reduce dimensionality to 2D
-        umap_model = umap.UMAP(n_components=2, random_state=42)
-        latent_2d = umap_model.fit_transform(latent_features)
+        kmeans = KMeans(n_clusters=len(labels), random_state=42)
+        class_ids = kmeans.fit_predict(latent_features)
 
-        # Convert X (original data) to a DataFrame for easy visualization
-        df = pd.DataFrame(X, columns=[f"Feature_{i}" for i in range(X.shape[1])])
+        class_names = []
 
-        # Add UMAP coordinates to DataFrame
-        df["umap_1"] = latent_2d[:, 0]
-        df["umap_2"] = latent_2d[:, 1]
+        for class_id in class_ids:
+            class_names.append(labels[class_id])
 
-        # Create a hover text column showing the actual data record
-        df["hover_text"] = df.apply(lambda row: "<br>".join([f"{col}: {row[col]:.2f}" for col in df.columns[:-2]]), axis=1)
+        df["class"] = class_names
 
     elif task_type == "anomaly detection":
         # Load the trained autoencoder model
-        autoencoder = load_model(model_path)
+        autoencoder = load_model(model_path, custom_objects={ "mse": MeanSquaredError() })
 
         # Predict reconstruction (output) for input data X
         X_reconstructed = autoencoder.predict(X)

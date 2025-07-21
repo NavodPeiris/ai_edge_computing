@@ -84,7 +84,10 @@ class FederatedClient(fl.client.NumPyClient):
 
         categorical_cols = X.select_dtypes(include=['object', 'category']).columns
 
+        print("categorical cols:", categorical_cols)
+
         encoder = OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False)
+        X[categorical_cols] = X[categorical_cols].astype(str) # make all values in categorical columns str as encoder need uniform types
         encoder.fit(X[categorical_cols])
 
         # Save the encoder
@@ -233,10 +236,8 @@ class FederatedClient(fl.client.NumPyClient):
             model.add(layers.Dense(self.output_dim, activation='linear'))  # No activation for regression
             self.loss_fn = 'mse'  # Mean Squared Error for regression
 
-        if self.task_type == 'classification':
-            self.metrics=['accuracy']
-        else:
-            self.metrics=['mse']
+        
+        self.metrics=['accuracy'] 
 
         # Compile the model
         model.compile(optimizer='adam', loss=self.loss_fn, metrics=self.metrics)

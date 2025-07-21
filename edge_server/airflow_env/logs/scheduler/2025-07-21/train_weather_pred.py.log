@@ -1514,3 +1514,944 @@
 [2025-07-21T14:40:52.297+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:52.297+0000] {dag.py:3239} INFO - Sync 1 DAGs
 [2025-07-21T14:40:52.316+0000] {logging_mixin.py:190} INFO - [2025-07-21T14:40:52.315+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
 [2025-07-21T14:40:52.330+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.432 seconds
+[2025-07-21T17:38:00.620+0000] {processor.py:186} INFO - Started process (PID=182) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:00.622+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:38:00.625+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:00.624+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:08.197+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:08.227+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:08.226+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:38:08.248+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:08.248+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:38:08.265+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 7.655 seconds
+[2025-07-21T17:38:39.545+0000] {processor.py:186} INFO - Started process (PID=286) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:39.546+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:38:39.549+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:39.548+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:43.395+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:38:43.422+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:43.421+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:38:43.441+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:38:43.440+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:38:43.456+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.920 seconds
+[2025-07-21T17:39:14.547+0000] {processor.py:186} INFO - Started process (PID=384) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:14.549+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:39:14.552+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:14.552+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:18.251+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:18.276+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:18.275+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:39:18.296+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:18.296+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:39:18.313+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.772 seconds
+[2025-07-21T17:39:49.699+0000] {processor.py:186} INFO - Started process (PID=483) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:50.028+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:39:50.348+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:50.348+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:54.355+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:39:55.620+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:55.620+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:39:56.242+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:39:56.242+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:39:56.651+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 6.958 seconds
+[2025-07-21T17:40:28.449+0000] {processor.py:186} INFO - Started process (PID=581) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:40:28.451+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:40:28.453+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:40:28.452+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:40:32.389+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:40:32.421+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:40:32.419+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:40:32.443+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:40:32.443+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:40:32.460+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 4.018 seconds
+[2025-07-21T17:41:04.419+0000] {processor.py:186} INFO - Started process (PID=685) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:04.420+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:41:04.422+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:04.421+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:07.831+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:07.854+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:07.854+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:41:07.874+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:07.874+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:41:07.890+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.477 seconds
+[2025-07-21T17:41:39.771+0000] {processor.py:186} INFO - Started process (PID=783) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:39.771+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:41:39.773+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:39.773+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:43.074+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:41:43.099+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:43.099+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:41:43.116+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:41:43.116+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:41:43.131+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.366 seconds
+[2025-07-21T17:42:14.213+0000] {processor.py:186} INFO - Started process (PID=881) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:14.214+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:42:14.216+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:14.216+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:17.543+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:17.566+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:17.564+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:42:17.582+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:17.582+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:42:17.596+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.388 seconds
+[2025-07-21T17:42:48.952+0000] {processor.py:186} INFO - Started process (PID=979) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:48.953+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:42:48.956+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:48.955+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:52.397+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:42:52.425+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:52.425+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:42:52.449+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:42:52.448+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:42:52.467+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.520 seconds
+[2025-07-21T17:43:24.022+0000] {processor.py:186} INFO - Started process (PID=1077) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:43:24.024+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:43:24.026+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:43:24.026+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:43:27.631+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:43:27.653+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:43:27.652+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:43:27.670+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:43:27.670+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:43:27.684+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.668 seconds
+[2025-07-21T17:43:58.863+0000] {processor.py:186} INFO - Started process (PID=1175) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:43:58.865+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:43:58.867+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:43:58.867+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:44:02.438+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:44:02.459+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:44:02.459+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:44:02.478+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:44:02.478+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:44:02.492+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.638 seconds
+[2025-07-21T17:44:33.940+0000] {processor.py:186} INFO - Started process (PID=1279) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:44:33.941+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:44:33.943+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:44:33.943+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:44:37.392+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:44:37.415+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:44:37.414+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:44:37.433+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:44:37.433+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:44:37.449+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.515 seconds
+[2025-07-21T17:45:08.803+0000] {processor.py:186} INFO - Started process (PID=1377) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:08.804+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:45:08.807+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:08.807+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:12.148+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:12.173+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:12.172+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:45:12.190+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:12.190+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:45:12.204+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.407 seconds
+[2025-07-21T17:45:43.399+0000] {processor.py:186} INFO - Started process (PID=1475) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:43.401+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:45:43.404+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:43.403+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:46.971+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:45:46.991+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:46.991+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:45:47.010+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:45:47.010+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:45:47.026+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.635 seconds
+[2025-07-21T17:46:18.403+0000] {processor.py:186} INFO - Started process (PID=1573) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:18.404+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:46:18.407+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:18.406+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:21.761+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:21.782+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:21.781+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:46:21.800+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:21.800+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:46:21.818+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.420 seconds
+[2025-07-21T17:46:52.945+0000] {processor.py:186} INFO - Started process (PID=1671) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:52.946+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:46:52.949+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:52.948+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:56.712+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:46:56.736+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:56.735+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:46:56.755+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:46:56.755+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:46:56.770+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.831 seconds
+[2025-07-21T17:47:28.284+0000] {processor.py:186} INFO - Started process (PID=1769) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:47:28.285+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:47:28.288+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:47:28.287+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:47:31.655+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:47:31.678+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:47:31.677+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:47:31.696+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:47:31.696+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:47:31.711+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.435 seconds
+[2025-07-21T17:48:03.244+0000] {processor.py:186} INFO - Started process (PID=1873) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:03.245+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:48:03.248+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:03.247+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:06.774+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:06.796+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:06.795+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:48:06.813+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:06.813+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:48:06.829+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.591 seconds
+[2025-07-21T17:48:38.138+0000] {processor.py:186} INFO - Started process (PID=1971) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:38.139+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:48:38.141+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:38.141+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:41.540+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:48:41.561+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:41.561+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:48:41.578+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:48:41.578+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:48:41.592+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.461 seconds
+[2025-07-21T17:49:13.005+0000] {processor.py:186} INFO - Started process (PID=2069) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:13.006+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:49:13.009+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:13.008+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:16.440+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:16.461+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:16.461+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:49:16.479+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:16.479+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:49:16.495+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.497 seconds
+[2025-07-21T17:49:48.277+0000] {processor.py:186} INFO - Started process (PID=2167) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:48.278+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:49:48.282+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:48.281+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:51.781+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:49:51.802+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:51.802+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:49:51.819+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:49:51.818+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:49:51.833+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.563 seconds
+[2025-07-21T17:50:23.522+0000] {processor.py:186} INFO - Started process (PID=2265) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:50:23.523+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:50:23.526+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:50:23.525+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:50:27.121+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:50:27.143+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:50:27.143+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:50:27.162+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:50:27.161+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:50:27.176+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.662 seconds
+[2025-07-21T17:50:58.354+0000] {processor.py:186} INFO - Started process (PID=2363) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:50:58.356+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:50:58.358+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:50:58.357+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:51:01.777+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:51:01.797+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:51:01.796+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:51:01.815+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:51:01.814+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:51:01.831+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.484 seconds
+[2025-07-21T17:51:33.042+0000] {processor.py:186} INFO - Started process (PID=2467) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:51:33.043+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:51:33.045+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:51:33.045+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:51:36.451+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:51:36.476+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:51:36.476+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:51:36.497+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:51:36.497+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:51:36.517+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.481 seconds
+[2025-07-21T17:52:07.802+0000] {processor.py:186} INFO - Started process (PID=2565) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:07.803+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:52:07.806+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:07.806+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:12.686+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:12.714+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:12.713+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:52:12.738+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:12.738+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:52:12.755+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 4.959 seconds
+[2025-07-21T17:52:43.953+0000] {processor.py:186} INFO - Started process (PID=2663) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:43.954+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:52:43.957+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:43.957+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:47.340+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:52:47.361+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:47.361+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:52:47.378+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:52:47.378+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:52:47.394+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.449 seconds
+[2025-07-21T17:53:19.057+0000] {processor.py:186} INFO - Started process (PID=2761) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:19.058+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:53:19.061+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:19.060+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:22.425+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:22.447+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:22.447+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:53:22.464+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:22.464+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:53:22.478+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.428 seconds
+[2025-07-21T17:53:54.388+0000] {processor.py:186} INFO - Started process (PID=2859) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:54.389+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:53:54.391+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:54.391+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:57.707+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:53:57.728+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:57.728+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:53:57.745+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:53:57.745+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:53:57.758+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.376 seconds
+[2025-07-21T17:54:28.830+0000] {processor.py:186} INFO - Started process (PID=2957) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:54:28.831+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:54:28.833+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:54:28.833+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:54:32.272+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:54:32.294+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:54:32.294+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:54:32.313+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:54:32.313+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:54:32.329+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.506 seconds
+[2025-07-21T17:55:03.522+0000] {processor.py:186} INFO - Started process (PID=3061) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:03.523+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:55:03.526+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:03.525+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:06.992+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:07.015+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:07.014+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:55:07.033+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:07.033+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:55:07.050+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.534 seconds
+[2025-07-21T17:55:38.297+0000] {processor.py:186} INFO - Started process (PID=3159) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:38.298+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:55:38.300+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:38.300+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:41.575+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:55:41.595+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:41.595+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:55:41.613+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:55:41.613+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:55:41.629+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.337 seconds
+[2025-07-21T17:56:12.958+0000] {processor.py:186} INFO - Started process (PID=3257) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:12.960+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:56:12.962+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:12.962+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:16.421+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:16.443+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:16.442+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:56:16.459+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:16.459+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:56:16.472+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.520 seconds
+[2025-07-21T17:56:48.396+0000] {processor.py:186} INFO - Started process (PID=3355) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:48.397+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:56:48.399+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:48.399+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:51.744+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:56:51.765+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:51.765+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:56:51.782+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:56:51.781+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:56:51.796+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.407 seconds
+[2025-07-21T17:57:23.704+0000] {processor.py:186} INFO - Started process (PID=3453) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:57:23.705+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:57:23.707+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:57:23.707+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:57:26.986+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:57:27.006+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:57:27.005+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:57:27.025+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:57:27.024+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:57:27.040+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.341 seconds
+[2025-07-21T17:57:58.708+0000] {processor.py:186} INFO - Started process (PID=3551) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:57:58.709+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:57:58.712+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:57:58.711+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:58:02.090+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:58:02.114+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:58:02.113+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:58:02.134+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:58:02.134+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:58:02.150+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.448 seconds
+[2025-07-21T17:58:33.667+0000] {processor.py:186} INFO - Started process (PID=3649) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:58:33.668+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:58:33.671+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:58:33.670+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:58:37.212+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:58:37.240+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:58:37.239+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:58:37.265+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:58:37.264+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:58:37.289+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.628 seconds
+[2025-07-21T17:59:08.577+0000] {processor.py:186} INFO - Started process (PID=3753) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:08.579+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:59:08.581+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:08.581+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:11.843+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:11.863+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:11.863+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:59:11.882+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:11.882+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:59:11.896+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.326 seconds
+[2025-07-21T17:59:43.550+0000] {processor.py:186} INFO - Started process (PID=3851) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:43.551+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T17:59:43.553+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:43.553+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:46.967+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T17:59:46.993+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:46.992+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T17:59:47.014+0000] {logging_mixin.py:190} INFO - [2025-07-21T17:59:47.014+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T17:59:47.029+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.486 seconds
+[2025-07-21T18:00:18.972+0000] {processor.py:186} INFO - Started process (PID=3949) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:18.973+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:00:18.975+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:18.975+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:22.308+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:22.332+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:22.331+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:00:22.352+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:22.352+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:00:22.371+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.403 seconds
+[2025-07-21T18:00:54.009+0000] {processor.py:186} INFO - Started process (PID=4047) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:54.010+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:00:54.012+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:54.012+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:57.414+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:00:57.438+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:57.437+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:00:57.457+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:00:57.457+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:00:57.475+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.472 seconds
+[2025-07-21T18:01:29.386+0000] {processor.py:186} INFO - Started process (PID=4145) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:01:29.387+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:01:29.391+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:01:29.390+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:01:32.858+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:01:32.882+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:01:32.882+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:01:32.905+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:01:32.905+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:01:32.923+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.543 seconds
+[2025-07-21T18:02:04.164+0000] {processor.py:186} INFO - Started process (PID=4243) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:04.165+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:02:04.168+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:04.167+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:07.775+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:07.799+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:07.798+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:02:07.817+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:07.817+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:02:07.833+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.675 seconds
+[2025-07-21T18:02:39.027+0000] {processor.py:186} INFO - Started process (PID=4347) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:39.028+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:02:39.030+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:39.030+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:42.469+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:02:42.494+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:42.494+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:02:42.513+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:02:42.513+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:02:42.528+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.506 seconds
+[2025-07-21T18:03:13.906+0000] {processor.py:186} INFO - Started process (PID=4445) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:13.907+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:03:13.910+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:13.909+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:17.459+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:17.483+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:17.482+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:03:17.502+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:17.502+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:03:17.517+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.618 seconds
+[2025-07-21T18:03:49.532+0000] {processor.py:186} INFO - Started process (PID=4543) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:49.533+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:03:49.535+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:49.535+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:53.314+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:03:53.336+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:53.336+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:03:53.354+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:03:53.354+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:03:53.371+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.844 seconds
+[2025-07-21T18:04:24.835+0000] {processor.py:186} INFO - Started process (PID=4641) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:04:24.836+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:04:24.839+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:04:24.838+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:04:28.311+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:04:28.336+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:04:28.336+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:04:28.354+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:04:28.354+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:04:28.368+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.539 seconds
+[2025-07-21T18:04:59.841+0000] {processor.py:186} INFO - Started process (PID=4740) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:04:59.842+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:04:59.845+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:04:59.844+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:05:03.590+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:05:03.616+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:05:03.614+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:05:03.636+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:05:03.635+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:05:03.651+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.817 seconds
+[2025-07-21T18:05:35.208+0000] {processor.py:186} INFO - Started process (PID=4844) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:05:35.209+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:05:35.212+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:05:35.211+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:05:38.963+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:05:38.989+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:05:38.988+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:05:39.009+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:05:39.009+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:05:39.024+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.823 seconds
+[2025-07-21T18:06:10.491+0000] {processor.py:186} INFO - Started process (PID=4942) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:10.492+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:06:10.495+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:10.494+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:13.989+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:14.012+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:14.012+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:06:14.030+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:14.030+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:06:14.045+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.562 seconds
+[2025-07-21T18:06:45.703+0000] {processor.py:186} INFO - Started process (PID=5040) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:45.704+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:06:45.707+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:45.707+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:49.226+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:06:49.248+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:49.248+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:06:49.265+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:06:49.265+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:06:49.280+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.586 seconds
+[2025-07-21T18:07:21.588+0000] {processor.py:186} INFO - Started process (PID=5138) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:07:21.590+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:07:21.596+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:07:21.594+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:07:25.696+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:07:25.719+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:07:25.718+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:07:25.736+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:07:25.736+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:07:25.753+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 4.177 seconds
+[2025-07-21T18:07:57.060+0000] {processor.py:186} INFO - Started process (PID=5236) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:07:57.061+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:07:57.064+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:07:57.064+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:08:00.463+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:08:00.488+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:08:00.487+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:08:00.505+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:08:00.505+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:08:00.520+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.467 seconds
+[2025-07-21T18:08:31.767+0000] {processor.py:186} INFO - Started process (PID=5335) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:08:31.768+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:08:31.771+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:08:31.770+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:08:35.291+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:08:35.312+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:08:35.311+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:08:35.331+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:08:35.330+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:08:35.346+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.586 seconds
+[2025-07-21T18:09:06.519+0000] {processor.py:186} INFO - Started process (PID=5439) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:06.521+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:09:06.523+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:06.523+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:09.854+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:09.875+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:09.875+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:09:09.894+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:09.894+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:09:09.910+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.397 seconds
+[2025-07-21T18:09:40.946+0000] {processor.py:186} INFO - Started process (PID=5537) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:40.947+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:09:40.950+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:40.949+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:44.378+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:09:44.403+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:44.403+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:09:44.427+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:09:44.427+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:09:44.448+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.507 seconds
+[2025-07-21T18:10:16.369+0000] {processor.py:186} INFO - Started process (PID=5635) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:16.370+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:10:16.372+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:16.372+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:19.824+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:19.846+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:19.845+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:10:19.864+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:19.864+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:10:19.879+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.516 seconds
+[2025-07-21T18:10:51.282+0000] {processor.py:186} INFO - Started process (PID=5733) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:51.283+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:10:51.287+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:51.287+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:54.797+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:10:54.820+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:54.819+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:10:54.839+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:10:54.838+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:10:54.854+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.582 seconds
+[2025-07-21T18:11:26.370+0000] {processor.py:186} INFO - Started process (PID=5831) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:11:26.371+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:11:26.373+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:11:26.373+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:11:29.790+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:11:29.812+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:11:29.812+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:11:29.832+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:11:29.831+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:11:29.847+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.482 seconds
+[2025-07-21T18:12:00.952+0000] {processor.py:186} INFO - Started process (PID=5929) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:00.953+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:12:00.955+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:00.955+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:04.198+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:04.220+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:04.220+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:12:04.238+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:04.238+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:12:04.253+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.309 seconds
+[2025-07-21T18:12:36.089+0000] {processor.py:186} INFO - Started process (PID=6033) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:36.090+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:12:36.094+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:36.093+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:39.668+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:12:39.691+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:39.691+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:12:39.711+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:12:39.710+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:12:39.725+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.645 seconds
+[2025-07-21T18:13:11.032+0000] {processor.py:186} INFO - Started process (PID=6131) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:11.033+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:13:11.036+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:11.035+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:14.301+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:14.325+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:14.324+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:13:14.344+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:14.344+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:13:14.362+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.335 seconds
+[2025-07-21T18:13:46.275+0000] {processor.py:186} INFO - Started process (PID=6229) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:46.277+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:13:46.280+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:46.279+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:49.587+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:13:49.607+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:49.607+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:13:49.624+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:13:49.624+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:13:49.639+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.371 seconds
+[2025-07-21T18:14:21.215+0000] {processor.py:186} INFO - Started process (PID=6327) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:21.216+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:14:21.218+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:21.218+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:24.360+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:24.382+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:24.381+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:14:24.399+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:24.399+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:14:24.413+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.203 seconds
+[2025-07-21T18:14:56.374+0000] {processor.py:186} INFO - Started process (PID=6425) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:56.375+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:14:56.377+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:56.377+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:59.671+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:14:59.692+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:59.691+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:14:59.710+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:14:59.709+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:14:59.725+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.357 seconds
+[2025-07-21T18:15:31.065+0000] {processor.py:186} INFO - Started process (PID=6523) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:15:31.066+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:15:31.069+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:15:31.069+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:15:34.694+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:15:34.721+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:15:34.720+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:15:34.741+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:15:34.741+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:15:34.760+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.705 seconds
+[2025-07-21T18:16:06.077+0000] {processor.py:186} INFO - Started process (PID=6621) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:06.078+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:16:06.081+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:06.080+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:09.515+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:09.539+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:09.539+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:16:09.558+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:09.558+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:16:09.588+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.516 seconds
+[2025-07-21T18:16:40.916+0000] {processor.py:186} INFO - Started process (PID=6725) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:40.917+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:16:40.920+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:40.920+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:44.398+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:16:44.420+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:44.420+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:16:44.439+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:16:44.438+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:16:44.458+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.548 seconds
+[2025-07-21T18:17:16.010+0000] {processor.py:186} INFO - Started process (PID=6823) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:16.011+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:17:16.013+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:16.012+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:19.230+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:19.252+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:19.251+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:17:19.270+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:19.270+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:17:19.286+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.281 seconds
+[2025-07-21T18:17:50.919+0000] {processor.py:186} INFO - Started process (PID=6921) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:50.920+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:17:50.923+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:50.922+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:54.493+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:17:54.518+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:54.517+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:17:54.537+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:17:54.536+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:17:54.554+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.642 seconds
+[2025-07-21T18:18:26.382+0000] {processor.py:186} INFO - Started process (PID=7019) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:18:26.384+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:18:26.390+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:18:26.389+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:18:30.416+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:18:30.440+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:18:30.439+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:18:30.461+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:18:30.460+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:18:30.477+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 4.107 seconds
+[2025-07-21T18:19:01.690+0000] {processor.py:186} INFO - Started process (PID=7117) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:01.691+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:19:01.694+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:01.693+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:05.213+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:05.235+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:05.234+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:19:05.255+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:05.255+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:19:05.271+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.588 seconds
+[2025-07-21T18:19:37.015+0000] {processor.py:186} INFO - Started process (PID=7215) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:37.016+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:19:37.019+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:37.018+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:40.363+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:19:40.383+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:40.383+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:19:40.401+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:19:40.401+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:19:40.417+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.408 seconds
+[2025-07-21T18:20:12.279+0000] {processor.py:186} INFO - Started process (PID=7319) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:12.280+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:20:12.282+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:12.282+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:15.499+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:15.519+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:15.518+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:20:15.535+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:15.535+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:20:15.549+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.275 seconds
+[2025-07-21T18:20:46.640+0000] {processor.py:186} INFO - Started process (PID=7417) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:46.642+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:20:46.644+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:46.644+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:50.079+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:20:50.102+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:50.100+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:20:50.122+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:20:50.122+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:20:50.144+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.509 seconds
+[2025-07-21T18:21:21.643+0000] {processor.py:186} INFO - Started process (PID=7515) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:21:21.644+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:21:21.649+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:21:21.648+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:21:25.515+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:21:25.536+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:21:25.535+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:21:25.554+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:21:25.553+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:21:25.569+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.937 seconds
+[2025-07-21T18:21:56.691+0000] {processor.py:186} INFO - Started process (PID=7613) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:21:56.693+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:21:56.697+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:21:56.696+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:22:01.937+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:22:01.975+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:22:01.974+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:22:02.007+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:22:02.006+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:22:02.032+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 5.349 seconds
+[2025-07-21T18:22:34.030+0000] {processor.py:186} INFO - Started process (PID=7711) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:22:34.031+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:22:34.033+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:22:34.033+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:22:37.589+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:22:37.614+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:22:37.612+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:22:37.632+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:22:37.632+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:22:37.647+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.623 seconds
+[2025-07-21T18:23:09.628+0000] {processor.py:186} INFO - Started process (PID=7815) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:09.629+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:23:09.632+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:09.631+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:12.882+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:12.902+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:12.902+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:23:12.919+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:12.919+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:23:12.933+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.310 seconds
+[2025-07-21T18:23:44.824+0000] {processor.py:186} INFO - Started process (PID=7913) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:44.825+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:23:44.828+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:44.827+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:48.136+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:23:48.159+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:48.158+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:23:48.175+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:23:48.175+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:23:48.189+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.372 seconds
+[2025-07-21T18:24:20.144+0000] {processor.py:186} INFO - Started process (PID=8011) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:20.145+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:24:20.147+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:20.147+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:23.787+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:23.809+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:23.807+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:24:23.826+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:23.826+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:24:23.842+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.706 seconds
+[2025-07-21T18:24:55.204+0000] {processor.py:186} INFO - Started process (PID=8109) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:55.205+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:24:55.207+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:55.207+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:58.573+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:24:58.596+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:58.595+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:24:58.614+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:24:58.614+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:24:58.629+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.432 seconds
+[2025-07-21T18:25:30.465+0000] {processor.py:186} INFO - Started process (PID=8207) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:25:30.466+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:25:30.469+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:25:30.469+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:25:33.806+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:25:33.829+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:25:33.829+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:25:33.846+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:25:33.846+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:25:33.861+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.403 seconds
+[2025-07-21T18:26:04.953+0000] {processor.py:186} INFO - Started process (PID=8308) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:04.954+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:26:04.956+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:04.956+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:08.310+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:08.331+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:08.330+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:26:08.349+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:08.349+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:26:08.364+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.419 seconds
+[2025-07-21T18:26:40.212+0000] {processor.py:186} INFO - Started process (PID=8409) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:40.214+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:26:40.217+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:40.217+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:43.664+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:26:43.686+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:43.685+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:26:43.704+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:26:43.704+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:26:43.720+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.515 seconds
+[2025-07-21T18:27:15.160+0000] {processor.py:186} INFO - Started process (PID=8507) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:15.162+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:27:15.164+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:15.164+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:18.616+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:18.639+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:18.639+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:27:18.657+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:18.657+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:27:18.671+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.519 seconds
+[2025-07-21T18:27:50.366+0000] {processor.py:186} INFO - Started process (PID=8605) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:50.367+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:27:50.370+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:50.370+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:53.862+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:27:53.885+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:53.884+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:27:53.906+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:27:53.906+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:27:53.920+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.561 seconds
+[2025-07-21T18:28:25.808+0000] {processor.py:186} INFO - Started process (PID=8703) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:28:25.809+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:28:25.811+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:28:25.811+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:28:29.170+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:28:29.191+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:28:29.191+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:28:29.208+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:28:29.208+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:28:29.224+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.421 seconds
+[2025-07-21T18:29:00.765+0000] {processor.py:186} INFO - Started process (PID=8801) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:00.766+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:29:00.768+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:00.768+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:04.253+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:04.277+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:04.277+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:29:04.296+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:04.295+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:29:04.312+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.553 seconds
+[2025-07-21T18:29:36.270+0000] {processor.py:186} INFO - Started process (PID=8899) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:36.271+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:29:36.274+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:36.274+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:39.878+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:29:39.900+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:39.899+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:29:39.918+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:29:39.918+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:29:39.935+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.671 seconds
+[2025-07-21T18:30:11.120+0000] {processor.py:186} INFO - Started process (PID=9003) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:11.121+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:30:11.124+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:11.124+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:14.466+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:14.486+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:14.486+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:30:14.503+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:14.502+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:30:14.518+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.405 seconds
+[2025-07-21T18:30:46.320+0000] {processor.py:186} INFO - Started process (PID=9101) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:46.322+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:30:46.324+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:46.324+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:49.604+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:30:49.626+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:49.625+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:30:49.643+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:30:49.643+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:30:49.656+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.342 seconds
+[2025-07-21T18:31:21.612+0000] {processor.py:186} INFO - Started process (PID=9199) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:21.613+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:31:21.615+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:21.615+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:25.108+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:25.132+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:25.131+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:31:25.162+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:25.161+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:31:25.182+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.577 seconds
+[2025-07-21T18:31:56.268+0000] {processor.py:186} INFO - Started process (PID=9297) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:56.269+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:31:56.272+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:56.271+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:59.724+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:31:59.745+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:59.744+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:31:59.762+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:31:59.762+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:31:59.777+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.517 seconds
+[2025-07-21T18:32:31.670+0000] {processor.py:186} INFO - Started process (PID=9395) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:32:31.671+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:32:31.673+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:32:31.673+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:32:35.237+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:32:35.264+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:32:35.264+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:32:35.284+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:32:35.284+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:32:35.301+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.637 seconds
+[2025-07-21T18:33:06.353+0000] {processor.py:186} INFO - Started process (PID=9493) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:06.354+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:33:06.356+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:06.355+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:09.600+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:09.620+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:09.619+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:33:09.638+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:09.638+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:33:09.652+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.304 seconds
+[2025-07-21T18:33:41.523+0000] {processor.py:186} INFO - Started process (PID=9597) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:41.525+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:33:41.527+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:41.526+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:44.835+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:33:44.858+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:44.857+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:33:44.876+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:33:44.875+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:33:44.892+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.374 seconds
+[2025-07-21T18:34:16.012+0000] {processor.py:186} INFO - Started process (PID=9695) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:16.013+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:34:16.015+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:16.015+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:19.287+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:19.309+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:19.309+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:34:19.326+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:19.326+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:34:19.341+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.335 seconds
+[2025-07-21T18:34:51.045+0000] {processor.py:186} INFO - Started process (PID=9793) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:51.046+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:34:51.048+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:51.048+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:54.309+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:34:54.330+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:54.330+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:34:54.349+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:34:54.349+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:34:54.364+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.327 seconds
+[2025-07-21T18:35:26.048+0000] {processor.py:186} INFO - Started process (PID=9891) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:35:26.049+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:35:26.051+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:35:26.051+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:35:29.375+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:35:29.397+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:35:29.396+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:35:29.415+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:35:29.414+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:35:29.430+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.388 seconds
+[2025-07-21T18:36:01.380+0000] {processor.py:186} INFO - Started process (PID=9989) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:01.381+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:36:01.384+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:01.384+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:04.799+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:04.821+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:04.820+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:36:04.840+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:04.840+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:36:04.857+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.487 seconds
+[2025-07-21T18:36:36.495+0000] {processor.py:186} INFO - Started process (PID=10087) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:36.496+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:36:36.498+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:36.498+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:39.712+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:36:39.732+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:39.732+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:36:39.752+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:36:39.751+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:36:39.766+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.277 seconds
+[2025-07-21T18:37:11.686+0000] {processor.py:186} INFO - Started process (PID=10191) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:11.687+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:37:11.689+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:11.689+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:15.079+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:15.099+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:15.098+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:37:15.117+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:15.116+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:37:15.131+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.452 seconds
+[2025-07-21T18:37:46.845+0000] {processor.py:186} INFO - Started process (PID=10289) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:46.846+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:37:46.848+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:46.848+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:50.243+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:37:50.267+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:50.266+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:37:50.283+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:37:50.283+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:37:50.299+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.460 seconds
+[2025-07-21T18:38:21.993+0000] {processor.py:186} INFO - Started process (PID=10387) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:38:21.995+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:38:21.997+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:38:21.997+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:38:25.340+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:38:25.363+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:38:25.362+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:38:25.385+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:38:25.385+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:38:25.401+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.414 seconds
+[2025-07-21T18:38:57.335+0000] {processor.py:186} INFO - Started process (PID=10485) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:38:57.336+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:38:57.338+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:38:57.338+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:39:00.652+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:39:00.673+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:39:00.672+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:39:00.690+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:39:00.690+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:39:00.704+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.375 seconds
+[2025-07-21T18:39:32.362+0000] {processor.py:186} INFO - Started process (PID=10583) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:39:32.363+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:39:32.365+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:39:32.365+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:39:35.764+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:39:35.785+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:39:35.785+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:39:35.802+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:39:35.802+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:39:35.817+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.461 seconds
+[2025-07-21T18:40:06.924+0000] {processor.py:186} INFO - Started process (PID=10681) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:06.925+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:40:06.927+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:06.927+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:10.203+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:10.226+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:10.225+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:40:10.245+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:10.244+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:40:10.262+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.344 seconds
+[2025-07-21T18:40:42.112+0000] {processor.py:186} INFO - Started process (PID=10785) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:42.113+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:40:42.116+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:42.116+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:45.567+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:40:45.589+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:45.588+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:40:45.608+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:40:45.608+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:40:45.623+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.517 seconds
+[2025-07-21T18:41:17.258+0000] {processor.py:186} INFO - Started process (PID=10883) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:17.259+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:41:17.262+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:17.261+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:20.652+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:20.675+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:20.674+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:41:20.693+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:20.693+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:41:20.711+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.458 seconds
+[2025-07-21T18:41:52.590+0000] {processor.py:186} INFO - Started process (PID=10981) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:52.591+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:41:52.593+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:52.593+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:55.907+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:41:55.927+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:55.926+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:41:55.943+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:41:55.943+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:41:55.960+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.376 seconds
+[2025-07-21T18:42:27.609+0000] {processor.py:186} INFO - Started process (PID=11079) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:42:27.610+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:42:27.612+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:42:27.612+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:42:30.894+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:42:30.918+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:42:30.917+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:42:30.939+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:42:30.938+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:42:30.955+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.353 seconds
+[2025-07-21T18:43:02.834+0000] {processor.py:186} INFO - Started process (PID=11177) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:02.835+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:43:02.838+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:02.838+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:06.324+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:06.347+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:06.347+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:43:06.365+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:06.365+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:43:06.380+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.553 seconds
+[2025-07-21T18:43:37.685+0000] {processor.py:186} INFO - Started process (PID=11275) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:37.686+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:43:37.689+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:37.689+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:41.110+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:43:41.131+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:41.130+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:43:41.150+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:43:41.149+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:43:41.166+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.488 seconds
+[2025-07-21T18:44:12.905+0000] {processor.py:186} INFO - Started process (PID=11379) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:12.907+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:44:12.909+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:12.908+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:16.307+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:16.332+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:16.331+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:44:16.352+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:16.352+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:44:16.381+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.481 seconds
+[2025-07-21T18:44:47.463+0000] {processor.py:186} INFO - Started process (PID=11477) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:47.465+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:44:47.469+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:47.468+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:51.941+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:44:51.964+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:51.963+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:44:51.981+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:44:51.981+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:44:51.997+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 4.541 seconds
+[2025-07-21T18:45:23.605+0000] {processor.py:186} INFO - Started process (PID=11575) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:45:23.606+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:45:23.608+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:45:23.608+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:45:27.132+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:45:27.153+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:45:27.152+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:45:27.170+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:45:27.170+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:45:27.184+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.586 seconds
+[2025-07-21T18:45:59.079+0000] {processor.py:186} INFO - Started process (PID=11673) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:45:59.080+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:45:59.082+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:45:59.082+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:46:02.429+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:46:02.451+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:46:02.451+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:46:02.468+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:46:02.468+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:46:02.484+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.414 seconds
+[2025-07-21T18:46:34.269+0000] {processor.py:186} INFO - Started process (PID=11771) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:46:34.270+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:46:34.272+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:46:34.272+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:46:37.603+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:46:37.625+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:46:37.625+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:46:37.642+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:46:37.642+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:46:37.657+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.393 seconds
+[2025-07-21T18:47:09.538+0000] {processor.py:186} INFO - Started process (PID=11869) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:09.539+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:47:09.541+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:09.541+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:12.774+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:12.797+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:12.796+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:47:12.815+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:12.815+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:47:12.834+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.302 seconds
+[2025-07-21T18:47:44.045+0000] {processor.py:186} INFO - Started process (PID=11973) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:44.046+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:47:44.048+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:44.048+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:47.381+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:47:47.404+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:47.404+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:47:47.421+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:47:47.421+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:47:47.436+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.396 seconds
+[2025-07-21T18:48:18.664+0000] {processor.py:186} INFO - Started process (PID=12071) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:18.665+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:48:18.669+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:18.668+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:22.135+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:22.159+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:22.158+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:48:22.178+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:22.177+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:48:22.194+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.538 seconds
+[2025-07-21T18:48:53.895+0000] {processor.py:186} INFO - Started process (PID=12169) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:53.896+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:48:53.898+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:53.898+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:57.513+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:48:57.536+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:57.535+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:48:57.554+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:48:57.554+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:48:57.570+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.682 seconds
+[2025-07-21T18:49:28.842+0000] {processor.py:186} INFO - Started process (PID=12267) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:49:28.844+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:49:28.847+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:49:28.846+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:49:32.173+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:49:32.198+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:49:32.198+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:49:32.217+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:49:32.217+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:49:32.236+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.401 seconds
+[2025-07-21T18:50:03.365+0000] {processor.py:186} INFO - Started process (PID=12365) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:03.366+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:50:03.368+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:03.368+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:06.651+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:06.672+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:06.671+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:50:06.694+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:06.693+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:50:06.712+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.352 seconds
+[2025-07-21T18:50:38.784+0000] {processor.py:186} INFO - Started process (PID=12463) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:38.786+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:50:38.788+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:38.788+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:42.122+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:50:42.142+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:42.142+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:50:42.159+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:50:42.158+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:50:42.172+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.394 seconds
+[2025-07-21T18:51:13.212+0000] {processor.py:186} INFO - Started process (PID=12567) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:13.213+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:51:13.214+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:13.214+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:16.304+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:16.324+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:16.324+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:51:16.341+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:16.341+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:51:16.356+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.149 seconds
+[2025-07-21T18:51:48.251+0000] {processor.py:186} INFO - Started process (PID=12665) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:48.252+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:51:48.254+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:48.254+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:51.625+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:51:51.650+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:51.649+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:51:51.668+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:51:51.668+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:51:51.681+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.435 seconds
+[2025-07-21T18:52:22.801+0000] {processor.py:186} INFO - Started process (PID=12763) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:52:22.802+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:52:22.804+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:52:22.804+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:52:26.264+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:52:26.287+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:52:26.287+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:52:26.308+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:52:26.308+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:52:26.326+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.530 seconds
+[2025-07-21T18:52:57.718+0000] {processor.py:186} INFO - Started process (PID=12861) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:52:57.719+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:52:57.721+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:52:57.721+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:53:00.911+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:53:00.932+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:53:00.932+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:53:00.953+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:53:00.952+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:53:00.971+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.260 seconds
+[2025-07-21T18:53:32.831+0000] {processor.py:186} INFO - Started process (PID=12959) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:53:32.832+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:53:32.834+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:53:32.834+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:53:36.073+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:53:36.095+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:53:36.095+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:53:36.113+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:53:36.113+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:53:36.127+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.302 seconds
+[2025-07-21T18:54:07.528+0000] {processor.py:186} INFO - Started process (PID=13057) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:07.529+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:54:07.536+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:07.535+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:11.013+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:11.039+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:11.038+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:54:11.057+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:11.057+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:54:11.073+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.563 seconds
+[2025-07-21T18:54:42.764+0000] {processor.py:186} INFO - Started process (PID=13162) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:42.765+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:54:42.767+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:42.767+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:46.068+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:54:46.089+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:46.088+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:54:46.109+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:54:46.109+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:54:46.125+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.367 seconds
+[2025-07-21T18:55:18.041+0000] {processor.py:186} INFO - Started process (PID=13260) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:18.042+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:55:18.044+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:18.044+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:21.093+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:21.117+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:21.116+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:55:21.135+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:21.135+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:55:21.151+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.115 seconds
+[2025-07-21T18:55:53.165+0000] {processor.py:186} INFO - Started process (PID=13358) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:53.166+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:55:53.168+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:53.168+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:56.653+0000] {processor.py:925} INFO - DAG(s) 'train_weather_pred' retrieved from /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:55:56.673+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:56.673+0000] {dag.py:3239} INFO - Sync 1 DAGs
+[2025-07-21T18:55:56.691+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:55:56.691+0000] {dag.py:4180} INFO - Setting next_dagrun for train_weather_pred to 2025-07-21 00:00:00+00:00, run_after=2025-07-22 00:00:00+00:00
+[2025-07-21T18:55:56.706+0000] {processor.py:208} INFO - Processing /opt/airflow/dags/train_weather_pred.py took 3.547 seconds
+[2025-07-21T18:56:28.620+0000] {processor.py:186} INFO - Started process (PID=13456) to work on /opt/airflow/dags/train_weather_pred.py
+[2025-07-21T18:56:28.621+0000] {processor.py:914} INFO - Processing file /opt/airflow/dags/train_weather_pred.py for tasks to queue
+[2025-07-21T18:56:28.623+0000] {logging_mixin.py:190} INFO - [2025-07-21T18:56:28.622+0000] {dagbag.py:588} INFO - Filling up the DagBag from /opt/airflow/dags/train_weather_pred.py

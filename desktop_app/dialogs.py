@@ -225,7 +225,6 @@ def create_supervised_dialog(model, model_path):
                     if res_params_fetched.status_code == 200:
                         res = res_params_fetched.json()
                         task_type = str(res["task_type"])
-                        labels = str(res["labels"])
                         rounds = str(res["rounds"])
                         epochs = str(res["epochs"])
                         model_json = str(res["model_json"])
@@ -452,7 +451,6 @@ def create_unsupervised_dialog(model, model_path):
                     if res_params_fetched.status_code == 200:
                         res = res_params_fetched.json()
                         task_type = str(res["task_type"])
-                        labels = str(res["labels"])
                         rounds = str(res["rounds"])
                         epochs = str(res["epochs"])
                         model_json = str(res["model_json"])
@@ -488,6 +486,7 @@ def create_forecasting_dialog(model, model_path):
     def forecasting_model_train_dialog():
         initializer = st.toggle("Is Federated Training Initializer?", key="is_initializer")
         port = ""
+        labels = None
 
         if initializer:
             num_clients = str(int(st.number_input("Number of training clients", min_value=1, step=1, key="num_clients")))
@@ -681,7 +680,6 @@ def create_forecasting_dialog(model, model_path):
                     if res_params_fetched.status_code == 200:
                         res = res_params_fetched.json()
                         task_type = str(res["task_type"])
-                        labels = str(res["labels"])
                         rounds = str(res["rounds"])
                         epochs = str(res["epochs"])
                         model_json = str(res["model_json"])
@@ -904,7 +902,11 @@ def create_unsupervised_model_pred_dialog(model, model_path):
     def unsupervised_model_pred_dialog():
         # File uploader for Home page
         file = st.file_uploader("Upload Excel or CSV file", type=["xlsx", "xls", "csv"])
-        label = ""
+        num_of_classes = int(st.number_input("Number of classes to classify into", min_value=1, step=1, key="num_of_classes"))
+
+        labels = []
+        for cls_id in range(num_of_classes):
+            labels.append(f"Class {cls_id+1}")
 
         has_datecol = st.toggle("Does dataset have a date column?", key="has_datecol")
 
@@ -1009,7 +1011,6 @@ def create_unsupervised_model_pred_dialog(model, model_path):
 
         if cc_df is not None or tc_df is not None or w_df is not None or e_df is not None or h_df is not None:
             if st.button("Merge", key="merge-enabled"):
-                print("label:", "N/A")
                 print("task:", model["task"])
                 print("save_path:", model_path)
                 if df is not None:
@@ -1069,19 +1070,9 @@ def create_unsupervised_model_pred_dialog(model, model_path):
             try:
                 # Show status updates
                 with st.spinner("Inference in progress..."):
-                    results = inf(df, [label], model_path, model["task"], edge_server_url)
-                    st.write("Prediction Results:")
-                    # Display in Streamlit
-                    st.title("UMAP Visualization of Encoded Features")
-                    # Create a Matplotlib figure
-                    fig, ax = plt.subplots(figsize=(8, 6))
-                    scatter = ax.scatter(results["umap_1"], results["umap_2"], c=np.arange(len(results)), cmap="viridis", alpha=0.7)
-                    ax.set_xlabel("UMAP 1")
-                    ax.set_ylabel("UMAP 2")
-                    ax.set_title("UMAP Projection of Latent Space")
-                    plt.colorbar(scatter, ax=ax)
-                    # Show plot in Streamlit
-                    st.pyplot(fig)
+                    results = inf(df, labels, model_path, model["task"], edge_server_url)
+                    st.dataframe(results)
+
             except Exception as e:
                 st.error(f"Error: {e}")
 

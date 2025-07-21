@@ -1,6 +1,24 @@
 {
     "models": [
         {
+            "name": "anomaly model",
+            "description": "anomaly",
+            "model_folder": "anomaly_model",
+            "task": "anomaly detection"
+        },
+        {
+            "name": "customer segmentation model",
+            "description": "segment customers",
+            "model_folder": "customer_segmentation_model",
+            "task": "unsupervised classification"
+        },
+        {
+            "name": "restaurant sales forecasting",
+            "description": "model for forecasting restaurant sales",
+            "model_folder": "restaurant_sales_forecasting",
+            "task": "forecasting"
+        },
+        {
             "name": "churn model",
             "description": "model about churn",
             "model_folder": "churn_model",
