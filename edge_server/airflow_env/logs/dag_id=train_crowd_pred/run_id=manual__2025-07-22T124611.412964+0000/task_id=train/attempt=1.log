@@ -1,0 +1,47 @@
+[2025-07-22T12:46:18.816+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-07-22T12:46:18.832+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: train_crowd_pred.train manual__2025-07-22T12:46:11.412964+00:00 [queued]>
+[2025-07-22T12:46:18.839+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: train_crowd_pred.train manual__2025-07-22T12:46:11.412964+00:00 [queued]>
+[2025-07-22T12:46:18.840+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 6
+[2025-07-22T12:46:18.851+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): train> on 2025-07-22 12:46:11.412964+00:00
+[2025-07-22T12:46:18.871+0000] {standard_task_runner.py:72} INFO - Started process 71921 to run task
+[2025-07-22T12:46:18.875+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'train_crowd_pred', 'train', 'manual__2025-07-22T12:46:11.412964+00:00', '--job-id', '15', '--raw', '--subdir', 'DAGS_FOLDER/train_crowd_pred.py', '--cfg-path', '/tmp/tmptkqxj5sk']
+[2025-07-22T12:46:18.880+0000] {standard_task_runner.py:105} INFO - Job 15: Subtask train
+[2025-07-22T12:46:18.949+0000] {task_command.py:467} INFO - Running <TaskInstance: train_crowd_pred.train manual__2025-07-22T12:46:11.412964+00:00 [running]> on host b2b5da5cb3ce
+[2025-07-22T12:46:19.046+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='admin' AIRFLOW_CTX_DAG_ID='train_crowd_pred' AIRFLOW_CTX_TASK_ID='train' AIRFLOW_CTX_EXECUTION_DATE='2025-07-22T12:46:11.412964+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-07-22T12:46:11.412964+00:00'
+[2025-07-22T12:46:19.048+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-07-22T12:46:19.126+0000] {logging_mixin.py:190} INFO - Train X shape: (3, 7, 1)
+[2025-07-22T12:46:19.127+0000] {logging_mixin.py:190} INFO - Train Y shape: (3, 1)
+[2025-07-22T12:46:19.128+0000] {logging_mixin.py:190} INFO - Test X shape: (1, 7, 1)
+[2025-07-22T12:46:19.129+0000] {logging_mixin.py:190} INFO - Test Y shape: (1, 1)
+[2025-07-22T12:46:19.290+0000] {logging_mixin.py:190} WARNING - /home/***/.local/lib/python3.11/site-packages/keras/src/layers/rnn/rnn.py:199 UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+[2025-07-22T12:46:19.561+0000] {logging_mixin.py:190} INFO - Epoch 1/100
+[2025-07-22T12:46:22.032+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 2s/step - loss: 0.3789
+[2025-07-22T12:46:22.380+0000] {saving_api.py:83} WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[2025-07-22T12:46:22.481+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 3s 3s/step - loss: 0.3789 - val_loss: 3.6541e-06
+[2025-07-22T12:46:22.482+0000] {logging_mixin.py:190} INFO - Epoch 2/100
+[2025-07-22T12:46:22.509+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 0.3315
+[2025-07-22T12:46:22.562+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 79ms/step - loss: 0.3315 - val_loss: 0.0018
+[2025-07-22T12:46:22.564+0000] {logging_mixin.py:190} INFO - Epoch 3/100
+[2025-07-22T12:46:22.594+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 29ms/step - loss: 0.2956
+[2025-07-22T12:46:22.644+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 80ms/step - loss: 0.2956 - val_loss: 0.0069
+[2025-07-22T12:46:22.646+0000] {logging_mixin.py:190} INFO - Epoch 4/100
+[2025-07-22T12:46:22.675+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - loss: 0.2648
+[2025-07-22T12:46:22.728+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 81ms/step - loss: 0.2648 - val_loss: 0.0158
+[2025-07-22T12:46:22.730+0000] {logging_mixin.py:190} INFO - Epoch 5/100
+[2025-07-22T12:46:22.758+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 28ms/step - loss: 0.2281
+[2025-07-22T12:46:22.813+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 83ms/step - loss: 0.2281 - val_loss: 0.0290
+[2025-07-22T12:46:22.815+0000] {logging_mixin.py:190} INFO - Epoch 6/100
+[2025-07-22T12:46:22.841+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 26ms/step - loss: 0.2015
+[2025-07-22T12:46:22.891+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 76ms/step - loss: 0.2015 - val_loss: 0.0478
+[2025-07-22T12:46:22.983+0000] {saving_utils.py:259} WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+[2025-07-22T12:46:23.252+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 225ms/step - loss: 0.6344
+[2025-07-22T12:46:23.264+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 237ms/step - loss: 0.6344
+[2025-07-22T12:46:23.268+0000] {logging_mixin.py:190} INFO - Test Loss: 0.6344130635261536
+[2025-07-22T12:46:23.454+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 151ms/step
+[2025-07-22T12:46:23.467+0000] {logging_mixin.py:190} INFO - 1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 164ms/step
+[2025-07-22T12:46:23.505+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-07-22T12:46:23.517+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-07-22T12:46:23.518+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=train_crowd_pred, task_id=train, run_id=manual__2025-07-22T12:46:11.412964+00:00, execution_date=20250722T124611, start_date=20250722T124618, end_date=20250722T124623
+[2025-07-22T12:46:23.622+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-07-22T12:46:23.640+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-07-22T12:46:23.642+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

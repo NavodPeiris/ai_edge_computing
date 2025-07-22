@@ -1,9 +1,9 @@
 {
     "models": [
         {
-            "name": "churn model",
-            "description": "model for churn prediction",
-            "model_folder": "churn_model",
+            "name": "Churn Prediction Model",
+            "description": "Model for Predicting Churn",
+            "model_folder": "churn_prediction_model",
             "task": "classification"
         }
     ]

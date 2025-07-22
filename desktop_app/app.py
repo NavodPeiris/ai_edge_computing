@@ -198,6 +198,7 @@ elif page == "Models":
             with st.container(border=True):  # Add a border around each card
                 
                 st.markdown(f"### {model['name']}")  # Model title
+                st.markdown(f"#### task: {model['task']}")  # Model task
                 st.markdown(f"{model['description']}")  # Model description
 
                 btn_cols = st.columns(3)
@@ -233,7 +234,6 @@ elif page == "Models":
                                 scaler_file_res = requests.post(f"{edge_server_url}/deliver_scaler/", json={
                                     "scaler_path": scaler_path
                                 })
-
                                 encoder_file_res = requests.post(f"{edge_server_url}/deliver_encoder/", json={
                                     "encoder_path": encoder_path
                                 })
@@ -251,7 +251,17 @@ elif page == "Models":
                                         f.write(scaler_file_res.content)
                                     with open(encoder_path, "wb") as f:
                                         f.write(encoder_file_res.content)
-                                
+                                    
+                                if model["task"] == "forecasting" or model["task"] == "regression":
+                                    output_scaler_path = f"models/{st.session_state.user_id}/{model['model_folder']}/output_scaler.pkl"
+                                    output_scaler_file_res = requests.post(f"{edge_server_url}/deliver_output_scaler/", json={
+                                        "scaler_path": output_scaler_path
+                                    })
+
+                                    if output_scaler_file_res.status_code == 200:
+                                        with open(output_scaler_path, "wb") as f:
+                                            f.write(output_scaler_file_res.content)
+
                                 st.success("model downloaded successfully")
                     else:
                         st.button("Use Model", key=f"model-{i}", disabled=True)

@@ -20,6 +20,7 @@ import mlflow
 from mlflow.tracking import MlflowClient
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 from utils import edge_server_url, mlflow_tracking_uri, client, train_fn, inf
 
@@ -248,7 +249,10 @@ def create_supervised_dialog(model, model_path):
                 st.write("Training Status: success")
                 st.success(f"Evaluation Accuracy: {acc}%")
                 st.success(f"Evaluation Loss: {loss}%")
-                #st.rerun()
+
+
+        if st.button("Close", key="close-btn"):
+            st.rerun()
                     
     return supervised_model_train_dialog
 
@@ -472,9 +476,10 @@ def create_unsupervised_dialog(model, model_path):
                     acc, loss = train_fn(st.session_state.user_id, df, model_path, model["task"], labels, rounds, edge_server_url, hidden_layers, epochs, initializer, num_clients, showPortMsg=showPortMsg)
 
                 st.write("Training Status: success")
-                st.success(f"Evaluation Accuracy: {acc}%")
                 st.success(f"Evaluation Loss: {loss}%")
-                #st.rerun()
+        
+        if st.button("Close", key="close-btn"):
+            st.rerun()
 
     return unsupervised_model_train_dialog
 
@@ -702,9 +707,10 @@ def create_forecasting_dialog(model, model_path):
 
                 
                 st.write("Training Status: success")
-                st.success(f"Evaluation Accuracy: {acc}%")
                 st.success(f"Evaluation Loss: {loss}%")
-                #st.rerun()
+        
+        if st.button("Close", key="close-btn"):
+            st.rerun()
                     
     return forecasting_model_train_dialog
 
@@ -892,6 +898,9 @@ def create_supervised_model_pred_dialog(model, model_path):
                     st.dataframe(results)
             except Exception as e:
                 st.error(f"Error: {e}")
+
+        if st.button("Close", key="close-btn"):
+            st.rerun()
                 
     return supervised_model_pred_dialog
 
@@ -1076,6 +1085,9 @@ def create_unsupervised_model_pred_dialog(model, model_path):
             except Exception as e:
                 st.error(f"Error: {e}")
 
+        if st.button("Close", key="close-btn"):
+            st.rerun()
+
     return unsupervised_model_pred_dialog
 
 
@@ -1254,6 +1266,9 @@ def create_anomaly_model_pred_dialog(model, model_path):
                     st.dataframe(results)
             except Exception as e:
                 st.error(f"Error: {e}")
+
+        if st.button("Close", key="close-btn"):
+            st.rerun()
 
     return anomaly_model_pred_dialog
 
@@ -1436,6 +1451,9 @@ def create_forecasting_model_pred_dialog(model, model_path):
                     st.dataframe(results)
             except Exception as e:
                 st.error(f"Error: {e}")
+
+        if st.button("Close", key="close-btn"):
+            st.rerun()
 
     return forecasting_model_pred_dialog
 

@@ -13,7 +13,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.cluster import KMeans
 from keras.losses import MeanSquaredError
 
-def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder_url):
+def load_and_preprocess_data(df, base_path, deliver_scaler_url, deliver_encoder_url):
     for col in df.columns:
         if df[col].isnull().sum() > 0:
             if df[col].dtype == 'object':  # Categorical feature2
@@ -27,8 +27,6 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder
     # Convert datetime columns to numerical values (Unix timestamp)
     for col in datetime_cols:
         df[col] = df[col].astype(np.int64) // 10**9
-
-    base_path = "/".join(model_path.split("/")[:-1])
 
     encoder_path = f"{base_path}/encoder.pkl"
 
@@ -84,7 +82,7 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder
     with open(scaler_path, "rb") as f:
         scaler = pickle.load(f)
 
-    X_final_df[num_cols] = scaler.fit_transform(X_final_df[num_cols])
+    X_final_df[num_cols] = scaler.transform(X_final_df[num_cols])
 
     # Convert to numpy arrays
     X_res = np.array(X_final_df, dtype=np.float32)
@@ -96,9 +94,11 @@ def load_and_preprocess_data(df, model_path, deliver_scaler_url, deliver_encoder
 def infer(df, labels, task_type, model_path, server_url):
     base_path = "/".join(model_path.split("/")[:-1])
     os.makedirs(base_path, exist_ok=True)  
+
+    print("labels: ", labels)
     
     # Convert DataFrame to NumPy array and ensure correct dtype
-    X = load_and_preprocess_data(df, model_path, f"{server_url}/deliver_scaler/", f"{server_url}/deliver_encoder/")
+    X = load_and_preprocess_data(df, base_path, f"{server_url}/deliver_scaler/", f"{server_url}/deliver_encoder/")
 
     # if model is not available, deliver the model
     if not os.path.exists(model_path):
@@ -130,19 +130,26 @@ def infer(df, labels, task_type, model_path, server_url):
             df[labels[0]] = predictions 
 
     elif task_type == "regression" or task_type == "forecasting":
+        output_scaler_path = f"{base_path}/output_scaler.pkl"
+
+        with open(output_scaler_path, "rb") as f:
+            output_scaler = pickle.load(f)
+
         # Load the model
         model = load_model(model_path, custom_objects={ "mse": MeanSquaredError() })
 
         # Perform inference
         predictions = model.predict(X)
 
+        actual_predictions = output_scaler.inverse_transform(predictions)
+
         if len(labels) > 1:
             for i, label in enumerate(labels):
                 # Append predictions as a new column to the DataFrame
-                df[label] = predictions[:, i] if predictions.ndim > 1 else predictions
+                df[label] = actual_predictions[:, i] if actual_predictions.ndim > 1 else actual_predictions
         else:
             # Append predictions as a new column to the DataFrame
-            df[labels[0]] = predictions.flatten()  # Flatten in case it's a 2D array 
+            df[labels[0]] = actual_predictions.flatten()  # Flatten in case it's a 2D array 
 
     elif task_type == "unsupervised classification":
         # Load the trained autoencoder model

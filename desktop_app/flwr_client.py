@@ -3,7 +3,7 @@ import flwr as fl
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder, MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from tensorflow.keras import layers, models
 import requests
@@ -125,6 +125,8 @@ class FederatedClient(fl.client.NumPyClient):
                     # Regression (numerical)
                     y_encoded[col] = y[col]
 
+        print("categorical cols: ", encoded_cat_cols)
+        print("num_cols: ", num_cols)
         # Scale only original numerical features in X
         num_cols = X.select_dtypes(include=['number']).columns.difference(datetime_cols)
         scaler = StandardScaler()
@@ -137,6 +139,13 @@ class FederatedClient(fl.client.NumPyClient):
 
         # Convert to numpy arrays
         X_res = np.array(X_final_df, dtype=np.float32)
+
+        if self.task_type == 'forecasting' or self.task_type == 'regression':
+            output_scaler = MinMaxScaler()
+            y_encoded[self.labels] = output_scaler.fit_transform(y_encoded[self.labels])
+
+            with open(f"{base_path}/output_scaler.pkl", "wb") as f:
+                pickle.dump(output_scaler, f)
 
         y_res = np.array([])
 
@@ -204,6 +213,7 @@ class FederatedClient(fl.client.NumPyClient):
 
             decoded = layers.Dense(self.input_dim, activation='sigmoid')(decoded)  # Output layer for reconstruction
             self.loss_fn = 'mse'
+            self.metrics=['mse']
             # Define autoencoder model
             model = models.Model(input_layer, decoded)
 
@@ -223,6 +233,8 @@ class FederatedClient(fl.client.NumPyClient):
             else:
                 model.add(layers.Dense(self.output_dim, activation='softmax'))  # Multi-class classification
                 self.loss_fn = 'categorical_crossentropy'
+
+            self.metrics=['accuracy']
         else:  # regression task or forecasting
             model = models.Sequential()
             model.add(layers.InputLayer(input_shape=(self.input_dim,)))
@@ -233,11 +245,9 @@ class FederatedClient(fl.client.NumPyClient):
                 if dropout_rate > 0:
                     model.add(layers.Dropout(dropout_rate))  # Optional dropout for regularization
 
-            model.add(layers.Dense(self.output_dim, activation='linear'))  # No activation for regression
-            self.loss_fn = 'mse'  # Mean Squared Error for regression
-
-        
-        self.metrics=['accuracy'] 
+            model.add(layers.Dense(self.output_dim, activation='sigmoid'))  # No activation for regression
+            self.loss_fn = 'mse'  # Mean Squared Error for regression 
+            self.metrics=['mse']
 
         # Compile the model
         model.compile(optimizer='adam', loss=self.loss_fn, metrics=self.metrics)
@@ -338,6 +348,20 @@ def upload_scaler(save_path, edge_server_url):
     print(response.json())
 
 
+def upload_output_scaler(save_path, edge_server_url):
+    base_path = "/".join(save_path.split("/")[:-1])
+    scaler_path = base_path + "/output_scaler.pkl"
+    url = f"{edge_server_url}/upload_output_scaler/"
+
+    with open(scaler_path, "rb") as f:
+        files = {"file": (scaler_path, f, "application/octet-stream")}
+        data = {"save_path": scaler_path}  # Pass the custom path
+
+        response = requests.post(url, files=files, data=data)
+
+    print(response.json())
+
+
 def upload_encoder(save_path, edge_server_url):
     base_path = "/".join(save_path.split("/")[:-1])
     encoder_path = base_path + "/encoder.pkl"
@@ -410,6 +434,9 @@ if __name__ == "__main__":
     if args.initializer:
         upload_scaler(args.save_path, args.edge_server_url)
         upload_encoder(args.save_path, args.edge_server_url)
+
+        if args.task_type == "forecasting" or args.task_type == "regression":
+            upload_output_scaler(args.save_path, args.edge_server_url)
 
         client.init_model()
         model = client.model

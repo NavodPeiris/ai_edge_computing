@@ -446,6 +446,22 @@ async def upload_scaler(save_path: str = Form(...), file: UploadFile = File(...)
     return {"message": "Scaler uploaded successfully", "filename": file.filename, "saved_path": save_path}
 
 
+@app.post("/upload_output_scaler/")
+async def upload_output_scaler(save_path: str = Form(...), file: UploadFile = File(...)):
+    # Ensure the uploaded file is a .pkl file
+    if not file.filename.endswith(".pkl"):
+        raise HTTPException(status_code=400, detail="Only .pkl files are allowed")
+    
+    base_path = "/".join(save_path.split("/")[:-1])
+    os.makedirs(base_path, exist_ok=True)
+    
+    # Save the uploaded file
+    with open(save_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    return {"message": "Scaler uploaded successfully", "filename": file.filename, "saved_path": save_path}
+
+
 @app.post("/upload_encoder/")
 async def upload_encoder(save_path: str = Form(...), file: UploadFile = File(...)):
     # Ensure the uploaded file is a .pkl file
@@ -507,6 +523,13 @@ async def deliver_model(params: DeliverModel):
 
 @app.post("/deliver_scaler/")
 async def deliver_scaler(params: DeliverScaler):
+    if not os.path.exists(params.scaler_path):
+        raise HTTPException(status_code=404, detail="Scaler file not found")
+    
+    return FileResponse(params.scaler_path, filename=os.path.basename(params.scaler_path))
+
+@app.post("/deliver_output_scaler/")
+async def deliver_output_scaler(params: DeliverScaler):
     if not os.path.exists(params.scaler_path):
         raise HTTPException(status_code=404, detail="Scaler file not found")
     
