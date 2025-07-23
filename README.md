@@ -2,6 +2,27 @@
   <img src="architecture.png" />
 </p>
 
+## AI-Driven Edge Computing: An Approach to Architect Sustainable AI Training Platforms
+
+### Problem Statement
+
+With Increasing AI workloads and IOT data streams, current centralized AI training platforms face scalability and cost issues. Centralized AI and Data cause massive costs and less scalable. High load on central servers, network congestion are the main issues.
+
+### Our Solution
+
+We introduce an AI training and analytics platform which utilises edge resources for running AI and data workloads. Our platform provides a local Streamlit application for users to collaborate and train AI models locally with zero coding while utilising their resources. This does not involve moving the dataset through the network, which lowers the load on central servers and the network. The platform also provides storage for IOT data and IoT-related AI predictions on edge servers. Pre-trained Public Models are also moved from central servers to edge servers for faster delivery and lower network congestion.
+
+User Model Training is done as Federated Learning though Flower framework.  
+
+### Key Features:
+
+- Users can train and use AI models through a user-friendly UI without any programming knowledge.  
+- Multiple users can train models collaboratively while keeping sensitive data locally, which ensures data privacy and reduces network traffic.  
+- Users can train a variety of custom AI models related to classification, regression, forecasting, anomaly detection, etc.  
+- The system is capable of processing live sensor/IoT data at the edge servers to collect data for model training, inference, and providing live insights.  
+- Collection of pre-trained models is cached and delivered through edge servers to users with minimal latency.  
+- Users can view real-time analytics and predictions related to sensor/IoT data in a centralized dashboard.  
+
 ### Useful Info
 
 #### grafana
